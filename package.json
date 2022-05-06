@@ -1,16 +1,16 @@
 {
-  "name": "storybook-addon-kit",
+  "name": "storybook-addon-react-router-v6",
   "version": "0.0.0",
-  "description": "everything you need to build a Storybook addon",
+  "description": "Use React Router v6 in your stories",
   "keywords": [
-    "storybook-addons"
+    "storybook-addons react-router react-router-v6 router", "storybook-addons"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybookjs/storybook-addon-kit"
+    "url": "https://github.com/JesusTheHun/storybook-addon-react-router-v6"
   },
-  "author": "package-author",
-  "license": "MIT",
+  "author": "Jonathan MASSUCHETTI <jonathan.massuchetti@dappit.fr>",
+  "license": "WTFPL",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/ts/index.d.ts",
@@ -21,7 +21,6 @@
     "*.d.ts"
   ],
   "scripts": {
-    "postinstall": "node scripts/welcome.js",
     "clean": "rimraf ./dist",
     "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
     "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
@@ -80,9 +79,9 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "Addon Kit",
+    "displayName": "React Router v6",
     "supportedFrameworks": [
-      "supported-frameworks"
+      "react"
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   }
