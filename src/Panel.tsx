@@ -1,36 +1,38 @@
-import React from "react";
-import { useAddonState, useChannel } from "@storybook/api";
-import { AddonPanel } from "@storybook/components";
-import { ADDON_ID, EVENTS } from "./constants";
-import { PanelContent } from "./components/PanelContent";
+import React, {useEffect, useState} from "react";
+import {AddonPanel} from "@storybook/components";
+import {PanelContent, PanelContentProps} from "./components/PanelContent";
+import {API, useChannel, useStorybookState} from '@storybook/api';
+import {EVENTS} from "./constants";
+import {STORY_CHANGED} from "@storybook/core-events";
 
 interface PanelProps {
   active: boolean;
+  api: API;
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {
-  // https://storybook.js.org/docs/react/addons/addons-api#useaddonstate
-  const [results, setState] = useAddonState(ADDON_ID, {
-    danger: [],
-    warning: [],
+  const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['navigationEvents']>([]);
+
+  useChannel({
+    [EVENTS.NAVIGATION]: (eventData) => {
+      setNavigationEvents(prev => [...prev, [EVENTS.NAVIGATION, eventData]]);
+    },
+    [EVENTS.STORY_LOADED]: (eventData) => {
+      setNavigationEvents(prev => [...prev, [EVENTS.STORY_LOADED, eventData]]);
+    },
+    [STORY_CHANGED]: () => {
+      setNavigationEvents([]);
+    }
   });
 
-  // https://storybook.js.org/docs/react/addons/addons-api#usechannel
-  const emit = useChannel({
-    [EVENTS.RESULT]: (newResults) => setState(newResults),
-  });
+  const clear = () => {
+    props.api.emit(EVENTS.CLEAR);
+    setNavigationEvents([]);
+  }
 
   return (
     <AddonPanel {...props}>
-      <PanelContent
-        results={results}
-        fetchData={() => {
-          emit(EVENTS.REQUEST);
-        }}
-        clearData={() => {
-          emit(EVENTS.CLEAR);
-        }}
-      />
+      <PanelContent navigationEvents={navigationEvents} onClear={clear} />
     </AddonPanel>
   );
 };
