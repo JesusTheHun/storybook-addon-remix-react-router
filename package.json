@@ -1,9 +1,13 @@
 {
   "name": "storybook-addon-react-router-v6",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Use React Router v6 in your stories",
   "keywords": [
-    "storybook-addons react-router react-router-v6 router", "storybook-addons"
+    "storybook-addons",
+    "react-router",
+    "react-router-v6",
+    "router",
+    "storybook-addons"
   ],
   "repository": {
     "type": "git",
