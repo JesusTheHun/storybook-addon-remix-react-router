@@ -1,3 +1,16 @@
+# v0.1.4 (Wed May 11 2022)
+
+#### ⚠️ Pushed to `main`
+
+- readme: improve overall documentation ([@JesusTheHun](https://github.com/JesusTheHun))
+- readme: improve the getting started section ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.1 (Wed May 11 2022)
 
 #### ⚠️ Pushed to `main`
