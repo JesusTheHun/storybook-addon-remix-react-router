@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { Header } from './Header';
+import {withRouter} from '../src/withRouter';
 
 export default {
   title: 'Example/Header',
   component: Header,
+  decorators: [withRouter]
 };
 
 const Template = (args) => <Header {...args} />;
