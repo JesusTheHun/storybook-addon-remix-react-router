@@ -1,3 +1,15 @@
+# v0.1.6 (Wed May 11 2022)
+
+#### ⚠️ Pushed to `main`
+
+- fix: remove default preview decorator ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.5 (Wed May 11 2022)
 
 #### ⚠️ Pushed to `main`
