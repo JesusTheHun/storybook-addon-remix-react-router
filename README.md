@@ -18,8 +18,10 @@ module.exports = {
 };
 ```
 
-## As a component decorator
+## How to use it as a component decorator
+To add the router to all the stories of a component, simply add it to the `decorators` array. 
 
+Note that the `parameters.reactRouter` property is optional, by default the router will render the component at `/`.
 ```tsx
 import { withRouter } from 'storybook-addon-react-router-v6';
 
@@ -40,7 +42,7 @@ export const Example = () => <UserProfile />;
 
 
 ## Usage at the story level
-
+If you want to change the router config just for one story you can do the following :
 ```tsx
 import { withRouter } from 'storybook-addon-react-router-v6';
 
@@ -62,12 +64,13 @@ Example.story = {
 };
 ```
 ## Define a global default
-
+If you want you can wrap all your stories inside a router by adding the decorator in your `preview.js` file.
 ```ts
 // preview.js
 
 export const decorators = [withRouter];
 
+// you can also define global defaults parameters
 export const parameters = {
   reactRouter: {
     // ...
