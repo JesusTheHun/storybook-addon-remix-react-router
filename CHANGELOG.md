@@ -1,3 +1,15 @@
+# v0.1.5 (Wed May 11 2022)
+
+#### ⚠️ Pushed to `main`
+
+- export withRouter decorator ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.4 (Wed May 11 2022)
 
 #### ⚠️ Pushed to `main`
