@@ -5,10 +5,18 @@ Use React Router v6 in your stories.
 ![npm](https://img.shields.io/npm/v/storybook-addon-react-router-v6?color=blue)
 [![Release](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml)
 ![GitHub](https://img.shields.io/github/license/JesusTheHun/storybook-addon-react-router-v6)
-## Install
+## Getting Started
+Install the package
  ```
  yarn add -D storybook-addon-react-router-v6
  ```
+Add it to your storybook configuration:
+```js
+// .storybook/main.js
+module.exports = {
+    addons: ["storybook-addon-react-router-v6"],
+};
+```
 
 ## As a component decorator
 
