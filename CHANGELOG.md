@@ -1,3 +1,18 @@
+# v0.1.7 (Wed May 11 2022)
+
+#### ⚠️ Pushed to `main`
+
+- fix: double initial rendering navigation event ([@JesusTheHun](https://github.com/JesusTheHun))
+- misc: better event name ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: initial rendering no longer increment the counter in the panel title ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: use header component to test router decorator ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.6 (Wed May 11 2022)
 
 #### ⚠️ Pushed to `main`
