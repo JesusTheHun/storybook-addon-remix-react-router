@@ -15,7 +15,9 @@ export const RouterLogger: React.FC = ({ children }) => {
 
   useLayoutEffect(() => {
     setLoadedAt(location);
-    if (location !== loadedAt) channel.emit(EVENTS.STORY_LOADED, createEventData(EVENTS.STORY_LOADED));
+    if (loadedAt === undefined) {
+      channel.emit(EVENTS.STORY_LOADED, createEventData(EVENTS.STORY_LOADED));
+    }
   });
 
   useEffect(() => {
