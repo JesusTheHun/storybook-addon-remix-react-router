@@ -18,13 +18,11 @@ addons.register(ADDON_ID, (api) => {
 
       useEffect(() => {
         api.on(EVENTS.NAVIGATION, onEvent);
-        api.on(EVENTS.STORY_LOADED, onEvent);
         api.on(STORY_CHANGED, onChange);
         api.on(EVENTS.CLEAR, onChange);
 
         return () => {
           api.off(EVENTS.NAVIGATION, onEvent);
-          api.off(EVENTS.STORY_LOADED, onEvent);
           api.off(STORY_CHANGED, onChange);
           api.off(EVENTS.CLEAR, onChange);
         };
