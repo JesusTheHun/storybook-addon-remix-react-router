@@ -11,4 +11,4 @@
 import {withRouter} from "../withRouter";
 
 
-export const decorators: any = [withRouter];
+export const decorators: any = [];
