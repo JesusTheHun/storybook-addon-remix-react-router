@@ -44,7 +44,7 @@ export const PanelContent: React.FC<PanelContentProps> = ({navigationEvents, onC
 
 export const humanReadableEventNames: Record<NavigationEventsValues, string> = {
   [EVENTS.NAVIGATION]: "Navigate to",
-  [EVENTS.STORY_LOADED]: "Story loaded at",
+  [EVENTS.STORY_LOADED]: "Story rendered at",
 };
 
 export const Wrapper = styled(({children, className}) => (
