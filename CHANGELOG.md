@@ -1,3 +1,15 @@
+# v0.1.8 (Mon Jun 06 2022)
+
+#### ⚠️ Pushed to `main`
+
+- attempt to fix badges in storybook catalog ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.7 (Wed May 11 2022)
 
 #### ⚠️ Pushed to `main`
