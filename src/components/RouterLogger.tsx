@@ -4,8 +4,9 @@ import { addons } from '@storybook/addons';
 
 import {EVENTS} from "../constants";
 import {useCreateEventData} from "../hooks/useEventData";
+import {FCC} from "../fixes";
 
-export const RouterLogger: React.FC = ({ children }) => {
+export const RouterLogger: FCC = ({ children }) => {
   const location = useLocation();
   const [loadedAt, setLoadedAt] = useState<Location>();
 

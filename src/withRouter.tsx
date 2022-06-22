@@ -7,7 +7,7 @@ import {PARAM_KEY} from "./constants";
 export const withRouter = makeDecorator({
   name: "withRouter",
   parameterName: PARAM_KEY,
-  wrapper: (story, context, {parameters} ) => {
+  wrapper: (story: (...args: any[]) => React.ReactNode, context, {parameters} ) => {
 
     if (parameters === undefined) {
       return (
