@@ -1,3 +1,17 @@
+# v0.1.9 (Wed Jun 22 2022)
+
+#### ⚠️ Pushed to `main`
+
+- patch addon to support both React 17 & 18 ([@JesusTheHun](https://github.com/JesusTheHun))
+- bump to node version 16 ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: add support for React 18 ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.8 (Mon Jun 06 2022)
 
 #### ⚠️ Pushed to `main`
