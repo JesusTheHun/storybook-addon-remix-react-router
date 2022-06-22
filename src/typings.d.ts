@@ -35,3 +35,9 @@ export type EventData = {
   [EVENTS.NAVIGATION]: EventDataNavigation;
   [EVENTS.STORY_LOADED]: EventDataStoryLoaded;
 };
+
+export type WithRouterParameters = Partial<{
+  routePath: string;
+  routeParams: Record<string, string>;
+  searchParams: Record<string, string>;
+}>
