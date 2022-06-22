@@ -4,6 +4,10 @@
 [![Release](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml)
 
 > Use React Router v6 in your stories.
+> 
+## Recent changes
+
+✅ Support for React 18 ([learn more](#compatibility))
 
 ## Getting Started
 Install the package
@@ -77,3 +81,14 @@ export const parameters = {
   }
 }
 ```
+
+## Compatibility
+
+This package aims to support `Storybook > 6.4` and `React > 16`. If you have an issue with any version, open an issue.
+
+:white_check_mark: Storybook 6.4
+:white_check_mark: Storybook 6.5
+
+:white_check_mark: React 16
+:white_check_mark: React 17
+:white_check_mark: React 18
