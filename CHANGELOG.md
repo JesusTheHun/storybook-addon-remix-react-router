@@ -1,3 +1,16 @@
+# v0.1.10 (Thu Jun 23 2022)
+
+#### ⚠️ Pushed to `main`
+
+- fix: react-inspector is core dep not devDep ([@JesusTheHun](https://github.com/JesusTheHun))
+- readme: add compatibility mentions ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.9 (Wed Jun 22 2022)
 
 #### ⚠️ Pushed to `main`
