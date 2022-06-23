@@ -84,7 +84,10 @@ export const parameters = {
 
 ## Compatibility
 
-This package aims to support `Storybook > 6.4` and `React > 16`. If you have an issue with any version, open an issue.
+This package aims to support `Storybook > 6.4` and `React > 16`. 
+Storybook versions prior `6.4` are very likely to work, I just didn't test them.
+
+If you have an issue with any version, open an issue.
 
 :white_check_mark: Storybook 6.4
 :white_check_mark: Storybook 6.5
