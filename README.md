@@ -4,7 +4,7 @@
 [![Release](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml)
 
 > Use React Router v6 in your stories.
-> 
+
 ## Recent changes
 
 ✅ Support for React 18 ([learn more](#compatibility))
