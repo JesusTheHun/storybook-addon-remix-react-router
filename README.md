@@ -89,9 +89,9 @@ Storybook versions prior `6.4` are very likely to work, I just didn't test them.
 
 If you have an issue with any version, open an issue.
 
-:white_check_mark: Storybook 6.4
-:white_check_mark: Storybook 6.5
+✅ Storybook 6.4 
+✅ Storybook 6.5
 
-:white_check_mark: React 16
-:white_check_mark: React 17
-:white_check_mark: React 18
+✅ React 16
+✅ React 17
+✅ React 18
