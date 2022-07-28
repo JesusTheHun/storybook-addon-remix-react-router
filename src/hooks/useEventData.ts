@@ -23,6 +23,7 @@ export const useCreateEventData = () => {
         const eventData: EventData[typeof eventName] = {
           path: location.pathname,
           routeParams: params,
+          routeState: location.state,
           searchParams,
           hash: location.hash,
           url: generateAppUrl(location.pathname, params, searchParams, location.hash),

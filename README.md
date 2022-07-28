@@ -37,6 +37,7 @@ export default {
     reactRouter: {
       routePath: '/users/:userId',
       routeParams: { userId: '42' },
+      routeState: { fromPage: 'homePage' },
     }
   }
 };

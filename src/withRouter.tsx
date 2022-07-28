@@ -17,7 +17,7 @@ export const withRouter = makeDecorator({
       )
     }
 
-    const {routePath, routeParams, searchParams} = parameters;
+    const {routePath, routeParams, routeState, searchParams} = parameters;
 
     if (typeof routePath !== 'string') throw new Error("React Router decorator : `path` must be a string");
     if (routeParams !== undefined && typeof routeParams !== 'object') throw new Error("React Router decorator : `params` must be an object with strings as values");
@@ -27,7 +27,7 @@ export const withRouter = makeDecorator({
     const browserPath = generateAppUrl(routePath, routeParams, searchParams);
 
     return (
-      <StoryRouter browserPath={browserPath} matchingPath={matchingPath}>
+      <StoryRouter browserPath={browserPath} matchingPath={matchingPath} routeState={routeState}>
         {story(context)}
       </StoryRouter>
     )
