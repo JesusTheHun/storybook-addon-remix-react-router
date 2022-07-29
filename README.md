@@ -5,8 +5,10 @@
 
 > Use React Router v6 in your stories.
 
+
 ## Recent changes
 
+✅ `withRouter` decorator parameters now accept `{ routeState: Location.state }`  
 ✅ Support for React 18 ([learn more](#compatibility))
 
 ## Getting Started
@@ -62,7 +64,8 @@ Example.story = {
     reactRouter: {
       routePath: '/users/:userId',
       routeParams: { userId: '42' },
-      searchParams: { tab: 'activityLog' }
+      searchParams: { tab: 'activityLog' },
+      routeState: { fromPage: 'homePage' },
     }
   }
 };
@@ -89,9 +92,9 @@ Storybook versions prior `6.4` are very likely to work, I just didn't test them.
 
 If you have an issue with any version, open an issue.
 
-✅ Storybook 6.4 
-✅ Storybook 6.5
+✅ Storybook 6.4  
+✅ Storybook 6.5 
 
-✅ React 16
-✅ React 17
-✅ React 18
+✅ React 16  
+✅ React 17  
+✅ React 18  
