@@ -7,17 +7,13 @@ import {PARAM_KEY} from "./constants";
 export const withRouter = makeDecorator({
   name: "withRouter",
   parameterName: PARAM_KEY,
-  wrapper: (story: (...args: any[]) => React.ReactNode, context, {parameters} ) => {
-
-    if (parameters === undefined) {
-      return (
-        <StoryRouter browserPath={'/'} matchingPath={'/'}>
-          {story(context)}
-        </StoryRouter>
-      )
-    }
-
-    const {routePath, routeParams, routeState, searchParams} = parameters;
+  wrapper: (story: (...args: any[]) => React.ReactNode, context, {parameters = {}} ) => {
+    const {
+      routePath = '/',
+      routeParams,
+      routeState,
+      searchParams
+    } = parameters;
 
     if (typeof routePath !== 'string') throw new Error("React Router decorator : `path` must be a string");
     if (routeParams !== undefined && typeof routeParams !== 'object') throw new Error("React Router decorator : `params` must be an object with strings as values");
