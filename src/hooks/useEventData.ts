@@ -21,11 +21,12 @@ export const useCreateEventData = () => {
     switch (eventName) {
       case EVENTS.STORY_LOADED: {
         const eventData: EventData[typeof eventName] = {
+          url: generateAppUrl(location.pathname, params, searchParams, location.hash),
           path: location.pathname,
           routeParams: params,
           searchParams,
           hash: location.hash,
-          url: generateAppUrl(location.pathname, params, searchParams, location.hash),
+          routeState: location.state,
           matchedRoutes : routesContext.matches,
           key: location.key,
         };
@@ -36,13 +37,14 @@ export const useCreateEventData = () => {
       case EVENTS.NAVIGATION: {
         const eventData: EventData[typeof eventName] = {
           url: generateAppUrl(location.pathname, params, searchParams, location.hash),
-          navigationType,
-          key: location.key,
           path: location.pathname,
           routeParams: params,
           searchParams,
           hash: location.hash,
+          routeState: location.state,
           matchedRoutes : routesContext.matches,
+          key: location.key,
+          navigationType,
         };
 
         return eventData;

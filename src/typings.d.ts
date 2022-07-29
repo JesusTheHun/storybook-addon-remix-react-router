@@ -17,6 +17,7 @@ export type EventDataStoryLoaded = BaseEventData & {
   path: string;
   hash: string;
   routeParams: Record<string, string>;
+  routeState: unknown;
   searchParams: Record<string, string>;
   matchedRoutes: RouteMatch[];
 }
@@ -28,6 +29,7 @@ export type EventDataNavigation = BaseEventData & {
   hash: string;
   routeParams: Record<string, string>;
   searchParams: Record<string, string>;
+  routeState: unknown;
   matchedRoutes: RouteMatch[];
 }
 
