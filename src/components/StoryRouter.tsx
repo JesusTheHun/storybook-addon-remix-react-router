@@ -1,21 +1,27 @@
 import React from "react";
-import {MemoryRouter, Route, Routes} from "react-router-dom";
+import {generatePath, MemoryRouter, Route, Routes} from "react-router-dom";
 import {RouterLogger} from "./RouterLogger";
 import {FCC} from "../fixes";
 
-export type StoryRouterProps = { browserPath: string; matchingPath?: string };
+export type StoryRouterProps = {
+  routePath?: string;
+  routeParams?: Record<string, string>;
+  searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
+  routeState?: unknown;
+};
 
-export const StoryRouter: FCC<StoryRouterProps> = ({ children, browserPath, matchingPath }) => {
-  const localMatchingPath = matchingPath ? matchingPath : browserPath;
+export const StoryRouter: FCC<StoryRouterProps> = ({ children, routePath, routeParams, searchParams, routeState }) => {
+  const browserPath = generatePath(routePath, routeParams);
+  const search = new URLSearchParams(searchParams).toString();
 
   return (
-    <MemoryRouter initialEntries={[browserPath]}>
+    <MemoryRouter initialEntries={[{ pathname: browserPath, search, state: routeState }]}>
       <Routes>
-        <Route path={localMatchingPath} element={(
+        <Route path={routePath} element={
           <RouterLogger>
             {children}
           </RouterLogger>
-        )} />
+        } />
       </Routes>
     </MemoryRouter>
   )
