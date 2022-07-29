@@ -1,3 +1,19 @@
+# v0.1.11 (Fri Jul 29 2022)
+
+#### ⚠️ Pushed to `main`
+
+- readme: add doc about location state ([@JesusTheHun](https://github.com/JesusTheHun))
+- test: add stories to test location state ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: add support for location state ([@JesusTheHun](https://github.com/JesusTheHun))
+- misc: improve event properties order & consistency ([@JesusTheHun](https://github.com/JesusTheHun))
+- misc: set node version to 16.15.1 ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.10 (Thu Jun 23 2022)
 
 #### ⚠️ Pushed to `main`
