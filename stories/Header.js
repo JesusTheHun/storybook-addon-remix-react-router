@@ -11,12 +11,12 @@ export const Header = ({ user, onLogin: onUserLogin, onLogout: onUserLogout, onC
   const navigate = useNavigate();
 
   const onLogin = () => {
-    navigate(generateAppUrl('/', undefined, { login: 'true' }));
+    navigate(generateAppUrl('/', { login: 'true' }));
     onUserLogin && onUserLogin();
   }
 
   const onLogout = () => {
-    navigate(generateAppUrl('/', undefined, { logout: 'true' }));
+    navigate(generateAppUrl('/', { logout: 'true' }));
     onUserLogout && onUserLogout();
   }
 

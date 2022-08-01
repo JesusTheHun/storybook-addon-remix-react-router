@@ -2,10 +2,12 @@ import React from 'react';
 
 import { Page } from './Page';
 import * as HeaderStories from './Header.stories';
+import { withRouter } from '../dist/esm';
 
 export default {
   title: 'Example/Page',
   component: Page,
+  decorators: [withRouter],
 };
 
 const Template = (args) => <Page {...args} />;
