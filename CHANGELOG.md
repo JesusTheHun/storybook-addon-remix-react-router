@@ -1,3 +1,18 @@
+# v0.1.12 (Tue Aug 02 2022)
+
+#### ⚠️ Pushed to `main`
+
+- test: add basic nested routing stories ([@JesusTheHun](https://github.com/JesusTheHun))
+- change(event): remove matchedRoutes prop as the fix cannot be delivered before the next react-router version ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix: double parsing of route pattern ([@JesusTheHun](https://github.com/JesusTheHun))
+- readme: add tiny contribution guideline ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.11 (Fri Jul 29 2022)
 
 #### ⚠️ Pushed to `main`
