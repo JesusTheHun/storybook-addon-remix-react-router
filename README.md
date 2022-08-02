@@ -98,3 +98,10 @@ If you have an issue with any version, open an issue.
 ✅ React 16  
 ✅ React 17  
 ✅ React 18  
+
+
+## Contribution
+
+Contributions are welcome.
+
+Before writing any code, file an issue to showcase the bug or the use case for the feature you want to see in this addon.
