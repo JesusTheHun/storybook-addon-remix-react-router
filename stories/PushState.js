@@ -1,18 +1,23 @@
 import React, {useEffect} from 'react';
 import {useLocation, useSearchParams} from 'react-router-dom';
+import {useNavigate} from 'react-router';
 
 export const PushState = () => {
-
+    const navigate = useNavigate();
     const location = useLocation();
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const sort = searchParams.get('sort');
 
     // Enforce a default `sort` using deep linking
     useEffect(() => {
         if (sort === null) {
-            const defaultSearchParams = new URLSearchParams({ sort: "date" });
-            setSearchParams(defaultSearchParams, { state: "defaultSort" });
+            navigate({
+                pathname: location.pathname,
+                search: '?sort=date',
+                hash: "#head",
+                state: "defaultSort",
+            });
         }
     }, [sort]);
 

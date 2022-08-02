@@ -12,7 +12,8 @@ export type StoryRouterProps = {
 
 export const StoryRouter: FCC<StoryRouterProps> = ({ children, routePath, routeParams, searchParams, routeState }) => {
   const browserPath = generatePath(routePath, routeParams);
-  const search = new URLSearchParams(searchParams).toString();
+  const queryString = new URLSearchParams(searchParams).toString();
+  const search = queryString.length > 0 ? `?${queryString}` : '';
 
   return (
     <MemoryRouter initialEntries={[{ pathname: browserPath, search, state: routeState }]}>

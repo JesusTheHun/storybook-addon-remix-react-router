@@ -36,6 +36,7 @@ NestedRouteDynamicSubpath.parameters = {
     searchParams: {
       foo: "bar",
     },
+    hash: 'foo',
   }
 };
 

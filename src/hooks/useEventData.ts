@@ -1,6 +1,7 @@
 import {EventData, NavigationEventsValues} from "../typings";
 import {EVENTS} from "../constants";
 import {useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
+import {useCurrentUrl} from "./useCurrentUrl";
 
 export const useCreateEventData = () => {
   const location = useLocation();
@@ -14,11 +15,13 @@ export const useCreateEventData = () => {
     searchParams[key] = value;
   })
 
+  const currentUrl = useCurrentUrl();
+
   return (eventName: NavigationEventsValues) => {
     switch (eventName) {
       case EVENTS.STORY_LOADED: {
         const eventData: EventData[typeof eventName] = {
-          url: `${location.pathname}${location.search}${location.hash}`,
+          url: currentUrl,
           path: location.pathname,
           routeParams: params,
           searchParams,
@@ -32,7 +35,7 @@ export const useCreateEventData = () => {
 
       case EVENTS.NAVIGATION: {
         const eventData: EventData[typeof eventName] = {
-          url: `${location.pathname}${location.search}${location.hash}`,
+          url: currentUrl,
           path: location.pathname,
           routeParams: params,
           searchParams,
