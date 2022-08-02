@@ -2,7 +2,6 @@ import {EventData, NavigationEventsValues} from "../typings";
 import {EVENTS} from "../constants";
 import {UNSAFE_RouteContext, useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
 import {useContext} from "react";
-import {generateAppUrl} from "../utils";
 
 export const useCreateEventData = () => {
   const location = useLocation();
@@ -21,7 +20,7 @@ export const useCreateEventData = () => {
     switch (eventName) {
       case EVENTS.STORY_LOADED: {
         const eventData: EventData[typeof eventName] = {
-          url: generateAppUrl(location.pathname, params, searchParams, location.hash),
+          url: `${location.pathname}${location.search}${location.hash}`,
           path: location.pathname,
           routeParams: params,
           searchParams,
@@ -36,7 +35,7 @@ export const useCreateEventData = () => {
 
       case EVENTS.NAVIGATION: {
         const eventData: EventData[typeof eventName] = {
-          url: generateAppUrl(location.pathname, params, searchParams, location.hash),
+          url: `${location.pathname}${location.search}${location.hash}`,
           path: location.pathname,
           routeParams: params,
           searchParams,
