@@ -1,13 +1,11 @@
 import {EventData, NavigationEventsValues} from "../typings";
 import {EVENTS} from "../constants";
-import {UNSAFE_RouteContext, useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
-import {useContext} from "react";
+import {useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
 
 export const useCreateEventData = () => {
   const location = useLocation();
   const params = useParams();
   const [search] = useSearchParams();
-  const routesContext = useContext(UNSAFE_RouteContext);
   const navigationType = useNavigationType();
 
   const searchParams: Record<string, string> = {};
@@ -26,7 +24,6 @@ export const useCreateEventData = () => {
           searchParams,
           hash: location.hash,
           routeState: location.state,
-          matchedRoutes : routesContext.matches,
           key: location.key,
         };
 
@@ -41,7 +38,6 @@ export const useCreateEventData = () => {
           searchParams,
           hash: location.hash,
           routeState: location.state,
-          matchedRoutes : routesContext.matches,
           key: location.key,
           navigationType,
         };

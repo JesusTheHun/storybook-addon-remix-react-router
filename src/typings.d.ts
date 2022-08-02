@@ -1,5 +1,5 @@
 import {EVENTS} from "./constants";
-import {RouteMatch, NavigationType} from "react-router-dom";
+import {NavigationType} from "react-router-dom";
 
 declare module "global";
 
@@ -19,7 +19,6 @@ export type EventDataStoryLoaded = BaseEventData & {
   routeParams: Record<string, string>;
   routeState: unknown;
   searchParams: Record<string, string>;
-  matchedRoutes: RouteMatch[];
 }
 
 export type EventDataNavigation = BaseEventData & {
@@ -30,7 +29,6 @@ export type EventDataNavigation = BaseEventData & {
   routeParams: Record<string, string>;
   searchParams: Record<string, string>;
   routeState: unknown;
-  matchedRoutes: RouteMatch[];
 }
 
 export type EventData = {
