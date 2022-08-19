@@ -92,22 +92,23 @@ export const parameters = {
 If your component renders an outlet, you can use composition to render your outlet _manually_, or you can set the `outlet` property :
 
 <details>
-    <summary>Composition (manually)</summary>
-
-    ```js
-    const CompositionTemplate = ({outlet, ...args}) => (
-        <Routes>
-            <Route path={"/"} element={<Menu {...args} />}>
-                <Route index element={outlet} />
-            </Route>
-        </Routes>
-    );
     
-    export const Composition = CompositionTemplate.bind({});
-    Composition.args = {
-        outlet: <OrdersSubMenu />
-    }
-    ```
+<summary>Composition (manually)</summary>
+
+```jsx
+const CompositionTemplate = ({outlet, ...args}) => (
+    <Routes>
+        <Route path={"/"} element={<Menu {...args} />}>
+            <Route index element={outlet} />
+        </Route>
+     </Routes>
+);
+    
+export const Composition = CompositionTemplate.bind({});
+Composition.args = {
+    outlet: <OrdersSubMenu />
+}
+```
 
 </details>
 
