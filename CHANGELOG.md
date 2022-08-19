@@ -1,3 +1,15 @@
+# v0.1.14 (Fri Aug 19 2022)
+
+#### ⚠️ Pushed to `main`
+
+- feat: support for easy outlet ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.13 (Tue Aug 02 2022)
 
 #### ⚠️ Pushed to `main`
