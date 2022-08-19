@@ -9,6 +9,7 @@
 
 ## Recent changes
 
+✅ `withRouter` decorator parameters now accept `{ outlet: React.ReactNode }`  
 ✅ `withRouter` decorator parameters now accept `{ routeState: Location.state }`  
 ✅ Support for React 18 ([learn more](#compatibility))
 
@@ -84,6 +85,44 @@ export const parameters = {
     // ...
   }
 }
+```
+
+## Outlet
+
+If your component renders an outlet, you can use composition to render your outlet _manually_, or you can set the `outlet` property :
+
+<details>
+    <summary>Composition (manually)</summary>
+
+    ```js
+    const CompositionTemplate = ({outlet, ...args}) => (
+        <Routes>
+            <Route path={"/"} element={<Menu {...args} />}>
+                <Route index element={outlet} />
+            </Route>
+        </Routes>
+    );
+    
+    export const Composition = CompositionTemplate.bind({});
+    Composition.args = {
+        outlet: <OrdersSubMenu />
+    }
+    ```
+
+</details>
+
+Usage of the `outlet` property :
+
+```js
+export const MenuWithOrdersContext = () => <Menu />;
+MenuWithOrdersContext.story = {
+    parameters: {
+        reactRouter: {
+            routePath: '/account',
+            outlet: <OrdersSubMenu />,
+        }
+    }
+};
 ```
 
 ## Compatibility

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Header } from './Header';
 import './page.css';
-import {Route, Routes, useLocation, useParams} from 'react-router-dom';
+import {Route, Routes, useLocation, useParams, Outlet} from 'react-router-dom';
 
 const ShowParams = ({ showParams }) => {
     const params = useParams();
@@ -39,6 +39,8 @@ export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => {
             <Route path={'staticsubpath'} element={'foo'} />
             <Route path={':dynamicsubpath'} element={<ShowParams showParams={['dynamicsubpath']}/>} />
           </Routes>
+
+          <Outlet />
         </section>
       </article>
   )

@@ -8,9 +8,10 @@ export type StoryRouterProps = {
   routeParams?: Record<string, string>;
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
   routeState?: unknown;
+  outlet?: React.ReactNode;
 };
 
-export const StoryRouter: FCC<StoryRouterProps> = ({ children, routePath, routeParams, searchParams, routeState }) => {
+export const StoryRouter: FCC<StoryRouterProps> = ({ children, routePath, routeParams, searchParams, routeState, outlet }) => {
   const browserPath = generatePath(routePath, routeParams);
   const queryString = new URLSearchParams(searchParams).toString();
   const search = queryString.length > 0 ? `?${queryString}` : '';
@@ -22,7 +23,9 @@ export const StoryRouter: FCC<StoryRouterProps> = ({ children, routePath, routeP
           <RouterLogger>
             {children}
           </RouterLogger>
-        } />
+        }>
+          <Route index element={outlet} />
+        </Route>
       </Routes>
     </MemoryRouter>
   )
