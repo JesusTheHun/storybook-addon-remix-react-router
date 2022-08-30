@@ -13,7 +13,7 @@ export default {
 
 const CompositionTemplate = ({outlet, ...args}) => (
     <Routes>
-        <Route path={"/"} element={<Page {...args} />}>
+        <Route path={"*"} element={<Page {...args} />}>
             <Route index element={outlet} />
         </Route>
     </Routes>

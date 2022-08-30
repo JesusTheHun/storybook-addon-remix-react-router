@@ -12,23 +12,25 @@ addons.register(ADDON_ID, (api) => {
     type: types.PANEL,
     paramKey: PARAM_KEY,
     title: () => {
-      const [actionsCount, setActionsCount] = useState(0);
-      const onEvent = () => setActionsCount((previous) => previous + 1);
-      const onChange = () => setActionsCount(0);
+      const [badgeCount, setBadgeCount] = useState(0);
+      const incrementBadgeCount = () => setBadgeCount((previous) => previous + 1);
+      const clearBadgeCount = () => setBadgeCount(0);
 
       useEffect(() => {
-        api.on(EVENTS.NAVIGATION, onEvent);
-        api.on(STORY_CHANGED, onChange);
-        api.on(EVENTS.CLEAR, onChange);
+        api.on(EVENTS.NAVIGATION, incrementBadgeCount);
+        api.on(EVENTS.ROUTE_MATCHES, incrementBadgeCount);
+        api.on(STORY_CHANGED, clearBadgeCount);
+        api.on(EVENTS.CLEAR, clearBadgeCount);
 
         return () => {
-          api.off(EVENTS.NAVIGATION, onEvent);
-          api.off(STORY_CHANGED, onChange);
-          api.off(EVENTS.CLEAR, onChange);
+          api.off(EVENTS.NAVIGATION, incrementBadgeCount);
+          api.off(EVENTS.ROUTE_MATCHES, incrementBadgeCount);
+          api.off(STORY_CHANGED, clearBadgeCount);
+          api.off(EVENTS.CLEAR, clearBadgeCount);
         };
       });
 
-      const suffix = actionsCount === 0 ? '' : ` (${actionsCount})`;
+      const suffix = badgeCount === 0 ? '' : ` (${badgeCount})`;
       return `React Router${suffix}`;
     },
     match: ({ viewMode }) => viewMode === "story",

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Header } from './Header';
-import {withRouter} from '../src/withRouter';
+import {withRouter} from '../src';
 
 export default {
   title: 'Example/Header',

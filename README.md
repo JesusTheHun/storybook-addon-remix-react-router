@@ -9,9 +9,8 @@
 
 ## Recent changes
 
-✅ `withRouter` decorator parameters now accept `{ outlet: React.ReactNode }`  
-✅ `withRouter` decorator parameters now accept `{ routeState: Location.state }`  
-✅ Support for React 18 ([learn more](#compatibility))
+✅ Support for descendant `<Routes>`   
+✅ `withRouter` decorator parameters now accept `{ outlet: React.ReactNode }`
 
 ## Getting Started
 Install the package
@@ -124,6 +123,38 @@ MenuWithOrdersContext.story = {
         }
     }
 };
+```
+
+## Descendant Routes
+
+`<Route>` can be nested to handle layouts & outlets. 
+But components can also render a `<Routes>` component with its set of `<Route>`, leading to a deep nesting called `Descendant Routes`. 
+In this case, in order for the whole component tree to render in your story with matching params, you will need to set the `browserPath` property :
+
+```js
+export default {
+  title: 'Descendant Routes',
+  component: SettingsPage, // this component renders a <Routes> with several <Route> with path like `billing` or `privacy`
+  decorators: [withRouter],
+};
+
+Default.story = {
+  parameters: {
+    reactRouter: {
+      browserPath: '/billing',
+      }
+  }
+};
+
+// If you want to render at a specific path, like `/settings`, React Router requires that you add a trailing wildcard
+SpecificPath.story = {
+  parameters: {
+    reactRouter: {
+      routePath: '/settings/*',
+      browserPath: '/settings/billing',
+    }
+  }
+}
 ```
 
 ## Compatibility

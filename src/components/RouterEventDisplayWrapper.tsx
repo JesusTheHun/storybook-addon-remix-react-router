@@ -1,6 +1,6 @@
 import { styled } from '@storybook/theming';
 
-export const RouterEvent = styled.div({
+export const RouterEventDisplayWrapper = styled.div({
   display: 'flex',
   padding: 0,
   borderLeft: '5px solid transparent',

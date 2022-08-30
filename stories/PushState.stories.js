@@ -16,7 +16,7 @@ export default {
 
 const Template = (args) => <div>
     <h1>Decorator test for a component that updates the `location.state`</h1>
-    <p>
+    <div>
         It should render :
         <pre>
             Sort : date <br/>
@@ -28,7 +28,7 @@ const Template = (args) => <div>
             <li>Story rendered at {"`{ routeState: { fromEmail: true } }`"}</li>
             <li>Navigate to {"`{ routeState: \"defaultSort\" }`"}</li>
         </ol>
-    </p>
+    </div>
 
     <h1 style={{ margin: '50px 0'}}>Actuel render below</h1>
     <div>

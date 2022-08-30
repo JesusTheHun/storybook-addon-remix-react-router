@@ -25,14 +25,14 @@ LoggedOut.args = {
 export const NestedRouteStaticSubpath = Template.bind({});
 NestedRouteStaticSubpath.parameters = {
   reactRouter: {
-    routePath: '/staticsubpath',
+    routePath: '/staticsubpath/*',
   }
 };
 
 export const NestedRouteDynamicSubpath = Template.bind({});
 NestedRouteDynamicSubpath.parameters = {
   reactRouter: {
-    routePath: '/abcdef',
+    routePath: '/abcdef/*',
     searchParams: {
       foo: "bar",
     },
@@ -43,7 +43,7 @@ NestedRouteDynamicSubpath.parameters = {
 export const WeirdRouteParamValue = Template.bind({});
 WeirdRouteParamValue.parameters = {
   reactRouter: {
-    routePath: '/:someParam',
+    routePath: '/:someParam/*',
     routeParams: {
       someParam: ':someValue',
     }

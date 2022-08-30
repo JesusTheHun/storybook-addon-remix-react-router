@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {AddonPanel} from "@storybook/components";
 import {PanelContent, PanelContentProps} from "./components/PanelContent";
-import {API, useChannel, useStorybookState} from '@storybook/api';
+import {API, useChannel} from '@storybook/api';
 import {EVENTS} from "./constants";
 import {STORY_CHANGED} from "@storybook/core-events";
 
@@ -14,11 +14,14 @@ export const Panel: React.FC<PanelProps> = (props) => {
   const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['navigationEvents']>([]);
 
   useChannel({
-    [EVENTS.NAVIGATION]: (eventData) => {
-      setNavigationEvents(prev => [...prev, [EVENTS.NAVIGATION, eventData]]);
+    [EVENTS.ROUTE_MATCHES]: (event) => {
+      setNavigationEvents(prev => [...prev, event]);
     },
-    [EVENTS.STORY_LOADED]: (eventData) => {
-      setNavigationEvents(prev => [...prev, [EVENTS.STORY_LOADED, eventData]]);
+    [EVENTS.NAVIGATION]: (event) => {
+      setNavigationEvents(prev => [...prev, event]);
+    },
+    [EVENTS.STORY_LOADED]: (event) => {
+      setNavigationEvents(prev => [...prev, event]);
     },
     [STORY_CHANGED]: () => {
       setNavigationEvents([]);

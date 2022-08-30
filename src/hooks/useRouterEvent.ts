@@ -1,13 +1,15 @@
-import {EventData, NavigationEventsValues} from "../typings";
+import {EventData, NavigationEventsValues, RouteMatchesData, RouterEvent} from "../typings";
 import {EVENTS} from "../constants";
 import {useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
 import {useCurrentUrl} from "./useCurrentUrl";
+import {useDeepRouteMatches} from "./useDeepRouteMatches";
 
-export const useCreateEventData = () => {
+export const useRouterEvent = () => {
   const location = useLocation();
   const params = useParams();
   const [search] = useSearchParams();
   const navigationType = useNavigationType();
+  const matches = useDeepRouteMatches();
 
   const searchParams: Record<string, string> = {};
 
@@ -17,7 +19,12 @@ export const useCreateEventData = () => {
 
   const currentUrl = useCurrentUrl();
 
-  return (eventName: NavigationEventsValues) => {
+  const matchesData: RouteMatchesData = matches.map(routeMatch => ([
+    routeMatch.route.path,
+    routeMatch.params,
+  ]));
+
+  return (eventName: NavigationEventsValues): RouterEvent<any> => {
     switch (eventName) {
       case EVENTS.STORY_LOADED: {
         const eventData: EventData[typeof eventName] = {
@@ -25,12 +32,16 @@ export const useCreateEventData = () => {
           path: location.pathname,
           routeParams: params,
           searchParams,
+          routeMatches: matchesData,
           hash: location.hash,
           routeState: location.state,
-          key: location.key,
         };
 
-        return eventData;
+        return {
+          key: location.key,
+          type: EVENTS.STORY_LOADED,
+          data: eventData
+        };
       }
 
       case EVENTS.NAVIGATION: {
@@ -41,11 +52,23 @@ export const useCreateEventData = () => {
           searchParams,
           hash: location.hash,
           routeState: location.state,
-          key: location.key,
+          routeMatches: matchesData,
           navigationType,
         };
 
-        return eventData;
+        return {
+          key: location.key,
+          type: EVENTS.NAVIGATION,
+          data: eventData
+        };
+      }
+
+      case EVENTS.ROUTE_MATCHES: {
+        return {
+          key: `matches-${location.key}-${matchesData.length}`,
+          type: EVENTS.ROUTE_MATCHES,
+          data: { matches: matchesData }
+        };
       }
     }
   }

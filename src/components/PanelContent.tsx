@@ -2,15 +2,14 @@ import React, {Fragment} from "react";
 import {styled} from '@storybook/theming';
 import {EVENTS} from "../constants";
 import {ActionBar, ScrollArea, ScrollAreaProps} from "@storybook/components";
-import {RouterEvent} from "./RouterEvent";
+import {RouterEventDisplayWrapper} from "./RouterEventDisplayWrapper";
 import {ThemedInspector} from "./ThemedInspector";
 import {InspectorContainer} from "./InspectorContainer";
-import {NavigationEventsValues} from "../typings";
-import {getTypedEventData} from "../utils";
+import {NavigationEventsValues, RouterEvent} from "../typings";
 import {FCC} from "../fixes";
 
 export type PanelContentProps = {
-  navigationEvents: [NavigationEventsValues, unknown][];
+  navigationEvents: RouterEvent[];
   onClear: () => void;
 }
 
@@ -21,21 +20,27 @@ export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}
   return (
     <Fragment>
       <Wrapper title="reactRouterLogger">
-        {navigationEvents.map(([eventName, data]) => {
-          const eventData = getTypedEventData(eventName, data);
-
+        {navigationEvents.map(event => {
           return (
-            <RouterEvent key={eventData.key}>
+            <RouterEventDisplayWrapper key={event.key}>
               <InspectorContainer>
                 <ThemedInspector
-                  name={humanReadableEventNames[eventName]}
-                  data={eventData}
+                  name={humanReadableEventNames[event.type]}
+                  data={event.data}
                   showNonenumerable={false}
                   sortObjectKeys={false}
-                  depth={1}
+                  expandPaths={[
+                    '$.routeParams',
+                    '$.searchParams',
+                    '$.routeMatches.*',
+                    '$.routeMatches.*.*',
+                    '$.matches',
+                    '$.matches.*',
+                    '$.matches.*.*',
+                  ]}
                 />
               </InspectorContainer>
-            </RouterEvent>
+            </RouterEventDisplayWrapper>
           )
         })}
       </Wrapper>
@@ -48,6 +53,7 @@ export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}
 export const humanReadableEventNames: Record<NavigationEventsValues, string> = {
   [EVENTS.NAVIGATION]: "Navigate to",
   [EVENTS.STORY_LOADED]: "Story rendered at",
+  [EVENTS.ROUTE_MATCHES]: "New route matches",
 };
 
 export const Wrapper = styled(({children, className}) => (

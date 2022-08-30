@@ -6,4 +6,5 @@ export const EVENTS = {
   CLEAR: `${ADDON_ID}/clear`,
   NAVIGATION: `${ADDON_ID}/navigation`,
   STORY_LOADED: `${ADDON_ID}/story-loaded`,
+  ROUTE_MATCHES: `${ADDON_ID}/route-matches`,
 } as const;
