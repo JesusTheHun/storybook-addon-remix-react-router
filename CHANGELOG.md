@@ -1,3 +1,16 @@
+# v0.1.15 (Tue Aug 30 2022)
+
+#### ⚠️ Pushed to `main`
+
+- fix: event order ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: support for descendant routes ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.14 (Fri Aug 19 2022)
 
 #### ⚠️ Pushed to `main`
