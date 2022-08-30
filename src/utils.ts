@@ -14,6 +14,20 @@ export const generateAppUrl = (
   return `${pathname}${queryString}${hashString}`;
 }
 
-export const getTypedEventData = (eventName: NavigationEventsValues, data: unknown) => {
-  return data as EventData[typeof eventName];
+
+export type Deferred<T> = {
+  promise: Promise<T>;
+  resolve: ((value: T | PromiseLike<T>) => void);
+  reject: ((reason?: any) => void);
+}
+
+export function defer<T = void>(): Deferred<T> {
+  const deferred: Partial<Deferred<T>> = {};
+
+  deferred.promise = new Promise<T>((resolve, reject) => {
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  });
+
+  return deferred as Deferred<T>;
 }

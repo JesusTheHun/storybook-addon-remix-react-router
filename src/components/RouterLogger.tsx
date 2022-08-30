@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {Location, RouteMatch, useLocation} from "react-router-dom";
 import {addons} from '@storybook/addons';
 
@@ -6,6 +6,7 @@ import {EVENTS} from "../constants";
 import {useRouterEvent} from "../hooks/useRouterEvent";
 import {FCC} from "../fixes";
 import {useDeepRouteMatches} from "../hooks/useDeepRouteMatches";
+import {defer} from "../utils";
 
 export const RouterLogger: FCC = ({ children }) => {
   const channel = addons.getChannel();
@@ -17,9 +18,15 @@ export const RouterLogger: FCC = ({ children }) => {
   const createEventData = useRouterEvent();
   const matches = useDeepRouteMatches();
 
+  const storyLoadedEmitted = useRef(defer());
+
   useLayoutEffect(() => {
     setLoadedAt(location);
   });
+
+  useEffect(() => {
+    if (loadedEventEmitted) storyLoadedEmitted.current.resolve();
+  }, [loadedEventEmitted]);
 
   useEffect(() => {
     setLastEmittedRouteMatches(matches);
@@ -36,7 +43,9 @@ export const RouterLogger: FCC = ({ children }) => {
 
   useEffect(() => {
     if (loadedAt !== undefined && loadedAt.key !== location.key) {
-      channel.emit(EVENTS.NAVIGATION, createEventData(EVENTS.NAVIGATION));
+      storyLoadedEmitted.current.promise.then(() => {
+        channel.emit(EVENTS.NAVIGATION, createEventData(EVENTS.NAVIGATION));
+      })
     }
   }, [location]);
 

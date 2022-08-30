@@ -16,8 +16,7 @@ export const PushState = () => {
                 pathname: location.pathname,
                 search: '?sort=date',
                 hash: "#head",
-                state: "defaultSort",
-            });
+            }, { replace: true, state: "defaultSort" });
         }
     }, [sort]);
 
