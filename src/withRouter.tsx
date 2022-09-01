@@ -22,6 +22,7 @@ export const withRouter = makeDecorator({
 
     return (
       <StoryRouter
+        storyId={context.id}
         browserPath={browserPath}
         routePath={routePath}
         routeParams={routeParams}

@@ -46,6 +46,7 @@ WeirdRouteParamValue.parameters = {
     routePath: '/:someParam/*',
     routeParams: {
       someParam: ':someValue',
+      anotherParam: 'bar',
     }
   }
 };

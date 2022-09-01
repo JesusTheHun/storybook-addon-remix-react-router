@@ -38,6 +38,9 @@ export const Default = Template.bind({});
 Default.parameters = {
     reactRouter: {
         routePath: '/listing/*',
-        browserPath: "/listing/1/1"
+        browserPath: "/listing/1/1",
+        routeParams: {
+            no: 42
+        }
     }
 }

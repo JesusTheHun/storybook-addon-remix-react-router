@@ -52,13 +52,19 @@ const Template = () => (
 export const Default = Template.bind({});
 Default.parameters = {
     reactRouter: {
-        browserPath: "/1/1"
+        browserPath: "/1/1",
+        routeParams: {
+            no: 42
+        }
     }
 }
 
 export const Index = Template.bind({});
 Index.parameters = {
     reactRouter: {
-        browserPath: "/1"
+        browserPath: "/1",
+        routeParams: {
+            no: 42
+        }
     }
 }

@@ -8,3 +8,8 @@ export const EVENTS = {
   STORY_LOADED: `${ADDON_ID}/story-loaded`,
   ROUTE_MATCHES: `${ADDON_ID}/route-matches`,
 } as const;
+
+export const ARGTYPE_ROUTEPARAMS_PREFIX = `${ADDON_ID}/routeParams`;
+export const ARGTYPE_SEARCHPARAMS_PREFIX = `${ADDON_ID}/searchParams`;
+export const ARGTYPE_ROUTESTATE = `${ADDON_ID}/routeState`;
+export const ARGTYPE_FILLER = `${ADDON_ID}/__filler__`;
