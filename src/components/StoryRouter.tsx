@@ -5,6 +5,7 @@ import {FCC} from "../fixes";
 import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
 import {UNSAFE_RouteContext} from "react-router";
 import {InitialEntry} from "history";
+import {Navigator} from './Navigator';
 
 export type StoryRouterProps = {
   browserPath?: string;
@@ -48,6 +49,7 @@ export const StoryRouter: FCC<StoryRouterProps> = ({ children, browserPath: user
   return (
     <DeepRouteMatchesContext.Provider value={deepRouteMatches}>
       <MemoryRouter initialEntries={[initialEntry]}>
+        <Navigator />
         <Routes>
           <Route path={routePath} element={
             <RouterLogger>
