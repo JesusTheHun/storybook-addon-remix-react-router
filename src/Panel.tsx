@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {AddonPanel} from "@storybook/components";
-import {PanelContent, PanelContentProps} from "./components/PanelContent";
+import {PanelContent, PanelContentProps, RouteParams} from "./components/PanelContent";
 import {API, useChannel} from '@storybook/api';
 import {EVENTS} from "./constants";
 import {STORY_CHANGED} from "@storybook/core-events";
@@ -33,9 +33,17 @@ export const Panel: React.FC<PanelProps> = (props) => {
     setNavigationEvents([]);
   }
 
+  function push(routeParams: RouteParams) {
+    props.api.emit(EVENTS.PUSH, routeParams)
+  }
+
+  function replace(routeParams: RouteParams) {
+    props.api.emit(EVENTS.REPLACE, routeParams)
+  }
+
   return (
     <AddonPanel {...props}>
-      <PanelContent navigationEvents={navigationEvents} onClear={clear} />
+      <PanelContent navigationEvents={navigationEvents} onClear={clear} onPush={push} onReplace={replace} />
     </AddonPanel>
   );
 };

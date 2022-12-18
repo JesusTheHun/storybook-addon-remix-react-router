@@ -5,7 +5,7 @@ declare module "global";
 
 export type AddonEvents = typeof EVENTS;
 export type AddonEventsKeys = keyof AddonEvents;
-export type NavigationEventsKeys = Exclude<AddonEventsKeys, 'CLEAR'>;
+export type NavigationEventsKeys = Exclude<AddonEventsKeys, 'CLEAR' | 'PUSH' | 'REPLACE'>;
 export type NavigationEventsValues = AddonEvents[NavigationEventsKeys];
 
 export type RouteMatchesData = Array<[RouteMatch['route']['path'], RouteMatch['params']]>;
