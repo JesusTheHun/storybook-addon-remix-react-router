@@ -1,10 +1,16 @@
 import React, {useState} from "react";
-import {generatePath, MemoryRouter, Route, RouteMatch, Routes} from "react-router-dom";
+import {
+  createMemoryRouter,
+  generatePath,
+  Route,
+  RouteMatch,
+  RouterProvider
+} from "react-router-dom";
 import {RouterLogger} from "./RouterLogger";
 import {FCC} from "../fixes";
 import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
 import {UNSAFE_RouteContext} from "react-router";
-import {InitialEntry} from "history";
+import { InitialEntry } from "@remix-run/router/history";
 
 export type StoryRouterProps = {
   browserPath?: string;
@@ -44,20 +50,27 @@ export const StoryRouter: FCC<StoryRouterProps> = ({ children, browserPath: user
   const initialEntry: InitialEntry = { search, state: routeState };
   if (userBrowserPath !== undefined) initialEntry['pathname'] = userBrowserPath;
   if (userBrowserPath === undefined && generatedPath !== '') initialEntry['pathname'] = generatedPath;
+  const routes = [{
+    path: routePath,
+    element: (
+      <RouterLogger>
+        { children }
+      </RouterLogger>
+    ),
+  }];
+  if (outlet) {
+    routes.push({
+      path: '',
+      element: <>{outlet}</>
+    });
+  }
+  const dataRouter = createMemoryRouter(routes, {
+    initialEntries: [initialEntry]
+  });
 
   return (
     <DeepRouteMatchesContext.Provider value={deepRouteMatches}>
-      <MemoryRouter initialEntries={[initialEntry]}>
-        <Routes>
-          <Route path={routePath} element={
-            <RouterLogger>
-              { children }
-            </RouterLogger>
-          }>
-            { outlet && <Route index element={outlet} /> }
-          </Route>
-        </Routes>
-      </MemoryRouter>
+      <RouterProvider router={dataRouter} />
     </DeepRouteMatchesContext.Provider>
   )
 }
