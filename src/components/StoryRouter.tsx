@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {
   createMemoryRouter,
   generatePath,
-  Route,
   RouteMatch,
   RouterProvider
 } from "react-router-dom";
