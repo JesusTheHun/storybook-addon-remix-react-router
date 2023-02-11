@@ -142,7 +142,7 @@ Default.story = {
   parameters: {
     reactRouter: {
       browserPath: '/billing',
-      }
+    }
   }
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {makeDecorator} from "@storybook/addons";
-import {StoryRouter} from "./components/StoryRouter";
+import {StoryRouteTree} from "./components/StoryRouteTree";
 import {PARAM_KEY} from "./constants";
 
 export const withRouter = makeDecorator({
@@ -13,7 +13,10 @@ export const withRouter = makeDecorator({
       routeState,
       searchParams,
       outlet,
-      browserPath
+      browserPath,
+      loader,
+      action,
+      hydrationData,
     } = parameters;
 
     if (typeof routePath !== 'string') throw new Error("React Router decorator : `path` must be a string");
@@ -21,16 +24,19 @@ export const withRouter = makeDecorator({
     if (searchParams !== undefined && typeof searchParams !== 'object') throw new Error("React Router decorator : `search` must be an object with strings as values");
 
     return (
-      <StoryRouter
+      <StoryRouteTree
         browserPath={browserPath}
         routePath={routePath}
         routeParams={routeParams}
         searchParams={searchParams}
         routeState={routeState}
         outlet={outlet}
+        loader={loader}
+        action={action}
+        hydrationData={hydrationData}
       >
         {story(context)}
-      </StoryRouter>
+      </StoryRouteTree>
     )
   }
 })

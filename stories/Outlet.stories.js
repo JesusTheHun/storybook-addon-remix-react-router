@@ -31,3 +31,12 @@ AddonImplementation.parameters = {
         outlet: <Button primary={true} label={"AddonImplementation"} />,
     }
 }
+
+export const AddonImplementationObject = AddonTemplate.bind({});
+AddonImplementationObject.parameters = {
+    reactRouter: {
+        outlet: {
+            element: <Button primary={true} label={"AddonImplementation"} />,
+        },
+    }
+}
