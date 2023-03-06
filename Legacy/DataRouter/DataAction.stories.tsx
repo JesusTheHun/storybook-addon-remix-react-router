@@ -7,10 +7,11 @@ import {
   Link, LoaderFunctionArgs,
   Outlet,
   useFetcher,
-  useLoaderData,
+  useLoaderData, useLocation,
   useNavigation, useParams,
   useRouteError
 } from 'react-router-dom';
+// @ts-ignore
 import {addTodo, deleteTodo, getTodos, Todos} from "./todos";
 
 function sleep(n: number = 500) {
@@ -52,18 +53,24 @@ function TodosList() {
   let todos = useLoaderData() as Todos;
   let navigation = useNavigation();
   let formRef = React.useRef<HTMLFormElement>(null);
+  const location = useLocation();
+  const routeParams = useParams();
 
+  console.log(location);
+  console.log(routeParams);
   // If we add and then we delete - this will keep isAdding=true until the
   // fetcher completes it's revalidation
   let [isAdding, setIsAdding] = React.useState(false);
-  React.useEffect(() => {
-    if (navigation.formData?.get("action") === "add") {
-      setIsAdding(true);
-    } else if (navigation.state === "idle") {
-      setIsAdding(false);
-      formRef.current?.reset();
-    }
-  }, [navigation]);
+  // React.useEffect(() => {
+  //   if (navigation.formData?.get("action") === "add") {
+  //     setIsAdding(true);
+  //   } else if (navigation.state === "idle") {
+  //     setIsAdding(false);
+  //     formRef.current?.reset();
+  //   }
+  // }, [navigation]);
+
+  // return (<div>TT</div>);
 
   return (
     <>
@@ -136,6 +143,7 @@ async function todoLoader({
 }: LoaderFunctionArgs): Promise<string> {
   await sleep();
   let todos = getTodos();
+  console.log(params);
   if (!params.id) {
     throw new Error("Expected params.id");
   }
@@ -147,8 +155,11 @@ async function todoLoader({
 }
 
 function Todo() {
+  console.log("Todo loaded");
   let params = useParams();
+  console.log(params);
   let todo = useLoaderData() as string;
+  // console.log(todo);
   return (
     <>
       <h2>Nested Todo Route:</h2>
@@ -165,7 +176,7 @@ export default {
   decorators: [withRouter],
 };
 
-const Template = (args) => <TodosList {...args} />;
+const Template = () => <TodosList />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -174,7 +185,7 @@ Default.parameters = {
     outlet: {
       element: <Todo />,
       path: ":id",
-      loader: todoLoader,
+      // loader: todoLoader,
     },
     loader: todosLoader,
     action: todosAction,

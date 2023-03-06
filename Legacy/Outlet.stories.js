@@ -36,7 +36,7 @@ export const AddonImplementationObject = AddonTemplate.bind({});
 AddonImplementationObject.parameters = {
     reactRouter: {
         outlet: {
-            element: <Button primary={true} label={"AddonImplementation"} />,
+            element: <Button primary={true} label={"AddonImplementationObject"} />,
         },
     }
 }

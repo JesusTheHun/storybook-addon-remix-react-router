@@ -105,7 +105,7 @@ export default {
   decorators: [withRouter],
 };
 
-const Template = (args) => <DeferredPage {...args} />;
+const Template = () => <DeferredPage />;
 
 export const Default = Template.bind({});
 Default.parameters = {

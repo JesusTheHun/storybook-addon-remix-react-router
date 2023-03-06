@@ -27,5 +27,13 @@ export const StoryRouter = ({
     hydrationData,
   });
 
-  return <RouterProvider router={router} />;
+  if (module && module.hot && module.hot.dispose) {
+    module.hot.dispose(() => router.dispose());
+  }
+
+  return <RouterProvider router={router} fallbackElement={<Fallback />} />;
+}
+
+export function Fallback() {
+  return <p>Performing initial data load</p>;
 }

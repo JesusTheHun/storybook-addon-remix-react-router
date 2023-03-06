@@ -6,7 +6,6 @@ import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
 import {UNSAFE_RouteContext} from "react-router";
 import {StoryRouter} from "./StoryRouter";
 import {HydrationState, LoaderFunction} from "@remix-run/router";
-import {element} from "prop-types";
 
 type OutletProps = {
   element: React.ReactNode;
@@ -36,7 +35,7 @@ type Ctx = {
 export const StoryRouteTree: FCC<StoryRouterProps> = ({
   children,
   browserPath: userBrowserPath,
-  routePath,
+  routePath = '*',
   routeParams,
   searchParams,
   routeState,

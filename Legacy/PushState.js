@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import {useLocation, useSearchParams} from 'react-router-dom';
-import {useNavigate} from 'react-router';
+import {useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 
 export const PushState = () => {
     const navigate = useNavigate();

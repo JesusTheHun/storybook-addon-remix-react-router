@@ -11,11 +11,12 @@
     "lib": ["es2020", "dom"],
     "module": "commonjs",
     "noImplicitAny": true,
-    "rootDir": "./src",
+    "rootDir": "./",
     "skipLibCheck": true,
     "target": "es2020"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "stories/**/*"
   ],
 }

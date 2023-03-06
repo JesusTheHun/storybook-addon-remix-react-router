@@ -1,3 +1,4 @@
+import React from 'react';
 import {withRouter} from '../../src';
 import {useLoaderData} from 'react-router-dom';
 
@@ -32,7 +33,7 @@ export default {
   decorators: [withRouter],
 };
 
-const Template = (args) => <Home {...args} />;
+const Template = () => <Home />;
 
 export const Default = Template.bind({});
 Default.parameters = {

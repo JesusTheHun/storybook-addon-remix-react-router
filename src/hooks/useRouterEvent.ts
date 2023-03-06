@@ -38,7 +38,7 @@ export const useRouterEvent = () => {
         };
 
         return {
-          key: location.key,
+          key: `${EVENTS.STORY_LOADED}_${location.key}${Math.random()}`,
           type: EVENTS.STORY_LOADED,
           data: eventData
         };
@@ -57,7 +57,7 @@ export const useRouterEvent = () => {
         };
 
         return {
-          key: location.key,
+          key: `${EVENTS.NAVIGATION}_${location.key}`,
           type: EVENTS.NAVIGATION,
           data: eventData
         };
@@ -65,7 +65,7 @@ export const useRouterEvent = () => {
 
       case EVENTS.ROUTE_MATCHES: {
         return {
-          key: `matches-${location.key}-${matchesData.length}`,
+          key: `${EVENTS.ROUTE_MATCHES}_${location.key}-${matchesData.length}`,
           type: EVENTS.ROUTE_MATCHES,
           data: { matches: matchesData }
         };

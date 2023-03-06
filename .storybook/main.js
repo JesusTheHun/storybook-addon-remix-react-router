@@ -1,4 +1,5 @@
 module.exports = {
+  titlePrefix: "ReactRouterAddon",
   stories: [
     "../stories/**/*.stories.mdx",
     "../stories/**/*.stories.@(js|jsx|ts|tsx)",

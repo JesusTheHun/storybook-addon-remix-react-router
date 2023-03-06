@@ -25,7 +25,7 @@ export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}
             <RouterEventDisplayWrapper key={event.key}>
               <InspectorContainer>
                 <ThemedInspector
-                  name={humanReadableEventNames[event.type]}
+                  name={humanReadableEventNames[event.type] + ' ' + event.key}
                   data={event.data}
                   showNonenumerable={false}
                   sortObjectKeys={false}

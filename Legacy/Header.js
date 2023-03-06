@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from './Button';
 import './header.css';
-import {useNavigate} from 'react-router';
+import {useNavigate} from 'react-router-dom';
 import {generateAppUrl} from '../src/utils';
 
 export const Header = ({ user, onLogin: onUserLogin, onLogout: onUserLogout, onCreateAccount }) => {
