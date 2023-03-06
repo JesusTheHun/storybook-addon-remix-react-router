@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, Outlet, Route, Routes, useLoaderData, useParams, useRouteError} from "react-router-dom";
+import {Outlet, useLoaderData, useRouteError} from "react-router-dom";
 import {StoryRouteTree} from "../../../src/components/StoryRouteTree";
 
 export default {
@@ -21,7 +21,7 @@ function DataLoader() {
 
 export const RouteLoader = {
   args: {
-    loader: loader("bar"),
+    loader: loader("Data loaded"),
     children: <DataLoader />,
   }
 }
@@ -49,11 +49,11 @@ function DataLoaderOutlet() {
 
 export const RouteAndOutletLoader = {
   args: {
-    loader: loader("bar"),
+    loader: loader("Data loaded"),
     children: <DataLoaderWithOutlet />,
     outlet: {
       element: <DataLoaderOutlet />,
-      loader: loader("baz"),
+      loader: loader("Outlet data loaded"),
     },
   }
 }
@@ -61,7 +61,7 @@ export const RouteAndOutletLoader = {
 
 function DataErrorBoundary() {
   const error = useRouteError() as Error;
-  return <h1>{error.message}</h1>;
+  return <h1>Fancy error component : {error.message}</h1>;
 }
 
 async function failingLoader() {

@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {StoryRouteTree} from "../../src/components/StoryRouteTree";
 import {Outlet, useLocation, useParams, useSearchParams} from "react-router-dom";
-import * as path from "path";
 
 export default {
   component: StoryRouteTree,

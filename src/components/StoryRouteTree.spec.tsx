@@ -74,12 +74,29 @@ describe('StoryRouteTree', () => {
       MatchingNestedRoute,
     } = composeStories(NestingStories);
 
-    it("should render the index route when on root path", () => {
+    it("should render the index route when on root path", async () => {
       render(<IndexAtRoot />);
 
       expect(screen.queryByRole('link', { name: "Navigate to listing" })).toBeInTheDocument();
       expect(screen.queryByRole('link', { name: "Navigate to details" })).not.toBeInTheDocument();
       expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
+    });
+
+    it("should navigate appropriately when clicking a link", async () => {
+      render(<IndexAtRoot />);
+
+      expect(screen.queryByRole('link', { name: "Navigate to listing" })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: "Navigate to details" })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
+
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('link', { name: "Navigate to listing" }));
+
+      expect(screen.queryByRole('link', { name: "Navigate to listing" })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: "Navigate to details" })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).toBeInTheDocument();
       expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
     });
 
@@ -112,18 +129,18 @@ describe('StoryRouteTree', () => {
 
     it('should render component with route loader', async () => {
       render(<RouteLoader />);
-      await waitFor(() => expect(screen.getByRole('heading', { name: "bar" })).toBeInTheDocument(), { timeout: 1000 });
+      await waitFor(() => expect(screen.getByRole('heading', { name: "Data loaded" })).toBeInTheDocument(), { timeout: 1000 });
     });
 
     it('should render component with route loader and outlet loader', async () => {
       render(<RouteAndOutletLoader />);
-      await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: "bar" })).toBeInTheDocument(), { timeout: 1000 });
-      await waitFor(() => expect(screen.getByRole('heading', { level: 2, name: "baz" })).toBeInTheDocument(), { timeout: 1000 });
+      await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: "Data loaded" })).toBeInTheDocument(), { timeout: 1000 });
+      await waitFor(() => expect(screen.getByRole('heading', { level: 2, name: "Outlet data loaded" })).toBeInTheDocument(), { timeout: 1000 });
     });
 
     it("should render the error boundary if the route loader fails", async () => {
       render(<ErrorBoundary />);
-      await waitFor(() => expect(screen.queryByRole('heading', { name: "Meh.", level: 1 })).toBeInTheDocument());
+      await waitFor(() => expect(screen.queryByRole('heading', { name: "Fancy error component : Meh.", level: 1 })).toBeInTheDocument());
     });
   });
 

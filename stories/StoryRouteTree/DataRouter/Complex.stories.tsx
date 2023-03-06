@@ -1,10 +1,17 @@
+/**
+ * Credits : https://github.com/remix-run/react-router
+ * reactrouter.com
+ */
+
 import React from "react";
 import {
-  ActionFunctionArgs, Form,
-  Link, LoaderFunctionArgs, Outlet,
+  ActionFunctionArgs,
+  Form,
+  Link,
+  LoaderFunctionArgs,
+  Outlet,
   useFetcher,
   useLoaderData,
-  useLocation,
   useNavigation,
   useParams
 } from "react-router-dom";
@@ -18,15 +25,15 @@ function sleep(n: number = 500) {
   return new Promise((r) => setTimeout(r, n));
 }
 
-export interface Todos {
+interface Todos {
   [key: string]: string;
 }
 
 const TODOS_KEY = "todos";
 
-export const uuid = () => Math.random().toString(36).substr(2, 9);
+const uuid = () => Math.random().toString(36).substr(2, 9);
 
-export function saveTodos(todos: Todos): void {
+function saveTodos(todos: Todos): void {
   return localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
 }
 
@@ -42,7 +49,7 @@ function initializeTodos(): Todos {
   return todos;
 }
 
-export function getTodos(): Todos {
+function getTodos(): Todos {
   let todos: Todos | null = null;
   try {
     todos = JSON.parse(localStorage.getItem(TODOS_KEY));
@@ -53,19 +60,19 @@ export function getTodos(): Todos {
   return todos;
 }
 
-export function addTodo(todo: string): void {
+function addTodo(todo: string): void {
   let newTodos = { ...getTodos() };
   newTodos[uuid()] = todo;
   saveTodos(newTodos);
 }
 
-export function deleteTodo(id: string): void {
+function deleteTodo(id: string): void {
   let newTodos = { ...getTodos() };
   delete newTodos[id];
   saveTodos(newTodos);
 }
 
-export function resetTodos(): void {
+function resetTodos(): void {
   localStorage.removeItem(TODOS_KEY);
   initializeTodos();
 }
@@ -118,6 +125,12 @@ function TodosList() {
     }
   }, [navigation]);
 
+  const items = Object.entries(todos).map(([id, todo]) => (
+    <li key={id}>
+      <TodoListItem id={id} todo={todo} />
+    </li>
+  ));
+
   return (
     <>
       <h1>Todos</h1>
@@ -125,11 +138,7 @@ function TodosList() {
         <li>
           <Link to="/todos/junk">Click to trigger error</Link>
         </li>
-        {Object.entries(todos).map(([id, todo]) => (
-          <li key={id}>
-            <TodoListItem id={id} todo={todo} />
-          </li>
-        ))}
+        {items}
       </ul>
       <Form method="post" ref={formRef}>
         <input type="hidden" name="action" value="add" />
@@ -149,9 +158,9 @@ interface TodoItemProps {
 }
 
 function TodoListItem({ id, todo }: TodoItemProps) {
-  let fetcher = useFetcher();
+  const fetcher = useFetcher();
+  const isDeleting = fetcher.formData != null;
 
-  let isDeleting = fetcher.formData != null;
   return (
     <>
       <Link to={id}>{todo}</Link>

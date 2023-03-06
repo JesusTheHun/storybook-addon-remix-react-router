@@ -1,5 +1,5 @@
-import React, {PropsWithChildren} from 'react';
-import {HydrationState, InitialEntry,} from "@remix-run/router";
+import React, {PropsWithChildren, useLayoutEffect, useState} from 'react';
+import {InitialEntry, Router} from "@remix-run/router";
 import {createMemoryRouter, createRoutesFromElements, generatePath, RouterProvider,} from "react-router-dom";
 import {StoryRouterProps} from "./StoryRouteTree";
 
@@ -12,24 +12,32 @@ export const StoryRouter = ({
   browserPath: userBrowserPath,
   hydrationData,
 }: PropsWithChildren<StoryRouterProps>) => {
-  const generatedPath = generatePath(routePath, routeParams);
-  const queryString = new URLSearchParams(searchParams).toString();
-  const search = queryString.length > 0 ? `?${queryString}` : '';
+  const [router, setRouter] = useState<Router>();
 
-  const initialEntry: InitialEntry = { search, state: routeState };
-  if (userBrowserPath !== undefined) initialEntry['pathname'] = userBrowserPath;
-  if (userBrowserPath === undefined && generatedPath !== '') initialEntry['pathname'] = generatedPath;
+  useLayoutEffect(() => {
+    const generatedPath = generatePath(routePath, routeParams);
+    const queryString = new URLSearchParams(searchParams).toString();
+    const search = queryString.length > 0 ? `?${queryString}` : '';
 
-  const routes = createRoutesFromElements(children);
+    const initialEntry: InitialEntry = { search, state: routeState };
+    if (userBrowserPath !== undefined) initialEntry['pathname'] = userBrowserPath;
+    if (userBrowserPath === undefined && generatedPath !== '') initialEntry['pathname'] = generatedPath;
 
-  const router = createMemoryRouter(routes, {
-    initialEntries: [initialEntry],
-    hydrationData,
-  });
+    const routes = createRoutesFromElements(children);
 
-  if (module && module.hot && module.hot.dispose) {
+    const memoryRouter = createMemoryRouter(routes, {
+      initialEntries: [initialEntry],
+      hydrationData,
+    });
+
+    setRouter(memoryRouter);
+  }, []);
+
+  if (router !== undefined && module && module.hot && module.hot.dispose) {
     module.hot.dispose(() => router.dispose());
   }
+
+  if (router === undefined) return null;
 
   return <RouterProvider router={router} fallbackElement={<Fallback />} />;
 }
