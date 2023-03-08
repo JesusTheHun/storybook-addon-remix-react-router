@@ -77,7 +77,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   const outletExpandProps = {
     element: outletConfig.element,
     errorElement: outletConfig.errorElement,
-    action: outletConfig.action,
+    action: actionWrapper(channel, outletConfig.action),
     loader: outletConfig.loader,
   }
 
