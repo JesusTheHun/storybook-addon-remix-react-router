@@ -1,6 +1,4 @@
 import { generatePath } from "react-router-dom";
-import {NavigationEventData, NavigationEventName} from "./typings";
-import {number} from "prop-types";
 
 export const generateAppUrl = (
   path: Parameters<typeof generatePath>[0],
@@ -52,4 +50,30 @@ export function getFormDataSummary(formData: FormData): Record<string, string | 
   });
 
   return data;
+}
+
+export async function getHumanReadableBody(request: Request) {
+  const requestClone = request.clone();
+  const contentTypeHeader = requestClone.headers.get('content-type');
+
+  let humanReadableBody: string | Record<string, string | FileSummary>;
+  let requestBodySize: number;
+
+  switch (true) {
+    case contentTypeHeader === null: break;
+    case contentTypeHeader.startsWith('text'): humanReadableBody = await requestClone.text(); break;
+    case contentTypeHeader.startsWith('application/json'): humanReadableBody = await requestClone.json(); break;
+    case contentTypeHeader.startsWith('multipart/form-data'):
+    case contentTypeHeader.startsWith('application/x-www-form-urlencoded'): {
+      humanReadableBody = getFormDataSummary(await requestClone.formData());
+      break
+    }
+    default: requestBodySize = await requestClone.arrayBuffer().then(b => b.byteLength);
+  }
+
+  return {
+    url: requestClone.url,
+    method: requestClone.method,
+    body: humanReadableBody,
+  }
 }

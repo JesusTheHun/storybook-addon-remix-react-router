@@ -26,6 +26,15 @@ export const Panel: React.FC<PanelProps> = (props) => {
     [EVENTS.ACTION_INVOKED]: (event) => {
       setNavigationEvents(prev => [...prev, event]);
     },
+    [EVENTS.ACTION_SETTLED]: (event) => {
+      setNavigationEvents(prev => [...prev, event]);
+    },
+    [EVENTS.LOADER_INVOKED]: (event) => {
+      setNavigationEvents(prev => [...prev, event]);
+    },
+    [EVENTS.LOADER_SETTLED]: (event) => {
+      setNavigationEvents(prev => [...prev, event]);
+    },
     [STORY_CHANGED]: () => {
       setNavigationEvents([]);
     }

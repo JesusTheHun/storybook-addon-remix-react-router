@@ -27,7 +27,6 @@ export const RouteLoader = {
 }
 
 
-
 function DataLoaderWithOutlet() {
   let data = useLoaderData() as { foo: string };
   return (

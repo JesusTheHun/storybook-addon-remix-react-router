@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ActionFunction, Route, RouteMatch, RouteObject} from "react-router-dom";
+import {ActionFunction, LoaderFunctionArgs, Route, RouteMatch, RouteObject} from "react-router-dom";
 import {RouterLogger} from "./RouterLogger";
 import {FCC} from "../fixes";
 import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
@@ -77,8 +77,8 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   const outletExpandProps = {
     element: outletConfig.element,
     errorElement: outletConfig.errorElement,
-    action: actionWrapper(channel, outletConfig.action),
-    loader: outletConfig.loader,
+    action: outletConfig.action !== undefined ? actionWrapper(channel, outletConfig.action) : undefined,
+    loader: outletConfig.loader !== undefined ? loaderWrapper(channel, outletConfig.loader) : undefined,
   }
 
   return (
@@ -87,8 +87,8 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
                    browserPath={userBrowserPath} hydrationData={hydrationData}>
         <Route
           path={routePath}
-          action={actionWrapper(channel, action)}
-          loader={loader}
+          action={action !== undefined ? actionWrapper(channel, action) : undefined}
+          loader={loader !== undefined ? loaderWrapper(channel, loader) : undefined}
           errorElement={errorElement}
           element={
             <RouterLogger>
@@ -119,5 +119,19 @@ function actionWrapper(channel: Channel, action: ActionFunction): ActionFunction
     channel.emit(EVENTS.ACTION_SETTLED, await createEventData(EVENTS.ACTION_SETTLED, actionResult));
 
     return actionResult;
+  }
+}
+
+function loaderWrapper(channel: Channel, loader: LoaderFunction): ActionFunction {
+  const createEventData = useDataEventBuilder();
+
+  return async function(loaderArgs: LoaderFunctionArgs) {
+    if (loader === undefined) return;
+
+    channel.emit(EVENTS.LOADER_INVOKED, await createEventData(EVENTS.LOADER_INVOKED, loaderArgs));
+    const loaderResult = await loader(loaderArgs);
+    channel.emit(EVENTS.LOADER_SETTLED, await createEventData(EVENTS.LOADER_SETTLED, loaderResult));
+
+    return loaderResult;
   }
 }

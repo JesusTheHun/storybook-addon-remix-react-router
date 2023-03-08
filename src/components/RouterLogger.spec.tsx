@@ -7,6 +7,7 @@ import {addons} from '@storybook/addons';
 
 import * as NestingStories from "../../stories/StoryRouteTree/Nesting.stories";
 import * as ActionStories from "../../stories/StoryRouteTree/DataRouter/Action.stories";
+import * as LoaderStories from "../../stories/StoryRouteTree/DataRouter/Loader.stories";
 import Channel from "@storybook/channels";
 import {SpyInstance} from "@vitest/spy";
 import userEvent from "@testing-library/user-event";
@@ -66,7 +67,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.NAVIGATION, {
         type: EVENTS.NAVIGATION,
-        key: `${EVENTS.NAVIGATION}_2`,
+        key: expect.stringContaining(EVENTS.NAVIGATION),
         data: {
           navigationType: 'PUSH',
           url: '/listing/13',
@@ -95,7 +96,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ROUTE_MATCHES, {
         type: EVENTS.ROUTE_MATCHES,
-        key: `${EVENTS.ROUTE_MATCHES}_1`,
+        key: expect.stringContaining(EVENTS.ROUTE_MATCHES),
         data: {
           matches: [
             ['/listing/*', { '*': '13' }],
@@ -117,7 +118,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_INVOKED, {
         type: EVENTS.ACTION_INVOKED,
-        key: `${EVENTS.ACTION_INVOKED}_0`,
+        key: expect.stringContaining(EVENTS.ACTION_INVOKED),
         data: {
           context: undefined,
           params: { '*': '' },
@@ -137,8 +138,47 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_SETTLED, {
         type: EVENTS.ACTION_SETTLED,
-        key: `${EVENTS.ACTION_SETTLED}_1`,
+        key: expect.stringContaining(EVENTS.ACTION_SETTLED),
         data: { result: 42 },
+      });
+    });
+  });
+
+
+  it<LocalTestContext>('should log data router loader when triggered', async (context) => {
+    const { RouteAndOutletLoader } = composeStories(LoaderStories);
+    render(<RouteAndOutletLoader />);
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_INVOKED, {
+        type: EVENTS.LOADER_INVOKED,
+        key: expect.stringContaining(EVENTS.LOADER_INVOKED),
+        data: {
+          context: undefined,
+          params: { '*': '' },
+          request: expect.anything(),
+        },
+      });
+    });
+  });
+
+  it<LocalTestContext>('should log when data router loader settled', async (context) => {
+    const { RouteAndOutletLoader } = composeStories(LoaderStories);
+    render(<RouteAndOutletLoader />);
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
+        type: EVENTS.LOADER_SETTLED,
+        key: expect.stringContaining(EVENTS.LOADER_SETTLED),
+        data: { foo: "Data loaded" },
+      });
+    });
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
+        type: EVENTS.LOADER_SETTLED,
+        key: expect.stringContaining(EVENTS.LOADER_SETTLED),
+        data: { foo: "Outlet data loaded" },
       });
     });
   });

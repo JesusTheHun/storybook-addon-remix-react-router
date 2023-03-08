@@ -1,5 +1,5 @@
 import {EVENTS} from "./constants";
-import {ActionFunctionArgs, NavigationType, RouteMatch} from "react-router-dom";
+import {ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch} from "react-router-dom";
 
 declare module "global";
 
@@ -7,7 +7,7 @@ export type AddonEvents = typeof EVENTS;
 
 export type NavigationEventInternalKey = 'NAVIGATION' | 'STORY_LOADED' | 'ROUTE_MATCHES';
 export type NavigationEventName = AddonEvents[NavigationEventInternalKey];
-export type DataEventInternalKey = 'ACTION_INVOKED' | 'ACTION_SETTLED';
+export type DataEventInternalKey = 'ACTION_INVOKED' | 'ACTION_SETTLED' | 'LOADER_INVOKED' | 'LOADER_SETTLED';
 export type DataEventName = AddonEvents[DataEventInternalKey];
 
 export type RouteMatchesData = Array<[RouteMatch['route']['path'], RouteMatch['params']]>;
@@ -43,15 +43,12 @@ export type EventDataRouteMatches = {
   matches: RouteMatchesData;
 }
 
-export type EventArgsActionInvoked = {
-  context?: ActionFunctionArgs['context'];
-  params: ActionFunctionArgs['params'];
-  request: ActionFunctionArgs['request'];
-}
 
 export type DataEventArgs = {
-  [EVENTS.ACTION_INVOKED]: EventArgsActionInvoked;
+  [EVENTS.ACTION_INVOKED]: ActionFunctionArgs;
   [EVENTS.ACTION_SETTLED]: unknown;
+  [EVENTS.LOADER_INVOKED]: LoaderFunctionArgs;
+  [EVENTS.LOADER_SETTLED]: unknown;
 }
 
 export type NavigationEventData = {

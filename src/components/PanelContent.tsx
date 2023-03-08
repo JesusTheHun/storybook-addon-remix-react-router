@@ -56,6 +56,8 @@ export const humanReadableEventNames: Record<NavigationEventName | DataEventName
   [EVENTS.ROUTE_MATCHES]: "New route matches",
   [EVENTS.ACTION_INVOKED]: "Action invoked",
   [EVENTS.ACTION_SETTLED]: "Action settled",
+  [EVENTS.LOADER_INVOKED]: "Loader invoked",
+  [EVENTS.LOADER_SETTLED]: "Loader settled",
 };
 
 export const Wrapper = styled(({children, className}) => (

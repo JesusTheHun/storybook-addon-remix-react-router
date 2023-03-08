@@ -9,4 +9,6 @@ export const EVENTS = {
   ROUTE_MATCHES: `${ADDON_ID}/route-matches`,
   ACTION_INVOKED: `${ADDON_ID}/action_invoked`,
   ACTION_SETTLED: `${ADDON_ID}/action_settled`,
+  LOADER_INVOKED: `${ADDON_ID}/loader_invoked`,
+  LOADER_SETTLED: `${ADDON_ID}/loader_settled`,
 } as const;
