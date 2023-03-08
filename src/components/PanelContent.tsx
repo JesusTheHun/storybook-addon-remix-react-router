@@ -5,7 +5,7 @@ import {ActionBar, ScrollArea, ScrollAreaProps} from "@storybook/components";
 import {RouterEventDisplayWrapper} from "./RouterEventDisplayWrapper";
 import {ThemedInspector} from "./ThemedInspector";
 import {InspectorContainer} from "./InspectorContainer";
-import {NavigationEventsValues, RouterEvent} from "../typings";
+import {DataEventName, NavigationEventName, RouterEvent} from "../typings";
 import {FCC} from "../fixes";
 
 export type PanelContentProps = {
@@ -25,7 +25,7 @@ export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}
             <RouterEventDisplayWrapper key={event.key}>
               <InspectorContainer>
                 <ThemedInspector
-                  name={humanReadableEventNames[event.type] + ' ' + event.key}
+                  name={humanReadableEventNames[event.type]}
                   data={event.data}
                   showNonenumerable={false}
                   sortObjectKeys={false}
@@ -50,10 +50,12 @@ export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}
   )
 }
 
-export const humanReadableEventNames: Record<NavigationEventsValues, string> = {
-  [EVENTS.NAVIGATION]: "Navigate to",
-  [EVENTS.STORY_LOADED]: "Story rendered at",
+export const humanReadableEventNames: Record<NavigationEventName | DataEventName, string> = {
+  [EVENTS.NAVIGATION]: "Navigate",
+  [EVENTS.STORY_LOADED]: "Story rendered",
   [EVENTS.ROUTE_MATCHES]: "New route matches",
+  [EVENTS.ACTION_INVOKED]: "Action invoked",
+  [EVENTS.ACTION_SETTLED]: "Action settled",
 };
 
 export const Wrapper = styled(({children, className}) => (

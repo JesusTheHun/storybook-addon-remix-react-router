@@ -3,7 +3,7 @@ import {Location, RouteMatch, useLocation} from "react-router-dom";
 import {addons} from '@storybook/addons';
 
 import {EVENTS} from "../constants";
-import {useRouterEvent} from "../hooks/useRouterEvent";
+import {useNavigationEventBuilder} from "../hooks/useNavigationEventBuilder";
 import {FCC} from "../fixes";
 import {useDeepRouteMatches} from "../hooks/useDeepRouteMatches";
 import {defer} from "../utils";
@@ -15,7 +15,7 @@ export const RouterLogger: FCC = ({ children }) => {
   const [loadedEventEmitted, setLoadedEventEmitted] = useState(false);
   const [lastEmittedRouteMatches, setLastEmittedRouteMatches] = useState<RouteMatch[]>([]);
 
-  const createEventData = useRouterEvent();
+  const buildEventData = useNavigationEventBuilder();
   const matches = useDeepRouteMatches();
 
   const storyLoadedEmitted = useRef(defer());
@@ -34,7 +34,7 @@ export const RouterLogger: FCC = ({ children }) => {
     const id = setTimeout(() => {
       if (!loadedEventEmitted) {
         setLoadedEventEmitted(true);
-        channel.emit(EVENTS.STORY_LOADED, createEventData(EVENTS.STORY_LOADED))
+        channel.emit(EVENTS.STORY_LOADED, buildEventData(EVENTS.STORY_LOADED))
       }
     }, 0);
 
@@ -44,7 +44,7 @@ export const RouterLogger: FCC = ({ children }) => {
   useEffect(() => {
     if (loadedAt !== undefined && loadedAt.key !== location.key) {
       storyLoadedEmitted.current.promise.then(() => {
-        channel.emit(EVENTS.NAVIGATION, createEventData(EVENTS.NAVIGATION));
+        channel.emit(EVENTS.NAVIGATION, buildEventData(EVENTS.NAVIGATION));
       })
     }
   }, [location]);
@@ -52,7 +52,7 @@ export const RouterLogger: FCC = ({ children }) => {
   useEffect(() => {
     if (loadedEventEmitted && (matches.length > lastEmittedRouteMatches.length)) {
       setLastEmittedRouteMatches(matches);
-      channel.emit(EVENTS.ROUTE_MATCHES, createEventData(EVENTS.ROUTE_MATCHES));
+      channel.emit(EVENTS.ROUTE_MATCHES, buildEventData(EVENTS.ROUTE_MATCHES));
     }
   }, [matches])
 

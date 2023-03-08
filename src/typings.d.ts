@@ -1,19 +1,21 @@
 import {EVENTS} from "./constants";
-import {NavigationType, RouteMatch} from "react-router-dom";
+import {ActionFunctionArgs, NavigationType, RouteMatch} from "react-router-dom";
 
 declare module "global";
 
 export type AddonEvents = typeof EVENTS;
-export type AddonEventsKeys = keyof AddonEvents;
-export type NavigationEventsKeys = Exclude<AddonEventsKeys, 'CLEAR'>;
-export type NavigationEventsValues = AddonEvents[NavigationEventsKeys];
+
+export type NavigationEventInternalKey = 'NAVIGATION' | 'STORY_LOADED' | 'ROUTE_MATCHES';
+export type NavigationEventName = AddonEvents[NavigationEventInternalKey];
+export type DataEventInternalKey = 'ACTION_INVOKED' | 'ACTION_SETTLED';
+export type DataEventName = AddonEvents[DataEventInternalKey];
 
 export type RouteMatchesData = Array<[RouteMatch['route']['path'], RouteMatch['params']]>;
 
-export type RouterEvent<T extends NavigationEventsKeys = NavigationEventsKeys> = {
+export type RouterEvent<T extends NavigationEventInternalKey = NavigationEventInternalKey> = {
   key: string;
   type: AddonEvents[T];
-  data: EventData[AddonEvents[T]];
+  data: NavigationEventData[AddonEvents[T]];
 }
 
 export type EventDataStoryLoaded = {
@@ -41,10 +43,25 @@ export type EventDataRouteMatches = {
   matches: RouteMatchesData;
 }
 
-export type EventData = {
+export type EventArgsActionInvoked = {
+  context?: ActionFunctionArgs['context'];
+  params: ActionFunctionArgs['params'];
+  request: ActionFunctionArgs['request'];
+}
+
+export type DataEventArgs = {
+  [EVENTS.ACTION_INVOKED]: EventArgsActionInvoked;
+  [EVENTS.ACTION_SETTLED]: unknown;
+}
+
+export type NavigationEventData = {
   [EVENTS.NAVIGATION]: EventDataNavigation;
   [EVENTS.STORY_LOADED]: EventDataStoryLoaded;
   [EVENTS.ROUTE_MATCHES]: EventDataRouteMatches;
+};
+
+export type DataEventData = {
+  [EVENTS.ACTION_INVOKED]: never;
 };
 
 export type WithRouterParameters = Partial<{

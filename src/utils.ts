@@ -1,5 +1,6 @@
 import { generatePath } from "react-router-dom";
-import {EventData, NavigationEventsValues} from "./typings";
+import {NavigationEventData, NavigationEventName} from "./typings";
+import {number} from "prop-types";
 
 export const generateAppUrl = (
   path: Parameters<typeof generatePath>[0],
@@ -30,4 +31,25 @@ export function defer<T = void>(): Deferred<T> {
   });
 
   return deferred as Deferred<T>;
+}
+
+export type FileSummary = { filename: string; filesize: number; filetype: string; };
+
+export function getFormDataSummary(formData: FormData): Record<string, string | FileSummary> {
+  const data: Record<string, string | FileSummary> = {};
+
+  formData.forEach((value, key) => {
+    if (value instanceof File) {
+      data[key] = {
+        filename: value.name,
+        filesize: value.size,
+        filetype: value.type,
+      };
+      return;
+    }
+
+    data[key] = value;
+  });
+
+  return data;
 }

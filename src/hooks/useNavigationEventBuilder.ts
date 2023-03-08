@@ -1,10 +1,12 @@
-import {EventData, NavigationEventsValues, RouteMatchesData, RouterEvent} from "../typings";
+import {NavigationEventData, NavigationEventName, RouteMatchesData} from "../typings";
 import {EVENTS} from "../constants";
 import {useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
 import {useCurrentUrl} from "./useCurrentUrl";
 import {useDeepRouteMatches} from "./useDeepRouteMatches";
+import {useRef} from "react";
 
-export const useRouterEvent = () => {
+export const useNavigationEventBuilder = () => {
+  const eventCount = useRef(0);
   const location = useLocation();
   const params = useParams();
   const [search] = useSearchParams();
@@ -24,10 +26,10 @@ export const useRouterEvent = () => {
     routeMatch.params,
   ]));
 
-  return (eventName: NavigationEventsValues): RouterEvent<any> => {
+  return (eventName: NavigationEventName) => {
     switch (eventName) {
       case EVENTS.STORY_LOADED: {
-        const eventData: EventData[typeof eventName] = {
+        const eventData: NavigationEventData[typeof eventName] = {
           url: currentUrl,
           path: location.pathname,
           routeParams: params,
@@ -38,14 +40,14 @@ export const useRouterEvent = () => {
         };
 
         return {
-          key: `${EVENTS.STORY_LOADED}_${location.key}${Math.random()}`,
+          key: `${EVENTS.STORY_LOADED}_${eventCount.current++}`,
           type: EVENTS.STORY_LOADED,
           data: eventData
         };
       }
 
       case EVENTS.NAVIGATION: {
-        const eventData: EventData[typeof eventName] = {
+        const eventData: NavigationEventData[typeof eventName] = {
           url: currentUrl,
           path: location.pathname,
           routeParams: params,
@@ -57,7 +59,7 @@ export const useRouterEvent = () => {
         };
 
         return {
-          key: `${EVENTS.NAVIGATION}_${location.key}`,
+          key: `${EVENTS.NAVIGATION}_${eventCount.current++}`,
           type: EVENTS.NAVIGATION,
           data: eventData
         };
@@ -65,7 +67,7 @@ export const useRouterEvent = () => {
 
       case EVENTS.ROUTE_MATCHES: {
         return {
-          key: `${EVENTS.ROUTE_MATCHES}_${location.key}-${matchesData.length}`,
+          key: `${EVENTS.ROUTE_MATCHES}_${eventCount.current++}`,
           type: EVENTS.ROUTE_MATCHES,
           data: { matches: matchesData }
         };

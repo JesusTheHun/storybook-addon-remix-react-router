@@ -1,27 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {describe, expect, it, vi} from 'vitest'
 import {render, screen, waitFor} from '@testing-library/react';
 import {StoryRouteTree} from "./StoryRouteTree";
-import {
-  ActionFunctionArgs, Form,
-  Link, LoaderFunctionArgs,
-  Outlet,
-  Route,
-  Routes, useFetcher,
-  useLoaderData,
-  useLocation, useNavigation,
-  useParams, useRouteError,
-  useSearchParams
-} from "react-router-dom";
-import {addTodo, deleteTodo, getTodos, Todos} from "../../Legacy/DataRouter/todos";
 import userEvent from "@testing-library/user-event";
-import { composeStories } from '@storybook/testing-react';
+import {composeStories} from '@storybook/testing-react';
 
 import * as BasicStories from '../../stories/StoryRouteTree/Basics.stories';
 import * as NestingStories from '../../stories/StoryRouteTree/Nesting.stories';
 import * as LoaderStories from '../../stories/StoryRouteTree/DataRouter/Loader.stories';
 import * as ActionStories from '../../stories/StoryRouteTree/DataRouter/Action.stories';
 import * as ComplexStories from '../../stories/StoryRouteTree/DataRouter/Complex.stories';
+import {FileFormData} from "../../stories/StoryRouteTree/DataRouter/Action.stories";
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {
@@ -147,13 +136,14 @@ describe('StoryRouteTree', () => {
   describe('Action', () => {
 
     const {
-      FormData
+      TextFormData,
+      FileFormData
     } = composeStories(ActionStories);
 
-    it('should handle route actions properly', async () => {
+    it('should handle route action with text form', async () => {
       const action = vi.fn();
 
-      render(<FormData action={action} />);
+      render(<TextFormData action={action} />);
 
       const user = userEvent.setup();
       await user.click(screen.getByRole('button'));
@@ -162,10 +152,35 @@ describe('StoryRouteTree', () => {
       expect(action.mock.lastCall[0].request).toBeInstanceOf(Request);
 
       const formData = await (action.mock.lastCall[0].request as Request).formData();
-      // @ts-ignore
       const pojoFormData = Object.fromEntries(formData.entries());
 
       expect(pojoFormData).toEqual({ foo: "bar" });
+    });
+
+    it('should handle route action with file form', async () => {
+      const action = vi.fn();
+
+      const file = new File(['hello'], 'hello.txt', {type: 'plain/text'})
+
+      render(<FileFormData action={action} />);
+
+      const input = screen.getByLabelText(/file/i) as HTMLInputElement;
+
+      const user = userEvent.setup();
+      await user.upload(input, file);
+      await user.click(screen.getByRole('button'));
+
+      expect(input.files.item(0)).toStrictEqual(file)
+      expect(input.files).toHaveLength(1)
+
+      expect(action).toHaveBeenCalledOnce();
+      expect(action.mock.lastCall[0].request).toBeInstanceOf(Request);
+
+      const request = action.mock.lastCall[0].request as Request;
+      const formData = await request.formData();
+      const pojoFormData = Object.fromEntries(formData.entries());
+
+      expect(pojoFormData).toHaveProperty('myFile');
     });
   });
 

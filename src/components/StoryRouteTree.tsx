@@ -1,11 +1,17 @@
 import React, {useState} from "react";
-import {ActionFunction, Route, RouteMatch} from "react-router-dom";
+import {ActionFunction, Route, RouteMatch, RouteObject} from "react-router-dom";
 import {RouterLogger} from "./RouterLogger";
 import {FCC} from "../fixes";
 import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
 import {UNSAFE_RouteContext} from "react-router";
 import {StoryRouter} from "./StoryRouter";
 import {HydrationState, LoaderFunction} from "@remix-run/router";
+import {addons} from "@storybook/addons";
+import { EVENTS } from "../constants";
+import Channel from "@storybook/channels";
+import {ActionFunctionArgs} from "@remix-run/router/utils";
+import {useNavigationEventBuilder} from "../hooks/useNavigationEventBuilder";
+import {useDataEventBuilder} from "../hooks/useDataEventBuilder";
 
 type OutletProps = {
   element: React.ReactNode;
@@ -44,8 +50,8 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   action,
   loader,
   errorElement,
-
 }) => {
+  const channel = addons.getChannel();
   const [deepRouteMatches, setDeepRouteMatches] = useState<RouteMatch[]>([]);
 
   // @ts-ignore
@@ -81,7 +87,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
                    browserPath={userBrowserPath} hydrationData={hydrationData}>
         <Route
           path={routePath}
-          action={action}
+          action={actionWrapper(channel, action)}
           loader={loader}
           errorElement={errorElement}
           element={
@@ -100,4 +106,18 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
 
 function isOutletProps(test: unknown): test is OutletProps {
   return test !== null && typeof test === 'object' && Object.prototype.hasOwnProperty.call(test, 'element');
+}
+
+function actionWrapper(channel: Channel, action: ActionFunction): ActionFunction {
+  const createEventData = useDataEventBuilder();
+
+  return async function(actionArgs: ActionFunctionArgs) {
+    if (action === undefined) return;
+
+    channel.emit(EVENTS.ACTION_INVOKED, await createEventData(EVENTS.ACTION_INVOKED, actionArgs));
+    const actionResult = await action(actionArgs);
+    channel.emit(EVENTS.ACTION_SETTLED, await createEventData(EVENTS.ACTION_SETTLED, actionResult));
+
+    return actionResult;
+  }
 }
