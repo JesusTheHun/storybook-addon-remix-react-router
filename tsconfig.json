@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
@@ -19,4 +20,7 @@
     "src/**/*",
     "stories/**/*"
   ],
+  "exclude": [
+    "**/node_modules"
+  ]
 }

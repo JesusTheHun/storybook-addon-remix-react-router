@@ -6,7 +6,7 @@ import {PARAM_KEY} from "./constants";
 export const withRouter = makeDecorator({
   name: "withRouter",
   parameterName: PARAM_KEY,
-  wrapper: (story: (...args: any[]) => React.ReactNode, context, {parameters = {}} ) => {
+  wrapper: (story: (...args: any[]) => unknown, context, {parameters = {}} ) => {
     const {
       routePath = '*',
       routeParams,
@@ -35,7 +35,7 @@ export const withRouter = makeDecorator({
         action={action}
         hydrationData={hydrationData}
       >
-        {story(context)}
+        {story(context) as React.ReactNode}
       </StoryRouteTree>
     )
   }

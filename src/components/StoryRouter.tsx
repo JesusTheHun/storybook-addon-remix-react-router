@@ -1,6 +1,6 @@
 import React, {PropsWithChildren, useLayoutEffect, useState} from 'react';
-import {InitialEntry, Router} from "@remix-run/router";
-import {createMemoryRouter, createRoutesFromElements, generatePath, RouterProvider,} from "react-router-dom";
+import {InitialEntry} from "@remix-run/router";
+import {createMemoryRouter, createRoutesFromElements, generatePath, RouterProvider} from "react-router-dom";
 import {StoryRouterProps} from "./StoryRouteTree";
 
 export const StoryRouter = ({
@@ -12,10 +12,10 @@ export const StoryRouter = ({
   browserPath: userBrowserPath,
   hydrationData,
 }: PropsWithChildren<StoryRouterProps>) => {
-  const [router, setRouter] = useState<Router>();
+  const [router, setRouter] = useState<ReturnType<typeof createMemoryRouter>>();
 
   useLayoutEffect(() => {
-    const generatedPath = generatePath(routePath, routeParams);
+    const generatedPath = generatePath(routePath || '', routeParams);
     const queryString = new URLSearchParams(searchParams).toString();
     const search = queryString.length > 0 ? `?${queryString}` : '';
 

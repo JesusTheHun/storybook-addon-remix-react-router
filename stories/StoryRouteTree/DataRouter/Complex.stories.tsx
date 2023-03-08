@@ -52,7 +52,7 @@ function initializeTodos(): Todos {
 function getTodos(): Todos {
   let todos: Todos | null = null;
   try {
-    todos = JSON.parse(localStorage.getItem(TODOS_KEY));
+    todos = JSON.parse(localStorage.getItem(TODOS_KEY) || '[]');
   } catch (e) {}
   if (!todos) {
     todos = initializeTodos();

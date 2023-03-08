@@ -1,5 +1,5 @@
 import {EVENTS} from "./constants";
-import {ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch} from "react-router-dom";
+import {ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch, useParams} from "react-router-dom";
 
 declare module "global";
 
@@ -22,7 +22,7 @@ export type EventDataStoryLoaded = {
   url: string;
   path: string;
   hash: string;
-  routeParams: Record<string, string>;
+  routeParams: ReturnType<useParams>;
   routeState: unknown;
   searchParams: Record<string, string>;
   routeMatches: RouteMatchesData;
@@ -33,7 +33,7 @@ export type EventDataNavigation = {
   navigationType: NavigationType;
   path: string;
   hash: string;
-  routeParams: Record<string, string>;
+  routeParams: ReturnType<useParams>;
   searchParams: Record<string, string>;
   routeState: unknown;
   routeMatches: RouteMatchesData;

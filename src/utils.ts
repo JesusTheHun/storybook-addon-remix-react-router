@@ -54,13 +54,12 @@ export function getFormDataSummary(formData: FormData): Record<string, string | 
 
 export async function getHumanReadableBody(request: Request) {
   const requestClone = request.clone();
-  const contentTypeHeader = requestClone.headers.get('content-type');
+  const contentTypeHeader = requestClone.headers.get('content-type') || '';
 
-  let humanReadableBody: string | Record<string, string | FileSummary>;
+  let humanReadableBody: string | Record<string, string | FileSummary> | undefined = undefined;
   let requestBodySize: number;
 
   switch (true) {
-    case contentTypeHeader === null: break;
     case contentTypeHeader.startsWith('text'): humanReadableBody = await requestClone.text(); break;
     case contentTypeHeader.startsWith('application/json'): humanReadableBody = await requestClone.json(); break;
     case contentTypeHeader.startsWith('multipart/form-data'):

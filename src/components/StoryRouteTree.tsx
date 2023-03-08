@@ -59,7 +59,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
     set(target: Ctx, p: keyof Ctx, v: Ctx[keyof Ctx]) {
       if (p === '_currentValue') {
         setDeepRouteMatches(currentMatches => {
-          if (v.matches.length > currentMatches.length) {
+          if (v !== undefined && v.matches.length > currentMatches.length) {
             return v.matches;
           }
           return currentMatches;

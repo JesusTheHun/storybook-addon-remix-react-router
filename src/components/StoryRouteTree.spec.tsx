@@ -149,9 +149,10 @@ describe('StoryRouteTree', () => {
       await user.click(screen.getByRole('button'));
 
       expect(action).toHaveBeenCalledOnce();
-      expect(action.mock.lastCall[0].request).toBeInstanceOf(Request);
 
-      const formData = await (action.mock.lastCall[0].request as Request).formData();
+      expect(action.mock!.lastCall![0].request).toBeInstanceOf(Request);
+
+      const formData = await (action.mock!.lastCall![0].request as Request).formData();
       const pojoFormData = Object.fromEntries(formData.entries());
 
       expect(pojoFormData).toEqual({ foo: "bar" });
@@ -170,13 +171,13 @@ describe('StoryRouteTree', () => {
       await user.upload(input, file);
       await user.click(screen.getByRole('button'));
 
-      expect(input.files.item(0)).toStrictEqual(file)
-      expect(input.files).toHaveLength(1)
+      expect(input.files).toHaveLength(1);
+      expect(input.files!.item(0)).toStrictEqual(file)
 
       expect(action).toHaveBeenCalledOnce();
-      expect(action.mock.lastCall[0].request).toBeInstanceOf(Request);
+      expect(action.mock!.lastCall![0].request).toBeInstanceOf(Request);
 
-      const request = action.mock.lastCall[0].request as Request;
+      const request = action.mock!.lastCall![0].request as Request;
       const formData = await request.formData();
       const pojoFormData = Object.fromEntries(formData.entries());
 
