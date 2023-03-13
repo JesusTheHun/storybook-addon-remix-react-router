@@ -9,6 +9,7 @@
 
 ## Recent changes
 
+✅ Support for data routers `react-router 6.4+`  
 ✅ Support for descendant `<Routes>`   
 ✅ `withRouter` decorator parameters now accept `{ outlet: React.ReactNode }`
 
@@ -86,40 +87,43 @@ export const parameters = {
 }
 ```
 
-## Outlet
+## Data Router
 
-If your component renders an outlet, you can use composition to render your outlet _manually_, or you can set the `outlet` property :
-
-<details>
-    
-<summary>Composition (manually)</summary>
-
-```jsx
-const CompositionTemplate = ({outlet, ...args}) => (
-    <Routes>
-        <Route path={"/"} element={<Menu {...args} />}>
-            <Route index element={outlet} />
-        </Route>
-     </Routes>
-);
-    
-export const Composition = CompositionTemplate.bind({});
-Composition.args = {
-    outlet: <OrdersSubMenu />
-}
-```
-
-</details>
-
-Usage of the `outlet` property :
+If you use the data routers of `react-router 6.4+`, such as `<BrowserRouter />`, you can use the following properties :
 
 ```js
-export const MenuWithOrdersContext = () => <Menu />;
-MenuWithOrdersContext.story = {
+export const Example = () => <Articles />;
+Example.story = {
+  parameters: {
+    reactRouter: {
+      routePath: '/articles',
+      loader: fetchArticlesFunction,
+      action: articlesActionFunction,
+      errorElement: <FancyErrorComponent />,
+    }
+  }
+};
+```
+
+## Outlet
+
+If your component renders an outlet, you can set the `outlet` property :
+
+```js
+export const Example = () => <Articles />;
+Example.story = {
     parameters: {
         reactRouter: {
-            routePath: '/account',
-            outlet: <OrdersSubMenu />,
+            routePath: '/articles',
+            outlet: {
+                element: <Article />,
+                path: ':articleId',
+                loader: yourLoaderFunction,
+                action: yourActionFunction,
+                errorElement: <FancyErrorComponent />,
+            },
+            // Or simply
+            outlet: <MostRecentArticles />,
         }
     }
 };
@@ -156,6 +160,12 @@ SpecificPath.story = {
   }
 }
 ```
+
+## Dedicated panel
+
+Navigation events, loader and actions are logged, for you to better understand the lifecycle of your components.
+
+![Addon Panel](https://user-images.githubusercontent.com/94478/224843029-b37ff60d-10f8-4198-bbc3-f26e2775437f.png)
 
 ## Compatibility
 
