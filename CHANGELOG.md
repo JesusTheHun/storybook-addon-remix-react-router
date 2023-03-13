@@ -1,3 +1,24 @@
+# v0.2.2 (Mon Mar 13 2023)
+
+#### ⚠️ Pushed to `main`
+
+- feat(readme): add data router information ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat(ci): add tests to CI steps ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: ts strict ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: ci ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: log route loader ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: log route outlet action ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat: log route action ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix: faulty router initialization ([@JesusTheHun](https://github.com/JesusTheHun))
+- wip: tests ([@JesusTheHun](https://github.com/JesusTheHun))
+- wip: impl ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.1.15 (Tue Aug 30 2022)
 
 #### ⚠️ Pushed to `main`
