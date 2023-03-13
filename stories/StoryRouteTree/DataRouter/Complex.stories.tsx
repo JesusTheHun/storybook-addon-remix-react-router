@@ -38,7 +38,7 @@ function saveTodos(todos: Todos): void {
 }
 
 function initializeTodos(): Todos {
-  let todos: Todos = new Array(10)
+  let todos: Todos = new Array(3)
     .fill(null)
     .reduce(
       (acc, _, index) =>
@@ -50,14 +50,13 @@ function initializeTodos(): Todos {
 }
 
 function getTodos(): Todos {
-  let todos: Todos | null = null;
-  try {
-    todos = JSON.parse(localStorage.getItem(TODOS_KEY) || '[]');
-  } catch (e) {}
-  if (!todos) {
-    todos = initializeTodos();
+  const todosFromStorage = localStorage.getItem(TODOS_KEY);
+
+  if (todosFromStorage === null) {
+    return initializeTodos();
   }
-  return todos;
+
+  return JSON.parse(todosFromStorage);
 }
 
 function addTodo(todo: string): void {
