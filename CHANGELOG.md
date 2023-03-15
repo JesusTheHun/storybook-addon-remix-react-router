@@ -1,3 +1,16 @@
+# v0.3.1 (Wed Mar 15 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(ts): restore ts rootDir to src ([@JesusTheHun](https://github.com/JesusTheHun))
+- misc(npm): bump version ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.2.2 (Mon Mar 13 2023)
 
 #### ⚠️ Pushed to `main`
