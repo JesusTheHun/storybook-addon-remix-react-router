@@ -5,12 +5,12 @@ import {StoryRouteTree} from "./StoryRouteTree";
 import userEvent from "@testing-library/user-event";
 import {composeStories} from '@storybook/testing-react';
 
-import * as BasicStories from '../../stories/StoryRouteTree/Basics.stories';
-import * as NestingStories from '../../stories/StoryRouteTree/Nesting.stories';
-import * as LoaderStories from '../../stories/StoryRouteTree/DataRouter/Loader.stories';
-import * as ActionStories from '../../stories/StoryRouteTree/DataRouter/Action.stories';
-import * as ComplexStories from '../../stories/StoryRouteTree/DataRouter/Complex.stories';
-import {FileFormData} from "../../stories/StoryRouteTree/DataRouter/Action.stories";
+import * as BasicStories from '../stories/StoryRouteTree/Basics.stories';
+import * as NestingStories from '../stories/StoryRouteTree/Nesting.stories';
+import * as LoaderStories from '../stories/StoryRouteTree/DataRouter/Loader.stories';
+import * as ActionStories from '../stories/StoryRouteTree/DataRouter/Action.stories';
+import * as ComplexStories from '../stories/StoryRouteTree/DataRouter/Complex.stories';
+import {FileFormData} from "../stories/StoryRouteTree/DataRouter/Action.stories";
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {

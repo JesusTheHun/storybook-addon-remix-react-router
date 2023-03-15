@@ -1,5 +1,5 @@
 import React from "react";
-import {StoryRouteTree} from "../../src/components/StoryRouteTree";
+import {StoryRouteTree} from "../../components/StoryRouteTree";
 import {Outlet, useLocation, useParams, useSearchParams} from "react-router-dom";
 
 export default {

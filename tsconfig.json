@@ -12,15 +12,11 @@
     "lib": ["es2020", "dom", "dom.iterable"],
     "module": "commonjs",
     "noImplicitAny": true,
-    "rootDir": "./",
+    "rootDir": "./src",
     "skipLibCheck": true,
     "target": "es2020"
   },
   "include": [
-    "src/**/*",
-    "stories/**/*"
+    "src/**/*"
   ],
-  "exclude": [
-    "**/node_modules"
-  ]
 }

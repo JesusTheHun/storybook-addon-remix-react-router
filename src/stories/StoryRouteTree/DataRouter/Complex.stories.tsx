@@ -15,7 +15,7 @@ import {
   useNavigation,
   useParams
 } from "react-router-dom";
-import {StoryRouteTree} from "../../../src/components/StoryRouteTree";
+import {StoryRouteTree} from "../../../components/StoryRouteTree";
 
 export default {
   component: StoryRouteTree,
