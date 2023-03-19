@@ -9,9 +9,9 @@
 
 ## Recent changes
 
+✅ Add support for route handle  
 ✅ Support for data routers `react-router 6.4+`  
-✅ Support for descendant `<Routes>`   
-✅ `withRouter` decorator parameters now accept `{ outlet: React.ReactNode }`
+✅ Support for descendant `<Routes>`
 
 ## Getting Started
 Install the package
@@ -66,6 +66,7 @@ Example.story = {
     reactRouter: {
       routePath: '/users/:userId',
       routeParams: { userId: '42' },
+      routeHandle: "Profile",
       searchParams: { tab: 'activityLog' },
       routeState: { fromPage: 'homePage' },
     }
@@ -117,6 +118,7 @@ Example.story = {
             routePath: '/articles',
             outlet: {
                 element: <Article />,
+                handle: "Article",
                 path: ':articleId',
                 loader: yourLoaderFunction,
                 action: yourActionFunction,

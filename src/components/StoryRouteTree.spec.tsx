@@ -11,6 +11,7 @@ import * as LoaderStories from '../stories/StoryRouteTree/DataRouter/Loader.stor
 import * as ActionStories from '../stories/StoryRouteTree/DataRouter/Action.stories';
 import * as ComplexStories from '../stories/StoryRouteTree/DataRouter/Complex.stories';
 import {FileFormData} from "../stories/StoryRouteTree/DataRouter/Action.stories";
+import {MatchesHandles} from "../stories/StoryRouteTree/Basics.stories";
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {
@@ -21,6 +22,8 @@ describe('StoryRouteTree', () => {
       OutletConfigObject,
       SpecificPath,
       RouteParams,
+      MatchesHandles,
+      MatchesHandlesInsideOutlet,
       SearchParams,
     } = composeStories(BasicStories);
 
@@ -42,6 +45,16 @@ describe('StoryRouteTree', () => {
     it('should render component with the specified search params', async () => {
       render(<SearchParams />);
       expect(screen.getByText('{"page":"42"}')).toBeInTheDocument();
+    });
+
+    it('should render component with the specified route handle', async () => {
+      render(<MatchesHandles />);
+      expect(screen.getByText('["Hi"]')).toBeInTheDocument();
+    });
+
+    it('should render component and its outlet with the specified route handles', async () => {
+      render(<MatchesHandlesInsideOutlet />);
+      expect(screen.getByText('["Hi","Yall"]')).toBeInTheDocument();
     });
 
     it('should render outlet component', () => {

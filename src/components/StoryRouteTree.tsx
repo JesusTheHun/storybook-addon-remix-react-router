@@ -16,6 +16,7 @@ import {useDataEventBuilder} from "../hooks/useDataEventBuilder";
 type OutletProps = {
   element: React.ReactNode;
   path?: string;
+  handle?: unknown;
   loader?: LoaderFunction;
   action?: ActionFunction;
   errorElement?: React.ReactNode | null;
@@ -25,6 +26,7 @@ export type StoryRouterProps = {
   browserPath?: string;
   routePath?: string;
   routeParams?: Record<string, string>;
+  routeHandle?: unknown;
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
   routeState?: unknown;
   outlet?: React.ReactNode | OutletProps;
@@ -43,6 +45,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   browserPath: userBrowserPath,
   routePath = '*',
   routeParams,
+  routeHandle,
   searchParams,
   routeState,
   outlet,
@@ -76,6 +79,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
 
   const outletExpandProps = {
     element: outletConfig.element,
+    handle: outletConfig.handle,
     errorElement: outletConfig.errorElement,
     action: outletConfig.action !== undefined ? actionWrapper(channel, outletConfig.action) : undefined,
     loader: outletConfig.loader !== undefined ? loaderWrapper(channel, outletConfig.loader) : undefined,
@@ -87,6 +91,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
                    browserPath={userBrowserPath} hydrationData={hydrationData}>
         <Route
           path={routePath}
+          handle={routeHandle}
           action={action !== undefined ? actionWrapper(channel, action) : undefined}
           loader={loader !== undefined ? loaderWrapper(channel, loader) : undefined}
           errorElement={errorElement}

@@ -1,6 +1,6 @@
 import React from "react";
 import {StoryRouteTree} from "../../components/StoryRouteTree";
-import {Outlet, useLocation, useParams, useSearchParams} from "react-router-dom";
+import {Outlet, Route, useLocation, useMatches, useParams, useSearchParams} from "react-router-dom";
 
 export default {
   component: StoryRouteTree,
@@ -46,6 +46,29 @@ export const SearchParams = {
   args: {
     searchParams: { page: '42' },
     children: <ShowSearchParams />,
+  }
+}
+
+function ShowHandles() {
+  const matches = useMatches();
+  return <p>{JSON.stringify(matches.map(m => m.handle))}</p>;
+}
+
+export const MatchesHandles = {
+  args: {
+    routeHandle: "Hi",
+    children: <ShowHandles />,
+  }
+}
+
+export const MatchesHandlesInsideOutlet = {
+  args: {
+    routeHandle: "Hi",
+    children: <Outlet />,
+    outlet: {
+      handle: "Yall",
+      element: <ShowHandles />,
+    }
   }
 }
 
