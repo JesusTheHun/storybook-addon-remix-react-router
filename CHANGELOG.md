@@ -1,3 +1,15 @@
+# v0.3.2 (Sun Mar 19 2023)
+
+#### ⚠️ Pushed to `main`
+
+- feat: add support for route handle ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.3.1 (Wed Mar 15 2023)
 
 #### ⚠️ Pushed to `main`
