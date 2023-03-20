@@ -11,6 +11,7 @@ export const withRouter = makeDecorator({
       routePath = '*',
       routeParams,
       routeState,
+      routeHandle,
       searchParams,
       outlet,
       browserPath,
@@ -30,6 +31,7 @@ export const withRouter = makeDecorator({
         routeParams={routeParams}
         searchParams={searchParams}
         routeState={routeState}
+        routeHandle={routeHandle}
         outlet={outlet}
         loader={loader}
         action={action}
