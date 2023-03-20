@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-react-router-v6",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Use React Router v6 in your stories",
   "keywords": [
     "storybook-addons",
