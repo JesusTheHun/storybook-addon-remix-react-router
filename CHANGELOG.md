@@ -1,3 +1,16 @@
+# v0.3.3 (Mon Mar 20 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix: story decorator not passing errorElement to the wrapping component ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix: story decorator not passing routeHandle to the wraping component ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.3.2 (Sun Mar 19 2023)
 
 #### ⚠️ Pushed to `main`
