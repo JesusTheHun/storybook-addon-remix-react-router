@@ -1,11 +1,7 @@
-import {
-  DataEventName,
-  DataEventArgs,
-  RouterEvent
-} from "../typings";
+import {DataEventArgs, DataEventName, RouterEvent} from "../typings";
 import {EVENTS} from "../constants";
 import {useRef} from "react";
-import {FileSummary, getFormDataSummary, getHumanReadableBody} from "../utils";
+import {getHumanReadableBody} from "../utils";
 
 export const useDataEventBuilder = () => {
   const eventCount = useRef(0);
@@ -18,7 +14,7 @@ export const useDataEventBuilder = () => {
         const requestData = {
           url: request.url,
           method: request.method,
-          body: getHumanReadableBody(request),
+          body: await getHumanReadableBody(request),
         }
 
         return {

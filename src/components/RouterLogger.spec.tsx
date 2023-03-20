@@ -128,6 +128,37 @@ describe('RouterLogger', () => {
     });
   });
 
+  it<LocalTestContext>('should log file info when route action is triggered', async (context) => {
+    const { FileFormData } = composeStories(ActionStories);
+
+    render(<FileFormData />);
+
+    const file = new File(['hello'], 'hello.txt', {type: 'plain/text'})
+    const input = screen.getByLabelText(/file/i) as HTMLInputElement;
+
+    const user = userEvent.setup();
+    await user.upload(input, file);
+    await user.click(screen.getByRole('button'));
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_INVOKED, {
+        type: EVENTS.ACTION_INVOKED,
+        key: expect.stringContaining(EVENTS.ACTION_INVOKED),
+        data: {
+          context: undefined,
+          params: { '*': '' },
+          request: {
+            url: "http://localhost/",
+            method: "POST",
+            body: {
+              myFile: '[object File]',
+            }
+          },
+        },
+      });
+    });
+  });
+
   it<LocalTestContext>('should log when data router action settled', async (context) => {
     const { TextFormData } = composeStories(ActionStories);
     render(<TextFormData />);

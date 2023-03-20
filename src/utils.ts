@@ -70,9 +70,5 @@ export async function getHumanReadableBody(request: Request) {
     default: requestBodySize = await requestClone.arrayBuffer().then(b => b.byteLength);
   }
 
-  return {
-    url: requestClone.url,
-    method: requestClone.method,
-    body: humanReadableBody,
-  }
+  return humanReadableBody;
 }
