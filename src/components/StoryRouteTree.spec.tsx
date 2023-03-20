@@ -156,7 +156,9 @@ describe('StoryRouteTree', () => {
     it('should handle route action with text form', async () => {
       const action = vi.fn();
 
-      render(<TextFormData action={action} />);
+      TextFormData.parameters!.reactRouter.action = action;
+
+      render(<TextFormData />);
 
       const user = userEvent.setup();
       await user.click(screen.getByRole('button'));
@@ -174,9 +176,11 @@ describe('StoryRouteTree', () => {
     it('should handle route action with file form', async () => {
       const action = vi.fn();
 
+      FileFormData.parameters!.reactRouter.action = action;
+
       const file = new File(['hello'], 'hello.txt', {type: 'plain/text'})
 
-      render(<FileFormData action={action} />);
+      render(<FileFormData />);
 
       const input = screen.getByLabelText(/file/i) as HTMLInputElement;
 

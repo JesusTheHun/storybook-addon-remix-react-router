@@ -1,15 +1,16 @@
 import React from "react";
-import {StoryRouteTree} from "../../components/StoryRouteTree";
-import {Outlet, Route, useLocation, useMatches, useParams, useSearchParams} from "react-router-dom";
+import {Outlet, useLocation, useMatches, useParams, useSearchParams} from "react-router-dom";
+import {withRouter} from "../../withRouter";
+import {FCC} from "src/fixes";
+
+const DummyComponent: FCC = ({ children }) => <>{children}</>;
 
 export default {
-  component: StoryRouteTree,
+  decorators: [withRouter],
 };
 
 export const RenderChildren = {
-  args: {
-    children: <h1>Hi</h1>
-  }
+  render: () => <h1>Hi</h1>,
 }
 
 function ShowPath() {
@@ -18,9 +19,11 @@ function ShowPath() {
 }
 
 export const SpecificPath = {
-  args: {
-    routePath: '/foo',
-    children: <ShowPath />,
+  render: () => <ShowPath />,
+  parameters: {
+    reactRouter: {
+      routePath: '/foo',
+    }
   }
 }
 
@@ -30,10 +33,12 @@ function ShowRouteParams() {
 }
 
 export const RouteParams = {
-  args: {
-    routePath: '/book/:id',
-    routeParams: { id: '42' },
-    children: <ShowRouteParams />,
+  render: () => <ShowRouteParams />,
+  parameters: {
+    reactRouter: {
+      routePath: '/book/:id',
+      routeParams: { id: '42' },
+    }
   }
 }
 
@@ -43,9 +48,11 @@ function ShowSearchParams() {
 }
 
 export const SearchParams = {
-  args: {
-    searchParams: { page: '42' },
-    children: <ShowSearchParams />,
+  render: () => <ShowSearchParams />,
+  parameters: {
+    reactRouter: {
+      searchParams: { page: '42' },
+    }
   }
 }
 
@@ -55,35 +62,43 @@ function ShowHandles() {
 }
 
 export const MatchesHandles = {
-  args: {
-    routeHandle: "Hi",
-    children: <ShowHandles />,
+  render: () => <ShowHandles />,
+  parameters: {
+    reactRouter: {
+      routeHandle: "Hi",
+    }
   }
 }
 
 export const MatchesHandlesInsideOutlet = {
-  args: {
-    routeHandle: "Hi",
-    children: <Outlet />,
-    outlet: {
-      handle: "Yall",
-      element: <ShowHandles />,
+  render: () => <ShowHandles />,
+  parameters: {
+    reactRouter: {
+      routeHandle: "Hi",
+      outlet: {
+        handle: "Yall",
+        element: <ShowHandles />,
+      }
     }
   }
 }
 
 export const OutletJSX = {
-  args: {
-    outlet: <h1>I'm an outlet</h1>,
-    children: <Outlet />,
+  render: () => <Outlet />,
+  parameters: {
+    reactRouter: {
+      outlet: <h1>I'm an outlet</h1>,
+    }
   }
 }
 
 export const OutletConfigObject = {
-  args: {
-    outlet: {
-      element: <h1>I'm an outlet defined with a config object</h1>,
-    },
-    children: <Outlet />,
+  render: () => <Outlet />,
+  parameters: {
+    reactRouter: {
+      outlet: {
+        element: <h1>I'm an outlet defined with a config object</h1>,
+      },
+    }
   }
 }

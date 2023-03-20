@@ -17,6 +17,7 @@ export const withRouter = makeDecorator({
       browserPath,
       loader,
       action,
+      errorElement,
       hydrationData,
     } = parameters;
 
@@ -35,6 +36,7 @@ export const withRouter = makeDecorator({
         outlet={outlet}
         loader={loader}
         action={action}
+        errorElement={errorElement}
         hydrationData={hydrationData}
       >
         {story(context) as React.ReactNode}

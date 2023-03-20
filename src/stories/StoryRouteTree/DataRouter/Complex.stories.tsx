@@ -16,9 +16,10 @@ import {
   useParams
 } from "react-router-dom";
 import {StoryRouteTree} from "../../../components/StoryRouteTree";
+import {withRouter} from "../../../withRouter";
 
 export default {
-  component: StoryRouteTree,
+  decorators: [withRouter],
 };
 
 function sleep(n: number = 500) {
@@ -69,11 +70,6 @@ function deleteTodo(id: string): void {
   let newTodos = { ...getTodos() };
   delete newTodos[id];
   saveTodos(newTodos);
-}
-
-function resetTodos(): void {
-  localStorage.removeItem(TODOS_KEY);
-  initializeTodos();
 }
 
 async function todoListAction({ request }: ActionFunctionArgs) {
@@ -197,15 +193,17 @@ async function todoLoader({ params }: LoaderFunctionArgs) {
 }
 
 export const TodoListScenario = {
-  args: {
-    routePath: '/todos',
-    loader: todoListLoader,
-    action: todoListAction,
-    outlet: {
-      path: ':id',
-      element: <Todo />,
-      loader: todoLoader,
-    },
-    children: <TodosList />,
+  render: () => <TodosList />,
+  parameters: {
+    reactRouter: {
+      routePath: '/todos',
+      loader: todoListLoader,
+      action: todoListAction,
+      outlet: {
+        path: ':id',
+        element: <Todo />,
+        loader: todoLoader,
+      },
+    }
   }
 }

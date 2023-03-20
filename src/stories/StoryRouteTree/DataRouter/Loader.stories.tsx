@@ -1,9 +1,9 @@
 import React from "react";
 import {Outlet, useLoaderData, useRouteError} from "react-router-dom";
-import {StoryRouteTree} from "../../../components/StoryRouteTree";
+import {withRouter} from "../../../withRouter";
 
 export default {
-  component: StoryRouteTree,
+  decorators: [withRouter],
 };
 
 function sleep(n: number = 500) {
@@ -20,9 +20,11 @@ function DataLoader() {
 }
 
 export const RouteLoader = {
-  args: {
-    loader: loader("Data loaded"),
-    children: <DataLoader />,
+  render: () => <DataLoader />,
+  parameters: {
+    reactRouter: {
+      loader: loader("Data loaded"),
+    }
   }
 }
 
@@ -47,13 +49,15 @@ function DataLoaderOutlet() {
 }
 
 export const RouteAndOutletLoader = {
-  args: {
-    loader: loader("Data loaded"),
-    children: <DataLoaderWithOutlet />,
-    outlet: {
-      element: <DataLoaderOutlet />,
-      loader: loader("Outlet data loaded"),
-    },
+  render: () => <DataLoaderWithOutlet />,
+  parameters: {
+    reactRouter: {
+      loader: loader("Data loaded"),
+      outlet: {
+        element: <DataLoaderOutlet />,
+        loader: loader("Outlet data loaded"),
+      },
+    }
   }
 }
 
@@ -68,9 +72,11 @@ async function failingLoader() {
 }
 
 export const ErrorBoundary = {
-  args: {
-    loader: failingLoader,
-    errorElement: <DataErrorBoundary />,
-    children: <DataLoader />,
+  render: () => <DataLoader />,
+  parameters: {
+    reactRouter: {
+      loader: failingLoader,
+      errorElement: <DataErrorBoundary />,
+    }
   }
 }

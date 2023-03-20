@@ -1,9 +1,9 @@
 import React from "react";
 import {useFetcher} from "react-router-dom";
-import {StoryRouteTree} from "../../../components/StoryRouteTree";
+import {withRouter} from "../../../withRouter";
 
 export default {
-  component: StoryRouteTree,
+  decorators: [withRouter],
 };
 
 function TinyForm() {
@@ -20,9 +20,11 @@ function TinyForm() {
 }
 
 export const TextFormData = {
-  args: {
-    action: async () => ({ result: 42 }),
-    children: <TinyForm />
+  render: () => <TinyForm />,
+  parameters: {
+    reactRouter: {
+      action: async () => ({ result: 42 }),
+    }
   }
 }
 
@@ -43,8 +45,10 @@ function FileForm() {
 }
 
 export const FileFormData = {
-  args: {
-    action: async () => ({ result: 'file saved' }),
-    children: <FileForm />
+  render: () => <FileForm />,
+  parameters: {
+    reactRouter: {
+      action: async () => ({ result: 'file saved' }),
+    }
   }
 }

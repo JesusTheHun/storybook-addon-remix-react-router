@@ -1,9 +1,10 @@
 import React from "react";
 import {Link, Route, Routes, useParams} from "react-router-dom";
-import {StoryRouteTree} from "../../components/StoryRouteTree";
+import {withRouter} from "../../withRouter";
+import {FCC} from "../../fixes";
 
 export default {
-  component: StoryRouteTree,
+  decorators: [withRouter],
 };
 
 function NestedRoutes() {
@@ -33,25 +34,31 @@ function SubListingDetailPage() {
 }
 
 export const IndexAtRoot = {
-  args: {
-    children: <NestedRoutes />,
-    routePath: '/listing/*',
-    browserPath: '/listing',
+  render: () => <NestedRoutes />,
+  parameters: {
+    reactRouter: {
+      routePath: '/listing/*',
+      browserPath: '/listing',
+    }
   }
 }
 
 export const MatchingRoute = {
-  args: {
-    children: <NestedRoutes />,
-    routePath: '/listing/*',
-    browserPath: '/listing/13',
+  render: () => <NestedRoutes />,
+  parameters: {
+    reactRouter: {
+      routePath: '/listing/*',
+      browserPath: '/listing/13',
+    }
   }
 }
 
 export const MatchingNestedRoute = {
-  args: {
-    children: <NestedRoutes />,
-    routePath: '/listing/*',
-    browserPath: '/listing/13/37',
+  render: () => <NestedRoutes />,
+  parameters: {
+    reactRouter: {
+      routePath: '/listing/*',
+      browserPath: '/listing/13/37',
+    }
   }
 }
