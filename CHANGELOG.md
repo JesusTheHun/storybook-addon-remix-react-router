@@ -1,3 +1,15 @@
+# v0.3.4 (Mon Mar 20 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix: log of action with file upload ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.3.3 (Mon Mar 20 2023)
 
 #### ⚠️ Pushed to `main`
