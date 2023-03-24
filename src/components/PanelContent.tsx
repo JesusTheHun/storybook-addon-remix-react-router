@@ -9,7 +9,7 @@ import {DataEventName, NavigationEventName, RouterEvent} from "../typings";
 import {FCC} from "../fixes";
 
 export type PanelContentProps = {
-  navigationEvents: RouterEvent[];
+  navigationEvents: Array<RouterEvent & { key: string }>;
   onClear: () => void;
 }
 

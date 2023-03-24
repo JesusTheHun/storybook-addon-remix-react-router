@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {AddonPanel} from "@storybook/components";
 import {PanelContent, PanelContentProps} from "./components/PanelContent";
 import {API, useChannel} from '@storybook/api';
@@ -11,29 +11,30 @@ interface PanelProps {
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {
+  const eventCount = useRef(0);
   const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['navigationEvents']>([]);
 
   useChannel({
     [EVENTS.ROUTE_MATCHES]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [EVENTS.NAVIGATION]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [EVENTS.STORY_LOADED]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [EVENTS.ACTION_INVOKED]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [EVENTS.ACTION_SETTLED]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [EVENTS.LOADER_INVOKED]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [EVENTS.LOADER_SETTLED]: (event) => {
-      setNavigationEvents(prev => [...prev, event]);
+      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
     },
     [STORY_CHANGED]: () => {
       setNavigationEvents([]);

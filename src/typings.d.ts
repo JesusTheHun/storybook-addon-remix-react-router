@@ -13,7 +13,6 @@ export type DataEventName = AddonEvents[DataEventInternalKey];
 export type RouteMatchesData = Array<[RouteMatch['route']['path'], RouteMatch['params']]>;
 
 export type RouterEvent<T extends NavigationEventInternalKey = NavigationEventInternalKey> = {
-  key: string;
   type: AddonEvents[T];
   data: NavigationEventData[AddonEvents[T]];
 }

@@ -118,7 +118,6 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_INVOKED, {
         type: EVENTS.ACTION_INVOKED,
-        key: expect.stringContaining(EVENTS.ACTION_INVOKED),
         data: {
           context: undefined,
           params: { '*': '' },
@@ -143,7 +142,6 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_INVOKED, {
         type: EVENTS.ACTION_INVOKED,
-        key: expect.stringContaining(EVENTS.ACTION_INVOKED),
         data: {
           context: undefined,
           params: { '*': '' },
@@ -169,7 +167,6 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_SETTLED, {
         type: EVENTS.ACTION_SETTLED,
-        key: expect.stringContaining(EVENTS.ACTION_SETTLED),
         data: { result: 42 },
       });
     });
@@ -183,7 +180,6 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_INVOKED, {
         type: EVENTS.LOADER_INVOKED,
-        key: expect.stringContaining(EVENTS.LOADER_INVOKED),
         data: {
           context: undefined,
           params: { '*': '' },
@@ -200,7 +196,6 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
         type: EVENTS.LOADER_SETTLED,
-        key: expect.stringContaining(EVENTS.LOADER_SETTLED),
         data: { foo: "Data loaded" },
       });
     });
@@ -208,7 +203,6 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
         type: EVENTS.LOADER_SETTLED,
-        key: expect.stringContaining(EVENTS.LOADER_SETTLED),
         data: { foo: "Outlet data loaded" },
       });
     });
