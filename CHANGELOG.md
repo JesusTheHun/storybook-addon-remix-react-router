@@ -1,3 +1,15 @@
+# v0.3.5 (Fri Mar 24 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix: reloading component should not trigger a console warning ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.3.4 (Mon Mar 20 2023)
 
 #### ⚠️ Pushed to `main`
