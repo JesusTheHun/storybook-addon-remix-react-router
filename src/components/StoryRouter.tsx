@@ -31,7 +31,7 @@ export const StoryRouter = ({
     });
 
     setRouter(memoryRouter);
-  }, []);
+  }, [children]);
 
   if (router !== undefined && module && module.hot && module.hot.dispose) {
     module.hot.dispose(() => router.dispose());
