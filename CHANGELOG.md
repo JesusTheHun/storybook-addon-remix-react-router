@@ -1,3 +1,17 @@
+# v0.3.6 (Wed May 03 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(router): rebuild router only after story args changed ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat(decorator): add support for shouldRevalidate function ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(controls): router not reloading component after change through SB controls ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.3.5 (Fri Mar 24 2023)
 
 #### ⚠️ Pushed to `main`
