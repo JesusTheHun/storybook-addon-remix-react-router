@@ -21,7 +21,7 @@ function Listing() {
     <div>
       <h1>Listing id: {params.id}</h1>
       <Routes>
-        <Route index element={<Link to="37">Navigate to details</Link>} />
+        <Route index element={<Link to="FixedId">Navigate to details</Link>} />
         <Route path=":subId" element={<SubListingDetailPage />} />
       </Routes>
     </div>
@@ -40,6 +40,37 @@ export const IndexAtRoot = {
       routePath: '/listing/*',
       browserPath: '/listing',
     }
+  }
+}
+
+function NestedRoutesWithProp({ foo = 1 }: { foo?: number }) {
+  return <Routes>
+    <Route index element={(
+      <div>
+        <h1>Story arg : { foo }</h1>
+        <Link to={`${foo}`}>Navigate to listing</Link>
+      </div>
+    )} />
+    <Route path=":id/*" element={(
+        <div>
+          <h2>Story arg : { foo }</h2>
+          <Listing />
+        </div>
+      )}
+    />
+  </Routes>
+}
+
+export const IndexAtRootWithStoryArgs = {
+  render: ({ foo }: { foo: number }) => <NestedRoutesWithProp foo={foo} />,
+  parameters: {
+    reactRouter: {
+      routePath: '/listing/*',
+      browserPath: '/listing',
+    }
+  },
+  args: {
+    foo: 42,
   }
 }
 

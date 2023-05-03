@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import {composeStories} from '@storybook/testing-react';
 
 import * as BasicStories from '../stories/StoryRouteTree/Basics.stories';
-import {MatchesHandles} from '../stories/StoryRouteTree/Basics.stories';
+import {MatchesHandles, RenderChildrenWithStoryArgs} from '../stories/StoryRouteTree/Basics.stories';
 import * as NestingStories from '../stories/StoryRouteTree/Nesting.stories';
 import * as LoaderStories from '../stories/StoryRouteTree/DataRouter/Loader.stories';
 import {RouteShouldNotRevalidate} from '../stories/StoryRouteTree/DataRouter/Loader.stories';
@@ -19,6 +19,7 @@ describe('StoryRouteTree', () => {
 
     const {
       RenderChildren,
+      RenderChildrenWithStoryArgs,
       OutletJSX,
       OutletConfigObject,
       SpecificPath,
@@ -31,6 +32,11 @@ describe('StoryRouteTree', () => {
     it('should render child component', () => {
       render(<RenderChildren />);
       expect(screen.getByRole('heading', { name: "Hi" })).toBeInTheDocument();
+    });
+
+    it('should render child component with story args', () => {
+      render(<RenderChildrenWithStoryArgs />);
+      expect(screen.getByRole('heading', { name: "42" })).toBeInTheDocument();
     });
 
     it('should render component at the specified path', async () => {
@@ -161,7 +167,7 @@ describe('StoryRouteTree', () => {
 
       screen.getByText("?foo=bar");
 
-      expect(loader).toHaveBeenCalledTimes(2);
+      expect(loader).toHaveBeenCalledOnce();
     });
   });
 

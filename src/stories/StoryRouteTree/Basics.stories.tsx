@@ -13,6 +13,13 @@ export const RenderChildren = {
   render: () => <h1>Hi</h1>,
 }
 
+export const RenderChildrenWithStoryArgs = {
+  render: ({ id }: { id: string }) => <h1>{id}</h1>,
+  args: {
+    id: "42",
+  },
+}
+
 function ShowPath() {
   const location = useLocation();
   return <p>{location.pathname}</p>;
