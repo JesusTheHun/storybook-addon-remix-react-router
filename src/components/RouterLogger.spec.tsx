@@ -3,7 +3,7 @@ import {vi, describe, beforeEach, it} from "vitest";
 import {composeStories} from "@storybook/react";
 import {render, screen, waitFor} from '@testing-library/react';
 import {EVENTS} from "../constants";
-import {addons} from '@storybook/manager-api';
+import {addons} from '@storybook/preview-api';
 
 import * as NestingStories from "../stories/StoryRouteTree/Nesting.stories";
 import * as ActionStories from "../stories/StoryRouteTree/DataRouter/Action.stories";
