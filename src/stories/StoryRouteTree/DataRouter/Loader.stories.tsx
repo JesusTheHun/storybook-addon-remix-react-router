@@ -3,6 +3,7 @@ import {Link, Outlet, useLoaderData, useLocation, useRouteError, useSearchParams
 import {withRouter} from "../../../withRouter";
 
 export default {
+  title: "Loader",
   decorators: [withRouter],
 };
 

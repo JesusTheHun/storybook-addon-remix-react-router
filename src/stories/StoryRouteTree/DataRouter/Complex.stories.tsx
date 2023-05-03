@@ -19,6 +19,7 @@ import {StoryRouteTree} from "../../../components/StoryRouteTree";
 import {withRouter} from "../../../withRouter";
 
 export default {
+  title: "Complex",
   decorators: [withRouter],
 };
 

@@ -3,6 +3,7 @@ import {useFetcher} from "react-router-dom";
 import {withRouter} from "../../../withRouter";
 
 export default {
+  title: "Action",
   decorators: [withRouter],
 };
 

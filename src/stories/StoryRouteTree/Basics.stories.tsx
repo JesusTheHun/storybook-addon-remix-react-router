@@ -6,6 +6,7 @@ import {FCC} from "src/fixes";
 const DummyComponent: FCC = ({ children }) => <>{children}</>;
 
 export default {
+  title: "Basics",
   decorators: [withRouter],
 };
 

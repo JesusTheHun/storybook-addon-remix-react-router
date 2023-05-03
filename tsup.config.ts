@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => ({
-  entry: ["src/index.ts", "src/preview.ts", "src/manager.ts"],
+  entry: ["src/index.ts", "src/manager.tsx"],
   splitting: false,
   minify: !options.watch,
   format: ["cjs", "esm"],
