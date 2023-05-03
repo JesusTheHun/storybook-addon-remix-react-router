@@ -6,7 +6,7 @@ import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
 import {UNSAFE_RouteContext} from "react-router";
 import {StoryRouter} from "./StoryRouter";
 import {HydrationState, LoaderFunction} from "@remix-run/router";
-import {addons} from "@storybook/addons";
+import {addons} from "@storybook/manager-api";
 import {EVENTS} from "../constants";
 import Channel from "@storybook/channels";
 import {ActionFunctionArgs} from "@remix-run/router/utils";

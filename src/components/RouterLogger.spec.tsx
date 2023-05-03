@@ -1,9 +1,9 @@
 import React from "react";
 import {vi, describe, beforeEach, it} from "vitest";
-import {composeStories} from "@storybook/testing-react";
+import {composeStories} from "@storybook/react";
 import {render, screen, waitFor} from '@testing-library/react';
 import {EVENTS} from "../constants";
-import {addons} from '@storybook/addons';
+import {addons} from '@storybook/manager-api';
 
 import * as NestingStories from "../stories/StoryRouteTree/Nesting.stories";
 import * as ActionStories from "../stories/StoryRouteTree/DataRouter/Action.stories";

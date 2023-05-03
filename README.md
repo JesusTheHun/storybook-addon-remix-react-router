@@ -20,7 +20,7 @@ Install the package
  ```
 Add it to your storybook configuration:
 ```js
-// .storybook/main.js
+// .storybook/main.ts
 module.exports = {
     addons: ["storybook-addon-react-router-v6"],
 };

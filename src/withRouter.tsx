@@ -1,5 +1,5 @@
 import React from "react";
-import {makeDecorator} from "@storybook/addons";
+import {makeDecorator} from "@storybook/preview-api";
 import {StoryRouteTree} from "./components/StoryRouteTree";
 import {PARAM_KEY} from "./constants";
 

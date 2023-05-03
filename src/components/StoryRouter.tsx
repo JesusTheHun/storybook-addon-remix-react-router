@@ -2,7 +2,7 @@ import React, {PropsWithChildren, useLayoutEffect, useRef, useState} from 'react
 import {InitialEntry} from "@remix-run/router";
 import {createMemoryRouter, createRoutesFromElements, generatePath, RouterProvider} from "react-router-dom";
 import {StoryRouterProps} from "./StoryRouteTree";
-import {addons} from "@storybook/addons";
+import {addons} from "@storybook/manager-api";
 import {STORY_ARGS_UPDATED} from "@storybook/core-events";
 
 export const StoryRouter = ({
@@ -49,10 +49,6 @@ export const StoryRouter = ({
 
     setRouter(memoryRouter);
   }, [storyMutations]);
-
-  if (router !== undefined && module && module.hot && module.hot.dispose) {
-    module.hot.dispose(() => router.dispose());
-  }
 
   if (router === undefined) return null;
 
