@@ -1,5 +1,5 @@
 import React from "react";
-import {Outlet, useLoaderData, useRouteError} from "react-router-dom";
+import {Link, Outlet, useLoaderData, useLocation, useRouteError, useSearchParams} from "react-router-dom";
 import {withRouter} from "../../../withRouter";
 
 export default {
@@ -61,6 +61,28 @@ export const RouteAndOutletLoader = {
   }
 }
 
+function AddSearchParam() {
+  const location = useLocation();
+
+  return (
+    <div>
+      { location.search }
+      <div>
+        <Link to={{ search: '?foo=bar' }} >Add Search Param</Link>
+      </div>
+    </div>
+  )
+}
+
+export const RouteShouldNotRevalidate = {
+  render: () => <AddSearchParam />,
+  parameters: {
+    reactRouter: {
+      loader: loader("Should not appear again after search param is added"),
+      shouldRevalidate: () => false,
+    }
+  }
+}
 
 function DataErrorBoundary() {
   const error = useRouteError() as Error;

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ActionFunction, LoaderFunctionArgs, Route, RouteMatch, RouteObject} from "react-router-dom";
+import {ActionFunction, LoaderFunctionArgs, Route, RouteMatch, RouteProps} from "react-router-dom";
 import {RouterLogger} from "./RouterLogger";
 import {FCC} from "../fixes";
 import {DeepRouteMatchesContext} from "../contexts/DeepRouteMatches";
@@ -7,10 +7,9 @@ import {UNSAFE_RouteContext} from "react-router";
 import {StoryRouter} from "./StoryRouter";
 import {HydrationState, LoaderFunction} from "@remix-run/router";
 import {addons} from "@storybook/addons";
-import { EVENTS } from "../constants";
+import {EVENTS} from "../constants";
 import Channel from "@storybook/channels";
 import {ActionFunctionArgs} from "@remix-run/router/utils";
-import {useNavigationEventBuilder} from "../hooks/useNavigationEventBuilder";
 import {useDataEventBuilder} from "../hooks/useDataEventBuilder";
 
 type OutletProps = {
@@ -34,6 +33,7 @@ export type StoryRouterProps = {
   loader?: LoaderFunction;
   action?: ActionFunction;
   errorElement?: React.ReactNode | null;
+  shouldRevalidate?: RouteProps['shouldRevalidate'];
 };
 
 type Ctx = {
@@ -53,6 +53,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   action,
   loader,
   errorElement,
+  shouldRevalidate,
 }) => {
   const channel = addons.getChannel();
   const [deepRouteMatches, setDeepRouteMatches] = useState<RouteMatch[]>([]);
@@ -94,6 +95,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
           handle={routeHandle}
           action={action !== undefined ? actionWrapper(channel, action) : undefined}
           loader={loader !== undefined ? loaderWrapper(channel, loader) : undefined}
+          shouldRevalidate={shouldRevalidate}
           errorElement={errorElement}
           element={
             <RouterLogger>

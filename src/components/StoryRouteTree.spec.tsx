@@ -6,12 +6,13 @@ import userEvent from "@testing-library/user-event";
 import {composeStories} from '@storybook/testing-react';
 
 import * as BasicStories from '../stories/StoryRouteTree/Basics.stories';
+import {MatchesHandles} from '../stories/StoryRouteTree/Basics.stories';
 import * as NestingStories from '../stories/StoryRouteTree/Nesting.stories';
 import * as LoaderStories from '../stories/StoryRouteTree/DataRouter/Loader.stories';
+import {RouteShouldNotRevalidate} from '../stories/StoryRouteTree/DataRouter/Loader.stories';
 import * as ActionStories from '../stories/StoryRouteTree/DataRouter/Action.stories';
+import {FileFormData} from '../stories/StoryRouteTree/DataRouter/Action.stories';
 import * as ComplexStories from '../stories/StoryRouteTree/DataRouter/Complex.stories';
-import {FileFormData} from "../stories/StoryRouteTree/DataRouter/Action.stories";
-import {MatchesHandles} from "../stories/StoryRouteTree/Basics.stories";
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {
@@ -143,6 +144,24 @@ describe('StoryRouteTree', () => {
     it("should render the error boundary if the route loader fails", async () => {
       render(<ErrorBoundary />);
       await waitFor(() => expect(screen.queryByRole('heading', { name: "Fancy error component : Meh.", level: 1 })).toBeInTheDocument());
+    });
+
+    it("should not revalidate the route data", async () => {
+      const { RouteShouldNotRevalidate } = composeStories(LoaderStories);
+      const loader = vi.fn(() => "Yo");
+
+      RouteShouldNotRevalidate.parameters!.reactRouter.loader = loader;
+
+      render(<RouteShouldNotRevalidate />);
+
+      await waitFor(() => expect(loader).toHaveBeenCalledOnce());
+
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('link'));
+
+      screen.getByText("?foo=bar");
+
+      expect(loader).toHaveBeenCalledTimes(2);
     });
   });
 
