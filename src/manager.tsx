@@ -17,15 +17,23 @@ addons.register(ADDON_ID, (api) => {
       const clearBadgeCount = () => setBadgeCount(0);
 
       useEffect(() => {
-        api.on(EVENTS.NAVIGATION, incrementBadgeCount);
-        api.on(EVENTS.ROUTE_MATCHES, incrementBadgeCount);
         api.on(STORY_CHANGED, clearBadgeCount);
+        api.on(EVENTS.ROUTE_MATCHES, incrementBadgeCount);
+        api.on(EVENTS.NAVIGATION, incrementBadgeCount);
+        api.on(EVENTS.ACTION_INVOKED, incrementBadgeCount);
+        api.on(EVENTS.ACTION_SETTLED, incrementBadgeCount);
+        api.on(EVENTS.LOADER_INVOKED, incrementBadgeCount);
+        api.on(EVENTS.LOADER_SETTLED, incrementBadgeCount);
         api.on(EVENTS.CLEAR, clearBadgeCount);
 
         return () => {
-          api.off(EVENTS.NAVIGATION, incrementBadgeCount);
-          api.off(EVENTS.ROUTE_MATCHES, incrementBadgeCount);
           api.off(STORY_CHANGED, clearBadgeCount);
+          api.off(EVENTS.ROUTE_MATCHES, incrementBadgeCount);
+          api.off(EVENTS.NAVIGATION, incrementBadgeCount);
+          api.off(EVENTS.ACTION_INVOKED, incrementBadgeCount);
+          api.off(EVENTS.ACTION_SETTLED, incrementBadgeCount);
+          api.off(EVENTS.LOADER_INVOKED, incrementBadgeCount);
+          api.off(EVENTS.LOADER_SETTLED, incrementBadgeCount);
           api.off(EVENTS.CLEAR, clearBadgeCount);
         };
       });

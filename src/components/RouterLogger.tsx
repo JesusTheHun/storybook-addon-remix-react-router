@@ -1,6 +1,6 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {Location, RouteMatch, useLocation} from "react-router-dom";
-import {addons} from '@storybook/manager-api';
+import {addons} from '@storybook/preview-api';
 
 import {EVENTS} from "../constants";
 import {useNavigationEventBuilder} from "../hooks/useNavigationEventBuilder";
