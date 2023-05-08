@@ -9,9 +9,13 @@
 
 ## Recent changes
 
-✅ Add support for route handle  
-✅ Support for data routers `react-router 6.4+`  
-✅ Support for descendant `<Routes>`
+✅ Support for Storybook 7 has been added. 
+
+Version `1.x` only support Storybook 7.  
+If you use Storybook 6, `yarn add -D storybook-addon-react-router-v6@0.3.6`.
+Features and fixes will continue to be backported for a while.
+
+✅ Added support `shouldRevalidate` 
 
 ## Getting Started
 Install the package
@@ -177,7 +181,8 @@ Storybook versions prior `6.4` are very likely to work, I just didn't test them.
 If you have an issue with any version, open an issue.
 
 ✅ Storybook 6.4  
-✅ Storybook 6.5 
+✅ Storybook 6.5
+✅ Storybook 7.0
 
 ✅ React 16  
 ✅ React 17  
