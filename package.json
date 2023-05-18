@@ -59,12 +59,12 @@
   "devDependencies": {
     "@remix-run/router": "^1.3.3",
     "@remix-run/web-fetch": "^4.3.2",
-    "@storybook/addon-essentials": "^7.0.0-rc.3",
-    "@storybook/addon-interactions": "^7.0.0-rc.3",
-    "@storybook/addon-links": "^7.0.0-rc.3",
-    "@storybook/react": "^7.0.0-rc.3",
-    "@storybook/react-vite": "^7.0.0-rc.3",
-    "@storybook/testing-library": "^0.0.14-next.1",
+    "@storybook/addon-essentials": "^7.0.0",
+    "@storybook/addon-interactions": "^7.0.0",
+    "@storybook/addon-links": "^7.0.0",
+    "@storybook/react": "^7.0.0",
+    "@storybook/react-vite": "^7.0.0",
+    "@storybook/testing-library": "^0.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -93,13 +93,13 @@
     "zx": "^1.14.1"
   },
   "peerDependencies": {
-    "@storybook/blocks": "^7.0.0-rc.3",
-    "@storybook/components": "^7.0.0-rc.3",
-    "@storybook/core-events": "^7.0.0-rc.3",
-    "@storybook/manager-api": "^7.0.0-rc.3",
-    "@storybook/preview-api": "^7.0.0-rc.3",
-    "@storybook/theming": "^7.0.0-rc.3",
-    "@storybook/types": "^7.0.0-rc.3",
+    "@storybook/blocks": "^7.0.0",
+    "@storybook/components": "^7.0.0",
+    "@storybook/core-events": "^7.0.0",
+    "@storybook/manager-api": "^7.0.0",
+    "@storybook/preview-api": "^7.0.0",
+    "@storybook/theming": "^7.0.0",
+    "@storybook/types": "^7.0.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-router": "^6.3.0",
@@ -130,5 +130,5 @@
     "url": "https://github.com/JesusTheHun/storybook-addon-react-router-v6/issues"
   },
   "homepage": "https://github.com/JesusTheHun/storybook-addon-react-router-v6#readme",
-  "_id": "storybook-addon-react-router-v6@1.0.0"
+  "_id": "storybook-addon-react-router-v6@1.0.1"
 }
