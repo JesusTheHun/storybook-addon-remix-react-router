@@ -124,7 +124,7 @@
     "icon": "https://user-images.githubusercontent.com/94478/167677696-c05c668e-6290-4ced-8b6b-c2a40211f8e7.jpg"
   },
   "dependencies": {
-    "react-inspector": "^5.1.1"
+    "react-inspector": "^6.0.1"
   },
   "bugs": {
     "url": "https://github.com/JesusTheHun/storybook-addon-react-router-v6/issues"
