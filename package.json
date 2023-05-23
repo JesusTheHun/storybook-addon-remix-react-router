@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-react-router-v6",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Use React Router v6 in your stories",
   "keywords": [
     "storybook-addons",
@@ -129,6 +129,5 @@
   "bugs": {
     "url": "https://github.com/JesusTheHun/storybook-addon-react-router-v6/issues"
   },
-  "homepage": "https://github.com/JesusTheHun/storybook-addon-react-router-v6#readme",
-  "_id": "storybook-addon-react-router-v6@1.0.1"
+  "homepage": "https://github.com/JesusTheHun/storybook-addon-react-router-v6#readme"
 }
