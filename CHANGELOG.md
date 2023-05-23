@@ -1,3 +1,16 @@
+# v1.0.1 (Tue May 23 2023)
+
+#### ⚠️ Pushed to `main`
+
+- feat(npm): bump react-inspector version ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat(npm): update dependencies ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v0.3.6 (Wed May 03 2023)
 
 #### ⚠️ Pushed to `main`
