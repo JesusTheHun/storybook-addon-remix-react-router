@@ -1,3 +1,17 @@
+# v1.0.2 (Thu Jun 01 2023)
+
+#### ⚠️ Pushed to `main`
+
+- feat(readme): add table of available parameters ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat(readme): changelog ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat(decorator): add support for route id ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v1.0.1 (Tue May 23 2023)
 
 #### ⚠️ Pushed to `main`
