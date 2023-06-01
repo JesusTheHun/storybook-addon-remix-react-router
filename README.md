@@ -9,13 +9,13 @@
 
 ## Recent changes
 
+✅ Added support for route `id`
+
 ✅ Support for Storybook 7 has been added. 
 
 Version `1.x` only support Storybook 7.  
 If you use Storybook 6, `yarn add -D storybook-addon-react-router-v6@0.3.6`.  
 Features and fixes will continue to be backported for a while.
-
-✅ Added support `shouldRevalidate` 
 
 ## Getting Started
 Install the package
