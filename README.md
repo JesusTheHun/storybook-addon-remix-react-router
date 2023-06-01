@@ -173,6 +173,36 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 ![Addon Panel](https://user-images.githubusercontent.com/94478/224843029-b37ff60d-10f8-4198-bbc3-f26e2775437f.png)
 
+## Available Parameters
+Every parameter is optional. In most cases they follow the same type used by Route Router itself, sometimes they offer a sugar syntax.
+
+| Parameter        | Type                                                                | Description                                                   |
+|------------------|---------------------------------------------------------------------|---------------------------------------------------------------|
+| routePath        | `string`                                                            | i.e: `/users/:userId`                                         |
+| routeParams      | `Record<string, string>`                                            | i.e: `{ userId: "777" }`                                      |
+| routeState       | `any`                                                               | Available through `useLocation()`                             |
+| routeHandle      | `any`                                                               | Available through `useMatches()`                              |
+| searchParams     | `string[][] \| Record<string, string> \| string \| URLSearchParams` | Location query string `useSearchParams()`                     |
+| outlet           | `React.ReactNode \| OutletProps`                                    | Outlet rendered by the route. See type `OutletProps` below.   |
+| browserPath      | `string`                                                            | Useful when you have [descendant routes](#descendant-routes). |
+| loader           | `LoaderFunction`                                                    |                                                               |
+| action           | `ActionFunction`                                                    |                                                               |
+| errorElement     | `React.ReactNode \| null`                                           |                                                               |
+| hydrationData    | `HydrationState`                                                    |                                                               |
+| shouldRevalidate | `ShouldRevalidateFunction`                                          |                                                               |
+| routeId          | `string`                                                            | Available through `useMatches()`                              |
+
+```ts
+type OutletProps = {
+  element: React.ReactNode;
+  path?: string;
+  handle?: unknown;
+  loader?: LoaderFunction;
+  action?: ActionFunction;
+  errorElement?: React.ReactNode | null;
+}
+```
+
 ## Compatibility
 
 This package aims to support `Storybook > 6.4` and `React > 16`. 
