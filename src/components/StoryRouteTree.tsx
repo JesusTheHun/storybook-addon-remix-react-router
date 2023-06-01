@@ -16,8 +16,8 @@ type OutletProps = {
   element: React.ReactNode;
   path?: string;
   handle?: unknown;
-  loader?: LoaderFunction;
-  action?: ActionFunction;
+  loader?: RouteProps['loader'];
+  action?: RouteProps['action'];
   errorElement?: React.ReactNode | null;
 }
 
@@ -30,10 +30,11 @@ export type StoryRouterProps = {
   routeState?: unknown;
   outlet?: React.ReactNode | OutletProps;
   hydrationData?: HydrationState;
-  loader?: LoaderFunction;
-  action?: ActionFunction;
+  loader?: RouteProps['loader'];
+  action?: RouteProps['action'];
   errorElement?: React.ReactNode | null;
   shouldRevalidate?: RouteProps['shouldRevalidate'];
+  routeId?: RouteProps['id'];
 };
 
 type Ctx = {
@@ -54,6 +55,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   loader,
   errorElement,
   shouldRevalidate,
+  routeId,
 }) => {
   const channel = addons.getChannel();
   const [deepRouteMatches, setDeepRouteMatches] = useState<RouteMatch[]>([]);
@@ -91,6 +93,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
       <StoryRouter routePath={routePath} routeParams={routeParams} routeState={routeState} searchParams={searchParams}
                    browserPath={userBrowserPath} hydrationData={hydrationData}>
         <Route
+          id={routeId}
           path={routePath}
           handle={routeHandle}
           action={action !== undefined ? actionWrapper(channel, action) : undefined}

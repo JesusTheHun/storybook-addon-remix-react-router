@@ -20,6 +20,7 @@ export const withRouter = makeDecorator({
       errorElement,
       hydrationData,
       shouldRevalidate,
+      routeId,
     } = parameters;
 
     if (typeof routePath !== 'string') throw new Error("React Router decorator : `path` must be a string");
@@ -40,6 +41,7 @@ export const withRouter = makeDecorator({
         errorElement={errorElement}
         hydrationData={hydrationData}
         shouldRevalidate={shouldRevalidate}
+        routeId={routeId}
       >
         {story(context) as React.ReactNode}
       </StoryRouteTree>

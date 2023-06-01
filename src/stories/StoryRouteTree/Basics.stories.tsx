@@ -110,3 +110,17 @@ export const OutletConfigObject = {
     }
   }
 }
+
+function ShowRouteId() {
+  const matches = useMatches();
+  return <p>{JSON.stringify(matches.map(m => m.id))}</p>;
+}
+
+export const RouteId = {
+  render: () => <ShowRouteId />,
+  parameters: {
+    reactRouter: {
+      routeId: 'SomeRouteId',
+    }
+  }
+}

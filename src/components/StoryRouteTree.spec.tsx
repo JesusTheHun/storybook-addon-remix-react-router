@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import {composeStories} from '@storybook/react';
 
 import * as BasicStories from '../stories/StoryRouteTree/Basics.stories';
-import {MatchesHandles, RenderChildrenWithStoryArgs} from '../stories/StoryRouteTree/Basics.stories';
+import {MatchesHandles, RenderChildrenWithStoryArgs, RouteId} from '../stories/StoryRouteTree/Basics.stories';
 import * as NestingStories from '../stories/StoryRouteTree/Nesting.stories';
 import * as LoaderStories from '../stories/StoryRouteTree/DataRouter/Loader.stories';
 import {RouteShouldNotRevalidate} from '../stories/StoryRouteTree/DataRouter/Loader.stories';
@@ -26,6 +26,7 @@ describe('StoryRouteTree', () => {
       MatchesHandles,
       MatchesHandlesInsideOutlet,
       SearchParams,
+      RouteId
     } = composeStories(BasicStories);
 
     it('should render child component', () => {
@@ -72,6 +73,13 @@ describe('StoryRouteTree', () => {
       render(<OutletConfigObject />);
       expect(screen.getByRole('heading', { name: "I'm an outlet defined with a config object" })).toBeInTheDocument();
     });
+
+    it('should render route with the assigned id', () => {
+      render(<RouteId />);
+      expect(screen.getByText('["SomeRouteId"]')).toBeInTheDocument();
+    });
+
+
   });
 
   describe("Nesting", () => {
