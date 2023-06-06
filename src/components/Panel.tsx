@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
-import {AddonPanel} from "@storybook/components";
-import {PanelContent, PanelContentProps} from "./PanelContent";
-import {API, useChannel} from '@storybook/manager-api';
-import {EVENTS} from "../constants";
-import {STORY_CHANGED} from "@storybook/core-events";
+import React, { useRef, useState } from "react";
+import { AddonPanel } from "@storybook/components";
+import { PanelContent, PanelContentProps } from "./PanelContent";
+import { API, useChannel } from '@storybook/manager-api';
+import { EVENTS } from "../constants";
+import { STORY_CHANGED } from "@storybook/core-events";
 
 interface PanelProps {
   active: boolean;

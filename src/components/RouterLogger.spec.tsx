@@ -1,15 +1,15 @@
 import React from "react";
-import {vi, describe, beforeEach, it} from "vitest";
-import {composeStories} from "@storybook/react";
-import {render, screen, waitFor} from '@testing-library/react';
-import {EVENTS} from "../constants";
-import {addons} from '@storybook/preview-api';
+import { beforeEach, describe, it, vi } from "vitest";
+import { composeStories } from "@storybook/react";
+import { render, screen, waitFor } from '@testing-library/react';
+import { EVENTS } from "../constants";
+import { addons } from '@storybook/preview-api';
 
 import * as NestingStories from "../stories/StoryRouteTree/Nesting.stories";
 import * as ActionStories from "../stories/StoryRouteTree/DataRouter/Action.stories";
 import * as LoaderStories from "../stories/StoryRouteTree/DataRouter/Loader.stories";
 import Channel from "@storybook/channels";
-import {SpyInstance} from "@vitest/spy";
+import { SpyInstance } from "@vitest/spy";
 import userEvent from "@testing-library/user-event";
 
 type LocalTestContext = {

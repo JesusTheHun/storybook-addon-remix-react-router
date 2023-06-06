@@ -1,12 +1,12 @@
-import React, {Fragment, PropsWithChildren} from "react";
-import {styled} from '@storybook/theming';
-import {EVENTS} from "../constants";
-import {ActionBar, ScrollArea} from "@storybook/components";
-import {RouterEventDisplayWrapper} from "./RouterEventDisplayWrapper";
-import {ThemedInspector} from "./ThemedInspector";
-import {InspectorContainer} from "./InspectorContainer";
-import {DataEventName, NavigationEventName, RouterEvent} from "../typings";
-import {FCC} from "../fixes";
+import React, { Fragment, PropsWithChildren } from "react";
+import { styled } from '@storybook/theming';
+import { EVENTS } from "../constants";
+import { ActionBar, ScrollArea } from "@storybook/components";
+import { RouterEventDisplayWrapper } from "./RouterEventDisplayWrapper";
+import { ThemedInspector } from "./ThemedInspector";
+import { InspectorContainer } from "./InspectorContainer";
+import { DataEventName, NavigationEventName, RouterEvent } from "../typings";
+import { FCC } from "../fixes";
 
 export type PanelContentProps = {
   navigationEvents: Array<RouterEvent & { key: string }>;

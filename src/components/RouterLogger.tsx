@@ -1,12 +1,12 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
-import {Location, RouteMatch, useLocation} from "react-router-dom";
-import {addons} from '@storybook/preview-api';
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Location, RouteMatch, useLocation } from "react-router-dom";
+import { addons } from '@storybook/preview-api';
 
-import {EVENTS} from "../constants";
-import {useNavigationEventBuilder} from "../hooks/useNavigationEventBuilder";
-import {FCC} from "../fixes";
-import {useDeepRouteMatches} from "../hooks/useDeepRouteMatches";
-import {defer} from "../utils";
+import { EVENTS } from "../constants";
+import { useNavigationEventBuilder } from "../hooks/useNavigationEventBuilder";
+import { FCC } from "../fixes";
+import { useDeepRouteMatches } from "../hooks/useDeepRouteMatches";
+import { defer } from "../utils";
 
 export const RouterLogger: FCC = ({ children }) => {
   const channel = addons.getChannel();
