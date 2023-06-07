@@ -12,33 +12,19 @@ interface PanelProps {
 
 export const Panel: React.FC<PanelProps> = (props) => {
   const eventCount = useRef(0);
-  const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['navigationEvents']>([]);
+  const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['routerEvents']>([]);
+
+  const pushEvent = (event: any) => setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
 
   useChannel({
-    [EVENTS.ROUTE_MATCHES]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [EVENTS.NAVIGATION]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [EVENTS.STORY_LOADED]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [EVENTS.ACTION_INVOKED]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [EVENTS.ACTION_SETTLED]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [EVENTS.LOADER_INVOKED]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [EVENTS.LOADER_SETTLED]: (event) => {
-      setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
-    },
-    [STORY_CHANGED]: () => {
-      setNavigationEvents([]);
-    }
+    [EVENTS.ROUTE_MATCHES]: pushEvent,
+    [EVENTS.NAVIGATION]: pushEvent,
+    [EVENTS.STORY_LOADED]: pushEvent,
+    [EVENTS.ACTION_INVOKED]: pushEvent,
+    [EVENTS.ACTION_SETTLED]: pushEvent,
+    [EVENTS.LOADER_INVOKED]: pushEvent,
+    [EVENTS.LOADER_SETTLED]: pushEvent,
+    [STORY_CHANGED]: () => setNavigationEvents([]),
   });
 
   const clear = () => {
@@ -48,7 +34,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
 
   return (
     <AddonPanel {...props}>
-      <PanelContent navigationEvents={navigationEvents} onClear={clear} />
+      <PanelContent routerEvents={navigationEvents} onClear={clear} />
     </AddonPanel>
   );
 };

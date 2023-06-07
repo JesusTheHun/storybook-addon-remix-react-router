@@ -5,11 +5,11 @@ import { ActionBar, ScrollArea } from "@storybook/components";
 import { RouterEventDisplayWrapper } from "./RouterEventDisplayWrapper";
 import { ThemedInspector } from "./ThemedInspector";
 import { InspectorContainer } from "./InspectorContainer";
-import { DataEventName, NavigationEventName, RouterEvent } from "../typings";
+import { RouterEvent, RouterEvents } from "../typings";
 import { FCC } from "../fixes";
 
 export type PanelContentProps = {
-  navigationEvents: Array<RouterEvent & { key: string }>;
+  routerEvents: Array<RouterEvent & { key: string }>;
   onClear: () => void;
 }
 
@@ -22,11 +22,11 @@ export type ScrollAreaProps = PropsWithChildren<{
 const PatchedScrollArea = ScrollArea as FCC<ScrollAreaProps>;
 
 
-export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}) => {
+export const PanelContent: FCC<PanelContentProps> = ({routerEvents, onClear}) => {
   return (
     <Fragment>
       <Wrapper title="reactRouterLogger">
-        {navigationEvents.map(event => {
+        {routerEvents.map(event => {
           return (
             <RouterEventDisplayWrapper key={event.key}>
               <InspectorContainer>
@@ -56,7 +56,7 @@ export const PanelContent: FCC<PanelContentProps> = ({navigationEvents, onClear}
   )
 }
 
-export const humanReadableEventNames: Record<NavigationEventName | DataEventName, string> = {
+export const humanReadableEventNames: Record<RouterEvents[keyof RouterEvents], string> = {
   [EVENTS.NAVIGATION]: "Navigate",
   [EVENTS.STORY_LOADED]: "Story rendered",
   [EVENTS.ROUTE_MATCHES]: "New route matches",

@@ -1,9 +1,10 @@
-import {NavigationEventData, NavigationEventName, RouteMatchesData} from "../typings";
-import {EVENTS} from "../constants";
-import {useLocation, useNavigationType, useParams, useSearchParams} from "react-router-dom";
-import {useCurrentUrl} from "./useCurrentUrl";
-import {useDeepRouteMatches} from "./useDeepRouteMatches";
-import {useRef} from "react";
+import { NavigationEvent, NavigationEventName, RouteMatchesData } from "../typings";
+import { EVENTS } from "../constants";
+import { useLocation, useNavigationType, useParams, useSearchParams } from "react-router-dom";
+import { useCurrentUrl } from "./useCurrentUrl";
+import { useDeepRouteMatches } from "./useDeepRouteMatches";
+import { useRef } from "react";
+import { searchParamsToRecord } from "../utils";
 
 export const useNavigationEventBuilder = () => {
   const eventCount = useRef(0);
@@ -13,12 +14,7 @@ export const useNavigationEventBuilder = () => {
   const navigationType = useNavigationType();
   const matches = useDeepRouteMatches();
 
-  const searchParams: Record<string, string> = {};
-
-  search.forEach((value, key) => {
-    searchParams[key] = value;
-  })
-
+  const searchParams = searchParamsToRecord(search);
   const currentUrl = useCurrentUrl();
 
   const matchesData: RouteMatchesData = matches.map(routeMatch => ([
@@ -26,51 +22,30 @@ export const useNavigationEventBuilder = () => {
     routeMatch.params,
   ]));
 
-  return (eventName: NavigationEventName) => {
+  const locationData = {
+    url: currentUrl,
+    path: location.pathname,
+    routeParams: params,
+    searchParams,
+    hash: location.hash,
+    routeState: location.state,
+    routeMatches: matchesData,
+  };
+
+  return (eventName: NavigationEventName): NavigationEvent => {
+    const key = `${EVENTS.STORY_LOADED}_${eventCount.current++}`;
+
     switch (eventName) {
       case EVENTS.STORY_LOADED: {
-        const eventData: NavigationEventData[typeof eventName] = {
-          url: currentUrl,
-          path: location.pathname,
-          routeParams: params,
-          searchParams,
-          routeMatches: matchesData,
-          hash: location.hash,
-          routeState: location.state,
-        };
-
-        return {
-          key: `${EVENTS.STORY_LOADED}_${eventCount.current++}`,
-          type: EVENTS.STORY_LOADED,
-          data: eventData
-        };
+        return { key, type: eventName, data: locationData };
       }
 
       case EVENTS.NAVIGATION: {
-        const eventData: NavigationEventData[typeof eventName] = {
-          url: currentUrl,
-          path: location.pathname,
-          routeParams: params,
-          searchParams,
-          hash: location.hash,
-          routeState: location.state,
-          routeMatches: matchesData,
-          navigationType,
-        };
-
-        return {
-          key: `${EVENTS.NAVIGATION}_${eventCount.current++}`,
-          type: EVENTS.NAVIGATION,
-          data: eventData
-        };
+        return { key, type: eventName, data: { ...locationData, navigationType} };
       }
 
       case EVENTS.ROUTE_MATCHES: {
-        return {
-          key: `${EVENTS.ROUTE_MATCHES}_${eventCount.current++}`,
-          type: EVENTS.ROUTE_MATCHES,
-          data: { matches: matchesData }
-        };
+        return { key, type: eventName, data: { matches: matchesData } };
       }
     }
   }

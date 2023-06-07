@@ -57,7 +57,6 @@ export async function getHumanReadableBody(request: Request) {
   const contentTypeHeader = requestClone.headers.get('content-type') || '';
 
   let humanReadableBody: string | Record<string, string | FileSummary> | undefined = undefined;
-  let requestBodySize: number;
 
   switch (true) {
     case contentTypeHeader.startsWith('text'): humanReadableBody = await requestClone.text(); break;
@@ -67,8 +66,28 @@ export async function getHumanReadableBody(request: Request) {
       humanReadableBody = getFormDataSummary(await requestClone.formData());
       break
     }
-    default: requestBodySize = await requestClone.arrayBuffer().then(b => b.byteLength);
   }
 
   return humanReadableBody;
+}
+
+export function searchParamsToRecord(searchParams: URLSearchParams) {
+  const result: Record<string, string | string[]> = {};
+
+  searchParams.forEach((value, key) => {
+    const currentValue = result[key];
+    if (typeof currentValue === 'string') {
+      result[key] = [currentValue, value];
+      return;
+    }
+
+    if (Array.isArray(currentValue)) {
+      result[key] = [...currentValue, value];
+      return;
+    }
+
+    result[key] = value;
+  });
+
+  return result;
 }
