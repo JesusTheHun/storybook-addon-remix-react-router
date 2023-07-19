@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Theme } from '@storybook/theming';
 import { withTheme } from '@storybook/theming';
-import { ObjectInspector } from "react-inspector";
+import { ObjectInspector } from 'react-inspector';
 
 interface InspectorProps {
   theme: Theme;

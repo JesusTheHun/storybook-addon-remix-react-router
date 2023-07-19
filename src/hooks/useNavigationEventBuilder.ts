@@ -1,10 +1,10 @@
-import { NavigationEvent, NavigationEventName, RouteMatchesData } from "../typings";
-import { EVENTS } from "../constants";
-import { useLocation, useNavigationType, useParams, useSearchParams } from "react-router-dom";
-import { useCurrentUrl } from "./useCurrentUrl";
-import { useDeepRouteMatches } from "./useDeepRouteMatches";
-import { useRef } from "react";
-import { searchParamsToRecord } from "../utils";
+import { NavigationEvent, NavigationEventName, RouteMatchesData } from '../types/internals';
+import { EVENTS } from '../constants';
+import { useLocation, useNavigationType, useParams, useSearchParams } from 'react-router-dom';
+import { useCurrentUrl } from './useCurrentUrl';
+import { useDeepRouteMatches } from './useDeepRouteMatches';
+import { useRef } from 'react';
+import { searchParamsToRecord } from '../utils/internals';
 
 export const useNavigationEventBuilder = () => {
   const eventCount = useRef(0);
@@ -17,10 +17,7 @@ export const useNavigationEventBuilder = () => {
   const searchParams = searchParamsToRecord(search);
   const currentUrl = useCurrentUrl();
 
-  const matchesData: RouteMatchesData = matches.map(routeMatch => ([
-    routeMatch.route.path,
-    routeMatch.params,
-  ]));
+  const matchesData: RouteMatchesData = matches.map((routeMatch) => [routeMatch.route.path, routeMatch.params]);
 
   const locationData = {
     url: currentUrl,
@@ -41,12 +38,12 @@ export const useNavigationEventBuilder = () => {
       }
 
       case EVENTS.NAVIGATION: {
-        return { key, type: eventName, data: { ...locationData, navigationType} };
+        return { key, type: eventName, data: { ...locationData, navigationType } };
       }
 
       case EVENTS.ROUTE_MATCHES: {
         return { key, type: eventName, data: { matches: matchesData } };
       }
     }
-  }
-}
+  };
+};

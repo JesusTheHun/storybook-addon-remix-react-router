@@ -3,7 +3,7 @@
  * reactrouter.com
  */
 
-import React from "react";
+import React from 'react';
 import {
   ActionFunctionArgs,
   Form,
@@ -13,17 +13,17 @@ import {
   useFetcher,
   useLoaderData,
   useNavigation,
-  useParams
-} from "react-router-dom";
-import {StoryRouteTree} from "../../../components/StoryRouteTree";
-import {withRouter} from "../../../withRouter";
+  useParams,
+} from 'react-router-dom';
+import { reactRouterParameters } from '../../../reactRouterParameters';
+import { withRouter } from '../../../withRouter';
 
 export default {
-  title: "Complex",
+  title: 'Complex',
   decorators: [withRouter],
 };
 
-function sleep(n: number = 500) {
+function sleep(n = 500) {
   return new Promise((r) => setTimeout(r, n));
 }
 
@@ -31,7 +31,7 @@ interface Todos {
   [key: string]: string;
 }
 
-const TODOS_KEY = "todos";
+const TODOS_KEY = 'todos';
 
 const uuid = () => Math.random().toString(36).substr(2, 9);
 
@@ -40,13 +40,9 @@ function saveTodos(todos: Todos): void {
 }
 
 function initializeTodos(): Todos {
-  let todos: Todos = new Array(3)
+  const todos: Todos = new Array(3)
     .fill(null)
-    .reduce(
-      (acc, _, index) =>
-        Object.assign(acc, { [uuid()]: `Seeded Todo #${index + 1}` }),
-      {}
-    );
+    .reduce((acc, _, index) => Object.assign(acc, { [uuid()]: `Seeded Todo #${index + 1}` }), {});
   saveTodos(todos);
   return todos;
 }
@@ -62,13 +58,13 @@ function getTodos(): Todos {
 }
 
 function addTodo(todo: string): void {
-  let newTodos = { ...getTodos() };
+  const newTodos = { ...getTodos() };
   newTodos[uuid()] = todo;
   saveTodos(newTodos);
 }
 
 function deleteTodo(id: string): void {
-  let newTodos = { ...getTodos() };
+  const newTodos = { ...getTodos() };
   delete newTodos[id];
   saveTodos(newTodos);
 }
@@ -76,26 +72,26 @@ function deleteTodo(id: string): void {
 async function todoListAction({ request }: ActionFunctionArgs) {
   await sleep();
 
-  let formData = await request.formData();
+  const formData = await request.formData();
 
   // Deletion via fetcher
-  if (formData.get("action") === "delete") {
-    let id = formData.get("todoId");
-    if (typeof id === "string") {
+  if (formData.get('action') === 'delete') {
+    const id = formData.get('todoId');
+    if (typeof id === 'string') {
       deleteTodo(id);
       return { ok: true };
     }
   }
 
   // Addition via <Form>
-  let todo = formData.get("todo");
-  if (typeof todo === "string") {
+  const todo = formData.get('todo');
+  if (typeof todo === 'string') {
     addTodo(todo);
   }
 
   return new Response(null, {
     status: 302,
-    headers: { Location: "/todos" },
+    headers: { Location: '/todos' },
   });
 }
 
@@ -105,17 +101,17 @@ async function todoListLoader(): Promise<Todos> {
 }
 
 function TodosList() {
-  let todos = useLoaderData() as Todos;
-  let navigation = useNavigation();
-  let formRef = React.useRef<HTMLFormElement>(null);
+  const todos = useLoaderData() as Todos;
+  const navigation = useNavigation();
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   // If we add and then we delete - this will keep isAdding=true until the
   // fetcher completes it's revalidation
-  let [isAdding, setIsAdding] = React.useState(false);
+  const [isAdding, setIsAdding] = React.useState(false);
   React.useEffect(() => {
-    if (navigation.formData?.get("action") === "add") {
+    if (navigation.formData?.get('action') === 'add') {
       setIsAdding(true);
-    } else if (navigation.state === "idle") {
+    } else if (navigation.state === 'idle') {
       setIsAdding(false);
       formRef.current?.reset();
     }
@@ -140,7 +136,7 @@ function TodosList() {
         <input type="hidden" name="action" value="add" />
         <input name="todo"></input>
         <button type="submit" disabled={isAdding}>
-          {isAdding ? "Adding..." : "Add"}
+          {isAdding ? 'Adding...' : 'Add'}
         </button>
       </Form>
       <Outlet />
@@ -163,7 +159,7 @@ function TodoListItem({ id, todo }: TodoItemProps) {
       <fetcher.Form method="post">
         <input type="hidden" name="action" value="delete" />
         <button type="submit" name="todoId" value={id} disabled={isDeleting}>
-          {isDeleting ? "Deleting..." : "Delete"}
+          {isDeleting ? 'Deleting...' : 'Delete'}
         </button>
       </fetcher.Form>
     </>
@@ -171,8 +167,8 @@ function TodoListItem({ id, todo }: TodoItemProps) {
 }
 
 function Todo() {
-  let params = useParams();
-  let todo = useLoaderData() as string;
+  const params = useParams();
+  const todo = useLoaderData() as string;
   return (
     <>
       <h2>Todo:</h2>
@@ -184,10 +180,10 @@ function Todo() {
 
 async function todoLoader({ params }: LoaderFunctionArgs) {
   await sleep();
-  let todos = getTodos();
+  const todos = getTodos();
 
-  if (!params.id) throw new Error("Expected params.id");
-  let todo = todos[params.id];
+  if (!params.id) throw new Error('Expected params.id');
+  const todo = todos[params.id];
 
   if (!todo) throw new Error(`Uh oh, I couldn't find a todo with id "${params.id}"`);
   return todo;
@@ -196,7 +192,7 @@ async function todoLoader({ params }: LoaderFunctionArgs) {
 export const TodoListScenario = {
   render: () => <TodosList />,
   parameters: {
-    reactRouter: {
+    reactRouter: reactRouterParameters({
       routePath: '/todos',
       loader: todoListLoader,
       action: todoListAction,
@@ -205,6 +201,6 @@ export const TodoListScenario = {
         element: <Todo />,
         loader: todoLoader,
       },
-    }
-  }
-}
+    }),
+  },
+};

@@ -1,23 +1,22 @@
-import React from "react";
-import { beforeEach, describe, it, vi } from "vitest";
-import { composeStories } from "@storybook/react";
+import React from 'react';
+import { beforeEach, describe, it, vi } from 'vitest';
+import { composeStories } from '@storybook/react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { EVENTS } from "../constants";
+import { EVENTS } from '../constants';
 import { addons } from '@storybook/preview-api';
 
-import * as NestingStories from "../stories/StoryRouteTree/Nesting.stories";
-import * as ActionStories from "../stories/StoryRouteTree/DataRouter/Action.stories";
-import * as LoaderStories from "../stories/StoryRouteTree/DataRouter/Loader.stories";
-import Channel from "@storybook/channels";
-import { SpyInstance } from "@vitest/spy";
-import userEvent from "@testing-library/user-event";
+import * as NestingStories from '../stories/StoryRouteTree/Nesting.stories';
+import * as ActionStories from '../stories/StoryRouteTree/DataRouter/Action.stories';
+import * as LoaderStories from '../stories/StoryRouteTree/DataRouter/Loader.stories';
+import Channel from '@storybook/channels';
+import { SpyInstance } from '@vitest/spy';
+import userEvent from '@testing-library/user-event';
 
 type LocalTestContext = {
   emitSpy: SpyInstance;
-}
+};
 
 describe('RouterLogger', () => {
-
   beforeEach<LocalTestContext>((context) => {
     const transport = {
       setHandler: vi.fn(),
@@ -49,7 +48,7 @@ describe('RouterLogger', () => {
             [':id/*', { '*': '37', 'id': '13' }],
             [':subId', { '*': '37', 'id': '13', 'subId': '37' }],
           ],
-          hash: "",
+          hash: '',
           routeState: null,
         },
       });
@@ -62,7 +61,7 @@ describe('RouterLogger', () => {
     render(<IndexAtRoot />);
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole('link', { name: "Navigate to listing" }));
+    await user.click(screen.getByRole('link', { name: 'Navigate to listing' }));
 
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.NAVIGATION, {
@@ -78,7 +77,7 @@ describe('RouterLogger', () => {
             ['/listing/*', { '*': '' }],
             [undefined, { '*': '' }],
           ],
-          hash: "",
+          hash: '',
           routeState: null,
         },
       });
@@ -91,7 +90,7 @@ describe('RouterLogger', () => {
     render(<IndexAtRoot />);
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole('link', { name: "Navigate to listing" }));
+    await user.click(screen.getByRole('link', { name: 'Navigate to listing' }));
 
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ROUTE_MATCHES, {
@@ -100,8 +99,8 @@ describe('RouterLogger', () => {
         data: {
           matches: [
             ['/listing/*', { '*': '13' }],
-            [':id/*', { '*': '', id: '13' }],
-            [undefined, { '*': '', id: '13' }],
+            [':id/*', { '*': '', 'id': '13' }],
+            [undefined, { '*': '', 'id': '13' }],
           ],
         },
       });
@@ -132,7 +131,7 @@ describe('RouterLogger', () => {
 
     render(<FileFormData />);
 
-    const file = new File(['hello'], 'hello.txt', {type: 'plain/text'})
+    const file = new File(['hello'], 'hello.txt', { type: 'plain/text' });
     const input = screen.getByLabelText(/file/i) as HTMLInputElement;
 
     const user = userEvent.setup();
@@ -146,11 +145,11 @@ describe('RouterLogger', () => {
           context: undefined,
           params: { '*': '' },
           request: {
-            url: "http://localhost/",
-            method: "POST",
+            url: 'http://localhost/',
+            method: 'POST',
             body: {
               myFile: '[object File]',
-            }
+            },
           },
         },
       });
@@ -171,7 +170,6 @@ describe('RouterLogger', () => {
       });
     });
   });
-
 
   it<LocalTestContext>('should log data router loader when triggered', async (context) => {
     const { RouteAndOutletLoader } = composeStories(LoaderStories);
@@ -196,14 +194,14 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
         type: EVENTS.LOADER_SETTLED,
-        data: { foo: "Data loaded" },
+        data: { foo: 'Data loaded' },
       });
     });
 
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
         type: EVENTS.LOADER_SETTLED,
-        data: { foo: "Outlet data loaded" },
+        data: { foo: 'Outlet data loaded' },
       });
     });
   });

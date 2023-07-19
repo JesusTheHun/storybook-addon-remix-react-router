@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import {addons, types} from "@storybook/manager-api";
+import { addons, types } from '@storybook/manager-api';
 
-import {ADDON_ID, EVENTS, PANEL_ID, PARAM_KEY} from "./constants";
-import {Panel} from "./components/Panel";
-import {useEffect, useState} from "react";
-import { STORY_CHANGED } from "@storybook/core-events";
+import { ADDON_ID, EVENTS, PANEL_ID, PARAM_KEY } from './constants';
+import { Panel } from './components/Panel';
+import { useEffect, useState } from 'react';
+import { STORY_CHANGED } from '@storybook/core-events';
 
 addons.register(ADDON_ID, (api) => {
   addons.add(PANEL_ID, {
@@ -41,7 +41,7 @@ addons.register(ADDON_ID, (api) => {
       const suffix = badgeCount === 0 ? '' : ` (${badgeCount})`;
       return `React Router${suffix}`;
     },
-    match: ({ viewMode }) => viewMode === "story",
+    match: ({ viewMode }) => viewMode === 'story',
     render: ({ active, key }) => <Panel active={active || false} key={key} api={api} />,
   });
 });

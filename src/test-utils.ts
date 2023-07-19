@@ -5,7 +5,7 @@ type Vi = typeof vi;
 export class LocalStorage {
   store!: Record<string, string>;
 
-  constructor(vi: Vi ) {
+  constructor(vi: Vi) {
     Object.defineProperty(this, 'store', {
       enumerable: false,
       writable: true,
@@ -57,7 +57,7 @@ export class LocalStorage {
 
 export function mockLocalStorage(): void {
   if (!(window.localStorage instanceof LocalStorage)) {
-    vi.stubGlobal("localStorage", new LocalStorage(vi));
-    vi.stubGlobal("sessionStorage", new LocalStorage(vi));
+    vi.stubGlobal('localStorage', new LocalStorage(vi));
+    vi.stubGlobal('sessionStorage', new LocalStorage(vi));
   }
 }

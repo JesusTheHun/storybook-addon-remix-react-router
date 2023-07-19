@@ -1,13 +1,7 @@
-import { EVENTS } from "./constants";
-import { ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch, useParams } from "react-router-dom";
-import { getHumanReadableBody } from "./utils";
-import { PickByValue, PromiseType, ValuesType } from "utility-types";
-
-type SwappableRecord = Record<any, PropertyKey>;
-type Identity<T extends PropertyKey> = T;
-export type Swap<T extends SwappableRecord> = {
-  [P in keyof T extends Identity<infer B> ? T[B] : never]: keyof PickByValue<T, P>;
-}
+import { EVENTS } from '../constants';
+import { ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch, useParams } from 'react-router-dom';
+import { getHumanReadableBody } from '../utils/utils';
+import { PromiseType } from 'utility-types';
 
 export type AddonEvents = typeof EVENTS;
 export type RouterEvents = Omit<AddonEvents, 'CLEAR'>;
@@ -28,17 +22,11 @@ export type RouterEvent = {
     key: string;
     type: RouterEvents[Key];
     data: RouterEventData[RouterEvents[Key]];
-  }
+  };
 }[keyof RouterEvents];
-
-// storybook/react-router-v6/story-loaded
-
 
 export type NavigationEvent = Extract<RouterEvent, { type: NavigationEventName }>;
 export type DataEvent = Extract<RouterEvent, { type: DataEventName }>;
-export type GetEventByName<T extends ValuesType<RouterEvents>> = Extract<RouterEvent, { type: T }>;
-
-type A = GetEventByName<'storybook/react-router-v6/story-loaded'>
 
 export type RouteMatchesData = Array<[RouteMatch['route']['path'], RouteMatch['params']]>;
 
@@ -50,7 +38,7 @@ export type EventDataStoryLoaded = {
   routeState: unknown;
   searchParams: Record<string, string | string[]>;
   routeMatches: RouteMatchesData;
-}
+};
 
 export type EventDataNavigation = {
   url: string;
@@ -61,31 +49,35 @@ export type EventDataNavigation = {
   searchParams: Record<string, string | string[]>;
   routeState: unknown;
   routeMatches: RouteMatchesData;
-}
+};
 
 export type EventDataRouteMatches = {
   matches: RouteMatchesData;
-}
+};
 
 export type DataEventArgs = {
   [EVENTS.ACTION_INVOKED]: ActionFunctionArgs;
   [EVENTS.ACTION_SETTLED]: unknown;
   [EVENTS.LOADER_INVOKED]: LoaderFunctionArgs;
   [EVENTS.LOADER_SETTLED]: unknown;
-}
+};
 
 export type RequestSummary = {
   url: ActionFunctionArgs['request']['url'];
   method: ActionFunctionArgs['request']['method'];
   body: PromiseType<ReturnType<typeof getHumanReadableBody>>;
-}
+};
 
 export type DataEventData = {
-  [EVENTS.ACTION_INVOKED]: Pick<ActionFunctionArgs, 'params' | 'context'> & { request: RequestSummary };
+  [EVENTS.ACTION_INVOKED]: Pick<ActionFunctionArgs, 'params' | 'context'> & {
+    request: RequestSummary;
+  };
   [EVENTS.ACTION_SETTLED]: DataEventArgs[DataEvents['ACTION_SETTLED']];
-  [EVENTS.LOADER_INVOKED]: Pick<LoaderFunctionArgs, 'params' | 'context'> & { request: RequestSummary };
+  [EVENTS.LOADER_INVOKED]: Pick<LoaderFunctionArgs, 'params' | 'context'> & {
+    request: RequestSummary;
+  };
   [EVENTS.LOADER_SETTLED]: DataEventArgs[DataEvents['LOADER_SETTLED']];
-}
+};
 
 export type NavigationEventData = {
   [EVENTS.NAVIGATION]: EventDataNavigation;

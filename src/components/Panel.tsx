@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
-import { AddonPanel } from "@storybook/components";
-import { PanelContent, PanelContentProps } from "./PanelContent";
+import React, { useRef, useState } from 'react';
+import { AddonPanel } from '@storybook/components';
+import { PanelContent, PanelContentProps } from './PanelContent';
 import { API, useChannel } from '@storybook/manager-api';
-import { EVENTS } from "../constants";
-import { STORY_CHANGED } from "@storybook/core-events";
+import { EVENTS } from '../constants';
+import { STORY_CHANGED } from '@storybook/core-events';
 
 interface PanelProps {
   active: boolean;
@@ -14,7 +14,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
   const eventCount = useRef(0);
   const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['routerEvents']>([]);
 
-  const pushEvent = (event: any) => setNavigationEvents(prev => [...prev, {...event, key: eventCount.current++ }]);
+  const pushEvent = (event: any) => setNavigationEvents((prev) => [...prev, { ...event, key: eventCount.current++ }]);
 
   useChannel({
     [EVENTS.ROUTE_MATCHES]: pushEvent,
@@ -30,7 +30,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
   const clear = () => {
     props.api.emit(EVENTS.CLEAR);
     setNavigationEvents([]);
-  }
+  };
 
   return (
     <AddonPanel {...props}>

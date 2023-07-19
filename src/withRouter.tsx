@@ -1,12 +1,12 @@
-import React from "react";
-import {makeDecorator} from "@storybook/preview-api";
-import {StoryRouteTree} from "./components/StoryRouteTree";
-import {PARAM_KEY} from "./constants";
+import React from 'react';
+import { makeDecorator } from '@storybook/preview-api';
+import { StoryRouteTree } from './components/StoryRouteTree';
+import { PARAM_KEY } from './constants';
 
 export const withRouter = makeDecorator({
-  name: "withRouter",
+  name: 'withRouter',
   parameterName: PARAM_KEY,
-  wrapper: (story: (...args: any[]) => unknown, context, {parameters = {}} ) => {
+  wrapper: (story: (...args: any[]) => unknown, context, { parameters = {} }) => {
     const {
       routePath = '*',
       routeParams,
@@ -23,9 +23,11 @@ export const withRouter = makeDecorator({
       routeId,
     } = parameters;
 
-    if (typeof routePath !== 'string') throw new Error("React Router decorator : `path` must be a string");
-    if (routeParams !== undefined && typeof routeParams !== 'object') throw new Error("React Router decorator : `params` must be an object with strings as values");
-    if (searchParams !== undefined && typeof searchParams !== 'object') throw new Error("React Router decorator : `search` must be an object with strings as values");
+    if (typeof routePath !== 'string') throw new Error('React Router decorator : `path` must be a string');
+    if (routeParams !== undefined && typeof routeParams !== 'object')
+      throw new Error('React Router decorator : `params` must be an object with strings as values');
+    if (searchParams !== undefined && typeof searchParams !== 'object')
+      throw new Error('React Router decorator : `search` must be an object with strings as values');
 
     return (
       <StoryRouteTree
@@ -45,6 +47,6 @@ export const withRouter = makeDecorator({
       >
         {story(context) as React.ReactNode}
       </StoryRouteTree>
-    )
-  }
-})
+    );
+  },
+});

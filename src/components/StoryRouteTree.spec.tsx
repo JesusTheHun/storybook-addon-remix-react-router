@@ -1,7 +1,7 @@
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event';
 import { composeStories } from '@storybook/react';
 
 import * as BasicStories from '../stories/StoryRouteTree/Basics.stories';
@@ -15,7 +15,6 @@ import * as ComplexStories from '../stories/StoryRouteTree/DataRouter/Complex.st
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {
-
     const {
       RenderChildren,
       RenderChildrenWithStoryArgs,
@@ -26,22 +25,22 @@ describe('StoryRouteTree', () => {
       MatchesHandles,
       MatchesHandlesInsideOutlet,
       SearchParams,
-      RouteId
+      RouteId,
     } = composeStories(BasicStories);
 
     it('should render child component', () => {
       render(<RenderChildren />);
-      expect(screen.getByRole('heading', { name: "Hi" })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: 'Hi' })).toBeInTheDocument();
     });
 
     it('should render child component with story args', () => {
       render(<RenderChildrenWithStoryArgs />);
-      expect(screen.getByRole('heading', { name: "42" })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: '42' })).toBeInTheDocument();
     });
 
     it('should render component at the specified path', async () => {
       render(<SpecificPath />);
-      expect(screen.getByText("/foo")).toBeInTheDocument();
+      expect(screen.getByText('/foo')).toBeInTheDocument();
     });
 
     it('should render component with the specified route params', async () => {
@@ -78,90 +77,87 @@ describe('StoryRouteTree', () => {
       render(<RouteId />);
       expect(screen.getByText('["SomeRouteId"]')).toBeInTheDocument();
     });
-
-
   });
 
-  describe("Nesting", () => {
+  describe('Nesting', () => {
+    const { IndexAtRoot, MatchingRoute, MatchingNestedRoute } = composeStories(NestingStories);
 
-    const {
-      IndexAtRoot,
-      MatchingRoute,
-      MatchingNestedRoute,
-    } = composeStories(NestingStories);
-
-    it("should render the index route when on root path", async () => {
+    it('should render the index route when on root path', async () => {
       render(<IndexAtRoot />);
 
-      expect(screen.queryByRole('link', { name: "Navigate to listing" })).toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: "Navigate to details" })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to details' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
     });
 
-    it("should navigate appropriately when clicking a link", async () => {
+    it('should navigate appropriately when clicking a link', async () => {
       render(<IndexAtRoot />);
 
-      expect(screen.queryByRole('link', { name: "Navigate to listing" })).toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: "Navigate to details" })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to details' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
 
       const user = userEvent.setup();
-      await user.click(screen.getByRole('link', { name: "Navigate to listing" }));
+      await user.click(screen.getByRole('link', { name: 'Navigate to listing' }));
 
-      expect(screen.queryByRole('link', { name: "Navigate to listing" })).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: "Navigate to details" })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to details' })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
     });
 
-    it("should render the matching route with bound params when on sub-path", () => {
+    it('should render the matching route with bound params when on sub-path', () => {
       render(<MatchingRoute />);
 
-      expect(screen.queryByRole('link', { name: "Navigate to listing" })).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: "Navigate to details" })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to details' })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
     });
 
-    it("should render the matching route with bound params when on sub-sub-path", () => {
+    it('should render the matching route with bound params when on sub-sub-path', () => {
       render(<MatchingNestedRoute />);
 
-      expect(screen.queryByRole('link', { name: "Navigate to listing" })).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: "Navigate to details" })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Listing id: 13", level: 1 })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: "Details id: 37", level: 2 })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Navigate to details' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).toBeInTheDocument();
     });
   });
 
   describe('Loader', () => {
-
-    const {
-      RouteLoader,
-      RouteAndOutletLoader,
-      ErrorBoundary,
-    } = composeStories(LoaderStories);
+    const { RouteLoader, RouteAndOutletLoader, ErrorBoundary } = composeStories(LoaderStories);
 
     it('should render component with route loader', async () => {
       render(<RouteLoader />);
-      await waitFor(() => expect(screen.getByRole('heading', { name: "Data loaded" })).toBeInTheDocument(), { timeout: 1000 });
+      await waitFor(() => expect(screen.getByRole('heading', { name: 'Data loaded' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
     });
 
     it('should render component with route loader and outlet loader', async () => {
       render(<RouteAndOutletLoader />);
-      await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: "Data loaded" })).toBeInTheDocument(), { timeout: 1000 });
-      await waitFor(() => expect(screen.getByRole('heading', { level: 2, name: "Outlet data loaded" })).toBeInTheDocument(), { timeout: 1000 });
+      await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: 'Data loaded' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
+      await waitFor(
+        () => expect(screen.getByRole('heading', { level: 2, name: 'Outlet data loaded' })).toBeInTheDocument(),
+        { timeout: 1000 }
+      );
     });
 
-    it("should render the error boundary if the route loader fails", async () => {
+    it('should render the error boundary if the route loader fails', async () => {
       render(<ErrorBoundary />);
-      await waitFor(() => expect(screen.queryByRole('heading', { name: "Fancy error component : Meh.", level: 1 })).toBeInTheDocument());
+      await waitFor(() =>
+        expect(screen.queryByRole('heading', { name: 'Fancy error component : Meh.', level: 1 })).toBeInTheDocument()
+      );
     });
 
-    it("should not revalidate the route data", async () => {
+    it('should not revalidate the route data', async () => {
       const { RouteShouldNotRevalidate } = composeStories(LoaderStories);
-      const loader = vi.fn(() => "Yo");
+      const loader = vi.fn(() => 'Yo');
 
       RouteShouldNotRevalidate.parameters!.reactRouter.loader = loader;
 
@@ -172,18 +168,14 @@ describe('StoryRouteTree', () => {
       const user = userEvent.setup();
       await user.click(screen.getByRole('link'));
 
-      screen.getByText("?foo=bar");
+      screen.getByText('?foo=bar');
 
       expect(loader).toHaveBeenCalledOnce();
     });
   });
 
   describe('Action', () => {
-
-    const {
-      TextFormData,
-      FileFormData
-    } = composeStories(ActionStories);
+    const { TextFormData, FileFormData } = composeStories(ActionStories);
 
     it('should handle route action with text form', async () => {
       const action = vi.fn();
@@ -202,7 +194,7 @@ describe('StoryRouteTree', () => {
       const formData = await (action.mock!.lastCall![0].request as Request).formData();
       const pojoFormData = Object.fromEntries(formData.entries());
 
-      expect(pojoFormData).toEqual({ foo: "bar" });
+      expect(pojoFormData).toEqual({ foo: 'bar' });
     });
 
     it('should handle route action with file form', async () => {
@@ -210,7 +202,7 @@ describe('StoryRouteTree', () => {
 
       FileFormData.parameters!.reactRouter.action = action;
 
-      const file = new File(['hello'], 'hello.txt', {type: 'plain/text'})
+      const file = new File(['hello'], 'hello.txt', { type: 'plain/text' });
 
       render(<FileFormData />);
 
@@ -221,7 +213,7 @@ describe('StoryRouteTree', () => {
       await user.click(screen.getByRole('button'));
 
       expect(input.files).toHaveLength(1);
-      expect(input.files!.item(0)).toStrictEqual(file)
+      expect(input.files!.item(0)).toStrictEqual(file);
 
       expect(action).toHaveBeenCalledOnce();
       expect(action.mock!.lastCall![0].request).toBeInstanceOf(Request);
@@ -234,19 +226,15 @@ describe('StoryRouteTree', () => {
     });
   });
 
-  describe("Complex", () => {
-
-    const {
-      TodoListScenario
-    } = composeStories(ComplexStories);
+  describe('Complex', () => {
+    const { TodoListScenario } = composeStories(ComplexStories);
 
     it('should render route with actions properly', async () => {
       render(<TodoListScenario />);
 
-      await waitFor(
-        () => expect(screen.queryByRole('heading', { level: 1, name: "Todos" })).toBeInTheDocument(),
-        { timeout: 1000 }
-      );
+      await waitFor(() => expect(screen.queryByRole('heading', { level: 1, name: 'Todos' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
     });
   });
 });

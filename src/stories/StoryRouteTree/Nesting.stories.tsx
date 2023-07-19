@@ -1,17 +1,19 @@
-import React from "react";
-import {Link, Route, Routes, useParams} from "react-router-dom";
-import {withRouter} from "../../withRouter";
+import React from 'react';
+import { Link, Route, Routes, useParams } from 'react-router-dom';
+import { withRouter } from '../../withRouter';
 
 export default {
-  title: "Nesting",
+  title: 'Nesting',
   decorators: [withRouter],
 };
 
 function NestedRoutes() {
-  return <Routes>
-    <Route index element={<Link to="13">Navigate to listing</Link>} />
-    <Route path=":id/*" element={<Listing />} />
-  </Routes>
+  return (
+    <Routes>
+      <Route index element={<Link to="13">Navigate to listing</Link>} />
+      <Route path=":id/*" element={<Listing />} />
+    </Routes>
+  );
 }
 
 function Listing() {
@@ -39,26 +41,33 @@ export const IndexAtRoot = {
     reactRouter: {
       routePath: '/listing/*',
       browserPath: '/listing',
-    }
-  }
-}
+    },
+  },
+};
 
 function NestedRoutesWithProp({ foo = 1 }: { foo?: number }) {
-  return <Routes>
-    <Route index element={(
-      <div>
-        <h1>Story arg : { foo }</h1>
-        <Link to={`${foo}`}>Navigate to listing</Link>
-      </div>
-    )} />
-    <Route path=":id/*" element={(
-        <div>
-          <h2>Story arg : { foo }</h2>
-          <Listing />
-        </div>
-      )}
-    />
-  </Routes>
+  return (
+    <Routes>
+      <Route
+        index
+        element={
+          <div>
+            <h1>Story arg : {foo}</h1>
+            <Link to={`${foo}`}>Navigate to listing</Link>
+          </div>
+        }
+      />
+      <Route
+        path=":id/*"
+        element={
+          <div>
+            <h2>Story arg : {foo}</h2>
+            <Listing />
+          </div>
+        }
+      />
+    </Routes>
+  );
 }
 
 export const IndexAtRootWithStoryArgs = {
@@ -67,12 +76,12 @@ export const IndexAtRootWithStoryArgs = {
     reactRouter: {
       routePath: '/listing/*',
       browserPath: '/listing',
-    }
+    },
   },
   args: {
     foo: 42,
-  }
-}
+  },
+};
 
 export const MatchingRoute = {
   render: () => <NestedRoutes />,
@@ -80,9 +89,9 @@ export const MatchingRoute = {
     reactRouter: {
       routePath: '/listing/*',
       browserPath: '/listing/13',
-    }
-  }
-}
+    },
+  },
+};
 
 export const MatchingNestedRoute = {
   render: () => <NestedRoutes />,
@@ -90,6 +99,6 @@ export const MatchingNestedRoute = {
     reactRouter: {
       routePath: '/listing/*',
       browserPath: '/listing/13/37',
-    }
-  }
-}
+    },
+  },
+};

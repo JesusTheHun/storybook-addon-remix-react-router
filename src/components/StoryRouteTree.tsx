@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { ActionFunction, LoaderFunctionArgs, Route, RouteMatch, RouteProps } from "react-router-dom";
-import { RouterLogger } from "./RouterLogger";
-import { FCC } from "../fixes";
-import { DeepRouteMatchesContext } from "../contexts/DeepRouteMatches";
-import { UNSAFE_RouteContext } from "react-router";
-import { StoryRouter } from "./StoryRouter";
-import { HydrationState, LoaderFunction } from "@remix-run/router";
-import { addons } from "@storybook/preview-api";
-import { EVENTS } from "../constants";
-import Channel from "@storybook/channels";
-import { ActionFunctionArgs } from "@remix-run/router/utils";
-import { useDataEventBuilder } from "../hooks/useDataEventBuilder";
+import React, { useState } from 'react';
+import { ActionFunction, LoaderFunctionArgs, Route, RouteMatch, RouteProps } from 'react-router-dom';
+import { RouterLogger } from './RouterLogger';
+import { FCC } from '../fixes';
+import { DeepRouteMatchesContext } from '../contexts/DeepRouteMatches';
+import { UNSAFE_RouteContext } from 'react-router';
+import { StoryRouter } from './StoryRouter';
+import { HydrationState, LoaderFunction } from '@remix-run/router';
+import { addons } from '@storybook/preview-api';
+import { EVENTS } from '../constants';
+import Channel from '@storybook/channels';
+import { ActionFunctionArgs } from '@remix-run/router/utils';
+import { useDataEventBuilder } from '../hooks/useDataEventBuilder';
 
 type OutletProps = {
   element: React.ReactNode;
@@ -19,7 +19,7 @@ type OutletProps = {
   loader?: RouteProps['loader'];
   action?: RouteProps['action'];
   errorElement?: React.ReactNode | null;
-}
+};
 
 export type StoryRouterProps = {
   browserPath?: string;
@@ -38,7 +38,7 @@ export type StoryRouterProps = {
 };
 
 type Ctx = {
-  _currentValue?: { matches: RouteMatch[] }
+  _currentValue?: { matches: RouteMatch[] };
 };
 
 export const StoryRouteTree: FCC<StoryRouterProps> = ({
@@ -64,7 +64,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   UNSAFE_RouteContext.Provider._context = new Proxy(UNSAFE_RouteContext.Provider._context ?? {}, {
     set(target: Ctx, p: keyof Ctx, v: Ctx[keyof Ctx]) {
       if (p === '_currentValue') {
-        setDeepRouteMatches(currentMatches => {
+        setDeepRouteMatches((currentMatches) => {
           if (v !== undefined && v.matches.length > currentMatches.length) {
             return v.matches;
           }
@@ -76,9 +76,11 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
     },
   });
 
-  const outletConfig: OutletProps = isOutletProps(outlet) ? outlet : {
-    element: outlet,
-  };
+  const outletConfig: OutletProps = isOutletProps(outlet)
+    ? outlet
+    : {
+        element: outlet,
+      };
 
   const outletExpandProps = {
     element: outletConfig.element,
@@ -86,12 +88,18 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
     errorElement: outletConfig.errorElement,
     action: outletConfig.action !== undefined ? actionWrapper(channel, outletConfig.action) : undefined,
     loader: outletConfig.loader !== undefined ? loaderWrapper(channel, outletConfig.loader) : undefined,
-  }
+  };
 
   return (
     <DeepRouteMatchesContext.Provider value={deepRouteMatches}>
-      <StoryRouter routePath={routePath} routeParams={routeParams} routeState={routeState} searchParams={searchParams}
-                   browserPath={userBrowserPath} hydrationData={hydrationData}>
+      <StoryRouter
+        routePath={routePath}
+        routeParams={routeParams}
+        routeState={routeState}
+        searchParams={searchParams}
+        browserPath={userBrowserPath}
+        hydrationData={hydrationData}
+      >
         <Route
           id={routeId}
           path={routePath}
@@ -100,19 +108,17 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
           loader={loader !== undefined ? loaderWrapper(channel, loader) : undefined}
           shouldRevalidate={shouldRevalidate}
           errorElement={errorElement}
-          element={
-            <RouterLogger>
-              {children}
-            </RouterLogger>
-          }
+          element={<RouterLogger>{children}</RouterLogger>}
         >
-          {outletConfig.element !== undefined && outletConfig.path === undefined && <Route index {...outletExpandProps} />}
+          {outletConfig.element !== undefined && outletConfig.path === undefined && (
+            <Route index {...outletExpandProps} />
+          )}
           {outletConfig.element !== undefined && <Route path={outletConfig.path} {...outletExpandProps} />}
         </Route>
       </StoryRouter>
     </DeepRouteMatchesContext.Provider>
-  )
-}
+  );
+};
 
 function isOutletProps(test: unknown): test is OutletProps {
   return test !== null && typeof test === 'object' && Object.prototype.hasOwnProperty.call(test, 'element');
@@ -121,7 +127,7 @@ function isOutletProps(test: unknown): test is OutletProps {
 function actionWrapper(channel: Channel, action: ActionFunction): ActionFunction {
   const createEventData = useDataEventBuilder();
 
-  return async function(actionArgs: ActionFunctionArgs) {
+  return async function (actionArgs: ActionFunctionArgs) {
     if (action === undefined) return;
 
     channel.emit(EVENTS.ACTION_INVOKED, await createEventData(EVENTS.ACTION_INVOKED, actionArgs));
@@ -129,13 +135,13 @@ function actionWrapper(channel: Channel, action: ActionFunction): ActionFunction
     channel.emit(EVENTS.ACTION_SETTLED, await createEventData(EVENTS.ACTION_SETTLED, actionResult));
 
     return actionResult;
-  }
+  };
 }
 
 function loaderWrapper(channel: Channel, loader: LoaderFunction): ActionFunction {
   const createEventData = useDataEventBuilder();
 
-  return async function(loaderArgs: LoaderFunctionArgs) {
+  return async function (loaderArgs: LoaderFunctionArgs) {
     if (loader === undefined) return;
 
     channel.emit(EVENTS.LOADER_INVOKED, await createEventData(EVENTS.LOADER_INVOKED, loaderArgs));
@@ -143,5 +149,5 @@ function loaderWrapper(channel: Channel, loader: LoaderFunction): ActionFunction
     channel.emit(EVENTS.LOADER_SETTLED, await createEventData(EVENTS.LOADER_SETTLED, loaderResult));
 
     return loaderResult;
-  }
+  };
 }

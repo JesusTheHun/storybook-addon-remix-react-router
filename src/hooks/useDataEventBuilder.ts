@@ -1,7 +1,7 @@
-import { DataEvent, DataEventArgs, DataEventKey, DataEventName, RouterEvent } from "../typings";
-import {EVENTS} from "../constants";
-import {getHumanReadableBody} from "../utils";
-import { useRef } from "react";
+import { useRef } from 'react';
+import { EVENTS } from '../constants';
+import { DataEvent, DataEventArgs, DataEventName } from '../types/internals';
+import { getHumanReadableBody } from '../utils/internals';
 
 export const useDataEventBuilder = () => {
   const eventCount = useRef(0);
@@ -16,7 +16,7 @@ export const useDataEventBuilder = () => {
           url: request.url,
           method: request.method,
           body: await getHumanReadableBody(request),
-        }
+        };
 
         const data = { params, request: requestData, context };
         return { key, type: eventName, data };
@@ -33,7 +33,7 @@ export const useDataEventBuilder = () => {
           url: request.url,
           method: request.method,
           body: await getHumanReadableBody(request),
-        }
+        };
 
         const data = { params, request: requestData, context };
         return { key, type: eventName, data };
@@ -43,5 +43,5 @@ export const useDataEventBuilder = () => {
         return { key, type: eventName, data: eventArgs };
       }
     }
-  }
-}
+  };
+};

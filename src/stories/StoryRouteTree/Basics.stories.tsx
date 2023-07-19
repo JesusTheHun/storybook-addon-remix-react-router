@@ -1,25 +1,23 @@
-import React from "react";
-import {Outlet, useLocation, useMatches, useParams, useSearchParams} from "react-router-dom";
-import {withRouter} from "../../withRouter";
-import {FCC} from "src/fixes";
-
-const DummyComponent: FCC = ({ children }) => <>{children}</>;
+import React from 'react';
+import { Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
+import { reactRouterParameters } from '../../reactRouterParameters';
+import { withRouter } from '../../withRouter';
 
 export default {
-  title: "Basics",
+  title: 'Basics',
   decorators: [withRouter],
 };
 
 export const RenderChildren = {
   render: () => <h1>Hi</h1>,
-}
+};
 
 export const RenderChildrenWithStoryArgs = {
   render: ({ id }: { id: string }) => <h1>{id}</h1>,
   args: {
-    id: "42",
+    id: '42',
   },
-}
+};
 
 function ShowPath() {
   const location = useLocation();
@@ -31,9 +29,9 @@ export const SpecificPath = {
   parameters: {
     reactRouter: {
       routePath: '/foo',
-    }
-  }
-}
+    },
+  },
+};
 
 function ShowRouteParams() {
   const routeParams = useParams();
@@ -43,12 +41,12 @@ function ShowRouteParams() {
 export const RouteParams = {
   render: () => <ShowRouteParams />,
   parameters: {
-    reactRouter: {
+    reactRouter: reactRouterParameters({
       routePath: '/book/:id',
       routeParams: { id: '42' },
-    }
-  }
-}
+    }),
+  },
+};
 
 function ShowSearchParams() {
   const [searchParams] = useSearchParams();
@@ -60,45 +58,45 @@ export const SearchParams = {
   parameters: {
     reactRouter: {
       searchParams: { page: '42' },
-    }
-  }
-}
+    },
+  },
+};
 
 function ShowHandles() {
   const matches = useMatches();
-  return <p>{JSON.stringify(matches.map(m => m.handle))}</p>;
+  return <p>{JSON.stringify(matches.map((m) => m.handle))}</p>;
 }
 
 export const MatchesHandles = {
   render: () => <ShowHandles />,
   parameters: {
     reactRouter: {
-      routeHandle: "Hi",
-    }
-  }
-}
+      routeHandle: 'Hi',
+    },
+  },
+};
 
 export const MatchesHandlesInsideOutlet = {
   render: () => <ShowHandles />,
   parameters: {
     reactRouter: {
-      routeHandle: "Hi",
+      routeHandle: 'Hi',
       outlet: {
-        handle: "Yall",
+        handle: 'Yall',
         element: <ShowHandles />,
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 
 export const OutletJSX = {
   render: () => <Outlet />,
   parameters: {
     reactRouter: {
       outlet: <h1>I'm an outlet</h1>,
-    }
-  }
-}
+    },
+  },
+};
 
 export const OutletConfigObject = {
   render: () => <Outlet />,
@@ -107,13 +105,13 @@ export const OutletConfigObject = {
       outlet: {
         element: <h1>I'm an outlet defined with a config object</h1>,
       },
-    }
-  }
-}
+    },
+  },
+};
 
 function ShowRouteId() {
   const matches = useMatches();
-  return <p>{JSON.stringify(matches.map(m => m.id))}</p>;
+  return <p>{JSON.stringify(matches.map((m) => m.id))}</p>;
 }
 
 export const RouteId = {
@@ -121,6 +119,6 @@ export const RouteId = {
   parameters: {
     reactRouter: {
       routeId: 'SomeRouteId',
-    }
-  }
-}
+    },
+  },
+};

@@ -1,4 +1,6 @@
-import {withRouter} from "./withRouter";
+import { withRouter } from './withRouter';
+import { reactRouterParameters } from './reactRouterParameters';
+import type { ReactRouterParameters, RouteParams, OutletProps } from './types/public';
 
-// make it work with --isolatedModules
-export {withRouter};
+export { withRouter, reactRouterParameters };
+export type { ReactRouterParameters, RouteParams, OutletProps };

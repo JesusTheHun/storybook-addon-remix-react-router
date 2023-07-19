@@ -1,12 +1,12 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Location, RouteMatch, useLocation } from "react-router-dom";
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Location, RouteMatch, useLocation } from 'react-router-dom';
 import { addons } from '@storybook/preview-api';
 
-import { EVENTS } from "../constants";
-import { useNavigationEventBuilder } from "../hooks/useNavigationEventBuilder";
-import { FCC } from "../fixes";
-import { useDeepRouteMatches } from "../hooks/useDeepRouteMatches";
-import { defer } from "../utils";
+import { EVENTS } from '../constants';
+import { useNavigationEventBuilder } from '../hooks/useNavigationEventBuilder';
+import { FCC } from '../fixes';
+import { useDeepRouteMatches } from '../hooks/useDeepRouteMatches';
+import { defer } from '../utils/internals';
 
 export const RouterLogger: FCC = ({ children }) => {
   const channel = addons.getChannel();
@@ -34,7 +34,7 @@ export const RouterLogger: FCC = ({ children }) => {
     const id = setTimeout(() => {
       if (!loadedEventEmitted) {
         setLoadedEventEmitted(true);
-        channel.emit(EVENTS.STORY_LOADED, buildEventData(EVENTS.STORY_LOADED))
+        channel.emit(EVENTS.STORY_LOADED, buildEventData(EVENTS.STORY_LOADED));
       }
     }, 0);
 
@@ -45,16 +45,16 @@ export const RouterLogger: FCC = ({ children }) => {
     if (loadedAt !== undefined && loadedAt.key !== location.key) {
       storyLoadedEmitted.current.promise.then(() => {
         channel.emit(EVENTS.NAVIGATION, buildEventData(EVENTS.NAVIGATION));
-      })
+      });
     }
   }, [location]);
 
   useEffect(() => {
-    if (loadedEventEmitted && (matches.length > lastEmittedRouteMatches.length)) {
+    if (loadedEventEmitted && matches.length > lastEmittedRouteMatches.length) {
       setLastEmittedRouteMatches(matches);
       channel.emit(EVENTS.ROUTE_MATCHES, buildEventData(EVENTS.ROUTE_MATCHES));
     }
-  }, [matches])
+  }, [matches]);
 
   return <>{children}</>;
-}
+};

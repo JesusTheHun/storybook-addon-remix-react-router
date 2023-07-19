@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useLayoutEffect, useRef, useState } from 'react';
-import { InitialEntry } from "@remix-run/router";
-import { createMemoryRouter, createRoutesFromElements, generatePath, RouterProvider } from "react-router-dom";
-import { StoryRouterProps } from "./StoryRouteTree";
-import { addons } from "@storybook/preview-api";
-import { STORY_ARGS_UPDATED } from "@storybook/core-events";
+import { InitialEntry } from '@remix-run/router';
+import { createMemoryRouter, createRoutesFromElements, generatePath, RouterProvider } from 'react-router-dom';
+import { StoryRouterProps } from './StoryRouteTree';
+import { addons } from '@storybook/preview-api';
+import { STORY_ARGS_UPDATED } from '@storybook/core-events';
 
 export const StoryRouter = ({
   children,
@@ -20,7 +20,7 @@ export const StoryRouter = ({
   const routeStateRef = useRef<InitialEntry>();
 
   channel.on(STORY_ARGS_UPDATED, () => {
-    setStoryMutations(prev => prev + 1);
+    setStoryMutations((prev) => prev + 1);
   });
 
   useLayoutEffect(() => {
@@ -43,7 +43,7 @@ export const StoryRouter = ({
       hydrationData,
     });
 
-    memoryRouter.subscribe(nextState => {
+    memoryRouter.subscribe((nextState) => {
       routeStateRef.current = nextState.location;
     });
 
@@ -53,7 +53,7 @@ export const StoryRouter = ({
   if (router === undefined) return null;
 
   return <RouterProvider router={router} fallbackElement={<Fallback />} />;
-}
+};
 
 export function Fallback() {
   return <p>Performing initial data load</p>;

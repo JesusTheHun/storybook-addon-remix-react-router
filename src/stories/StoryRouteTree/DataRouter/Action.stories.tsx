@@ -1,9 +1,10 @@
-import React from "react";
-import {useFetcher} from "react-router-dom";
-import {withRouter} from "../../../withRouter";
+import React from 'react';
+import { useFetcher } from 'react-router-dom';
+import { reactRouterParameters } from '../../../reactRouterParameters';
+import { withRouter } from '../../../withRouter';
 
 export default {
-  title: "Action",
+  title: 'Action',
   decorators: [withRouter],
 };
 
@@ -11,12 +12,12 @@ function TinyForm() {
   const fetcher = useFetcher();
 
   return (
-      <div>
-        <fetcher.Form method="post">
-          <input type="hidden" name="foo" value="bar" />
-          <button type="submit">Submit</button>
-        </fetcher.Form>
-      </div>
+    <div>
+      <fetcher.Form method="post">
+        <input type="hidden" name="foo" value="bar" />
+        <button type="submit">Submit</button>
+      </fetcher.Form>
+    </div>
   );
 }
 
@@ -25,10 +26,9 @@ export const TextFormData = {
   parameters: {
     reactRouter: {
       action: async () => ({ result: 42 }),
-    }
-  }
-}
-
+    },
+  },
+};
 
 function FileForm() {
   const fetcher = useFetcher();
@@ -48,8 +48,8 @@ function FileForm() {
 export const FileFormData = {
   render: () => <FileForm />,
   parameters: {
-    reactRouter: {
+    reactRouter: reactRouterParameters({
       action: async () => ({ result: 'file saved' }),
-    }
-  }
-}
+    }),
+  },
+};

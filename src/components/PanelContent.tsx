@@ -1,17 +1,17 @@
-import React, { Fragment, PropsWithChildren } from "react";
+import React, { Fragment, PropsWithChildren } from 'react';
 import { styled } from '@storybook/theming';
-import { EVENTS } from "../constants";
-import { ActionBar, ScrollArea } from "@storybook/components";
-import { RouterEventDisplayWrapper } from "./RouterEventDisplayWrapper";
-import { ThemedInspector } from "./ThemedInspector";
-import { InspectorContainer } from "./InspectorContainer";
-import { RouterEvent, RouterEvents } from "../typings";
-import { FCC } from "../fixes";
+import { EVENTS } from '../constants';
+import { ActionBar, ScrollArea } from '@storybook/components';
+import { RouterEvent, RouterEvents } from '../types/internals';
+import { RouterEventDisplayWrapper } from './RouterEventDisplayWrapper';
+import { ThemedInspector } from './ThemedInspector';
+import { InspectorContainer } from './InspectorContainer';
+import { FCC } from '../fixes';
 
 export type PanelContentProps = {
   routerEvents: Array<RouterEvent & { key: string }>;
   onClear: () => void;
-}
+};
 
 export type ScrollAreaProps = PropsWithChildren<{
   horizontal?: boolean;
@@ -21,12 +21,11 @@ export type ScrollAreaProps = PropsWithChildren<{
 }>;
 const PatchedScrollArea = ScrollArea as FCC<ScrollAreaProps>;
 
-
-export const PanelContent: FCC<PanelContentProps> = ({routerEvents, onClear}) => {
+export const PanelContent: FCC<PanelContentProps> = ({ routerEvents, onClear }) => {
   return (
     <Fragment>
       <Wrapper title="reactRouterLogger">
-        {routerEvents.map(event => {
+        {routerEvents.map((event) => {
           return (
             <RouterEventDisplayWrapper key={event.key}>
               <InspectorContainer>
@@ -47,26 +46,26 @@ export const PanelContent: FCC<PanelContentProps> = ({routerEvents, onClear}) =>
                 />
               </InspectorContainer>
             </RouterEventDisplayWrapper>
-          )
+          );
         })}
       </Wrapper>
 
-      <ActionBar actionItems={[{title: 'Clear', onClick: onClear}]}/>
+      <ActionBar actionItems={[{ title: 'Clear', onClick: onClear }]} />
     </Fragment>
-  )
-}
-
-export const humanReadableEventNames: Record<RouterEvents[keyof RouterEvents], string> = {
-  [EVENTS.NAVIGATION]: "Navigate",
-  [EVENTS.STORY_LOADED]: "Story rendered",
-  [EVENTS.ROUTE_MATCHES]: "New route matches",
-  [EVENTS.ACTION_INVOKED]: "Action invoked",
-  [EVENTS.ACTION_SETTLED]: "Action settled",
-  [EVENTS.LOADER_INVOKED]: "Loader invoked",
-  [EVENTS.LOADER_SETTLED]: "Loader settled",
+  );
 };
 
-export const Wrapper = styled(({children, title}: ScrollAreaProps) => (
+export const humanReadableEventNames: Record<RouterEvents[keyof RouterEvents], string> = {
+  [EVENTS.NAVIGATION]: 'Navigate',
+  [EVENTS.STORY_LOADED]: 'Story rendered',
+  [EVENTS.ROUTE_MATCHES]: 'New route matches',
+  [EVENTS.ACTION_INVOKED]: 'Action invoked',
+  [EVENTS.ACTION_SETTLED]: 'Action settled',
+  [EVENTS.LOADER_INVOKED]: 'Loader invoked',
+  [EVENTS.LOADER_SETTLED]: 'Loader settled',
+};
+
+export const Wrapper = styled(({ children, title }: ScrollAreaProps) => (
   <PatchedScrollArea horizontal vertical title={title}>
     {children}
   </PatchedScrollArea>
@@ -74,4 +73,4 @@ export const Wrapper = styled(({children, title}: ScrollAreaProps) => (
   margin: 0,
   padding: '10px 5px 20px',
 });
-Wrapper.displayName = "Wrapper";
+Wrapper.displayName = 'Wrapper';

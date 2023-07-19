@@ -1,13 +1,13 @@
-import React from "react";
-import {Link, Outlet, useLoaderData, useLocation, useRouteError, useSearchParams} from "react-router-dom";
-import {withRouter} from "../../../withRouter";
+import React from 'react';
+import { Link, Outlet, useLoaderData, useLocation, useRouteError } from 'react-router-dom';
+import { withRouter } from '../../../withRouter';
 
 export default {
-  title: "Loader",
+  title: 'Loader',
   decorators: [withRouter],
 };
 
-function sleep(n: number = 500) {
+function sleep(n = 500) {
   return new Promise((r) => setTimeout(r, n));
 }
 
@@ -16,7 +16,7 @@ function loader(response: unknown) {
 }
 
 function DataLoader() {
-  let data = useLoaderData() as { foo: string };
+  const data = useLoaderData() as { foo: string };
   return <h1>{data.foo}</h1>;
 }
 
@@ -24,14 +24,13 @@ export const RouteLoader = {
   render: () => <DataLoader />,
   parameters: {
     reactRouter: {
-      loader: loader("Data loaded"),
-    }
-  }
-}
-
+      loader: loader('Data loaded'),
+    },
+  },
+};
 
 function DataLoaderWithOutlet() {
-  let data = useLoaderData() as { foo: string };
+  const data = useLoaderData() as { foo: string };
   return (
     <div>
       <h1>{data.foo}</h1>
@@ -41,7 +40,7 @@ function DataLoaderWithOutlet() {
 }
 
 function DataLoaderOutlet() {
-  let data = useLoaderData() as { foo: string };
+  const data = useLoaderData() as { foo: string };
   return (
     <div>
       <h2>{data.foo}</h2>
@@ -53,37 +52,37 @@ export const RouteAndOutletLoader = {
   render: () => <DataLoaderWithOutlet />,
   parameters: {
     reactRouter: {
-      loader: loader("Data loaded"),
+      loader: loader('Data loaded'),
       outlet: {
         element: <DataLoaderOutlet />,
-        loader: loader("Outlet data loaded"),
+        loader: loader('Outlet data loaded'),
       },
-    }
-  }
-}
+    },
+  },
+};
 
 function AddSearchParam() {
   const location = useLocation();
 
   return (
     <div>
-      { location.search }
+      {location.search}
       <div>
-        <Link to={{ search: '?foo=bar' }} >Add Search Param</Link>
+        <Link to={{ search: '?foo=bar' }}>Add Search Param</Link>
       </div>
     </div>
-  )
+  );
 }
 
 export const RouteShouldNotRevalidate = {
   render: () => <AddSearchParam />,
   parameters: {
     reactRouter: {
-      loader: loader("Should not appear again after search param is added"),
+      loader: loader('Should not appear again after search param is added'),
       shouldRevalidate: () => false,
-    }
-  }
-}
+    },
+  },
+};
 
 function DataErrorBoundary() {
   const error = useRouteError() as Error;
@@ -91,7 +90,7 @@ function DataErrorBoundary() {
 }
 
 async function failingLoader() {
-  throw new Error("Meh.");
+  throw new Error('Meh.');
 }
 
 export const ErrorBoundary = {
@@ -100,6 +99,6 @@ export const ErrorBoundary = {
     reactRouter: {
       loader: failingLoader,
       errorElement: <DataErrorBoundary />,
-    }
-  }
-}
+    },
+  },
+};
