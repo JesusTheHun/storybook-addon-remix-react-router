@@ -1,6 +1,6 @@
 import { EVENTS } from '../constants';
 import { ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch, useParams } from 'react-router-dom';
-import { getHumanReadableBody } from '../utils/utils';
+import { getHumanReadableBody } from '../utils/internals';
 import { PromiseType } from 'utility-types';
 
 export type AddonEvents = typeof EVENTS;

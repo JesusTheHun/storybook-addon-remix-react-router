@@ -1,32 +1,40 @@
-import { HydrationState, LoaderFunction, ShouldRevalidateFunction } from '@remix-run/router';
+import { ActionFunction, HydrationState, LoaderFunction } from '@remix-run/router';
 import React from 'react';
-import { ActionFunction } from 'react-router-dom';
+import { RouteObject } from './router';
 import { RouteParamsFromPath } from './utils';
 
-export type ReactRouterParameters<RoutePath extends string = string> = {
-  routeId?: string;
-  routeState?: unknown;
-  routeHandle?: unknown;
-  searchParams?: ConstructorParameters<typeof URLSearchParams>;
-  outlet?: React.ReactNode | OutletProps;
-  browserPath?: string;
-  loader?: LoaderFunction;
-  action?: ActionFunction;
-  errorElement?: React.ReactNode;
+export type ReactRouterParameters<
+  Path extends string = string,
+  OutletPath extends string = string,
+  DescendantPath extends string = string
+> = RouterParameters<OutletPath, DescendantPath> &
+  LocationParameters &
+  Params<Path> & {
+    path: Path;
+  } & Omit<RouteObject, 'index' | 'path'>;
+
+type LocationParameters = {
+  locationSearchParams?: ConstructorParameters<typeof URLSearchParams>[number];
+  locationHash?: string;
+  locationState?: unknown;
+};
+
+// type RouterParameters = {
+type RouterParameters<OutletPath extends string = string, DescendantPath extends string = string> = {
   hydrationData?: HydrationState;
-  shouldRevalidate?: ShouldRevalidateFunction;
-  routePath?: RoutePath;
-} & RouteParams<RoutePath>;
+  outlet?: React.ReactNode | OutletProps<OutletPath>;
+  descendantRoutes?: Params<DescendantPath>;
+};
 
-export type RouteParams<RoutePath extends string> = Record<string, never> extends RouteParamsFromPath<RoutePath>
-  ? { routePath?: RoutePath }
-  : { routePath: RoutePath; routeParams: RouteParamsFromPath<RoutePath> };
+type Params<Path extends string> = Record<string, never> extends RouteParamsFromPath<Path>
+  ? { path?: Path }
+  : { path: Path; params: RouteParamsFromPath<Path> };
 
-export type OutletProps = {
+export type OutletProps<OutletPath extends string> = {
   element: React.ReactNode;
-  path?: string;
+  path?: OutletPath;
   handle?: unknown;
   loader?: LoaderFunction;
   action?: ActionFunction;
   errorElement?: React.ReactNode;
-};
+} & Params<OutletPath>;

@@ -2,7 +2,7 @@ import { describe, test } from 'vitest';
 import { expectTypeOf } from 'expect-type';
 import { RouteParamsFromPath } from './utils';
 
-describe('Typing - Utils', () => {
+describe('Types - Utils', () => {
   describe('RouteParamsFromPath', () => {
     test('returns an empty object when no param is expected', () => {
       expectTypeOf<RouteParamsFromPath<'/users'>>().toEqualTypeOf<unknown>();

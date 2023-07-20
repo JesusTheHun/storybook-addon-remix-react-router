@@ -1,82 +1,29 @@
-import React, { useState } from 'react';
-import { ActionFunction, LoaderFunctionArgs, Route, RouteMatch, RouteProps } from 'react-router-dom';
-import { RouterLogger } from './RouterLogger';
-import { FCC } from '../fixes';
-import { DeepRouteMatchesContext } from '../contexts/DeepRouteMatches';
-import { UNSAFE_RouteContext } from 'react-router';
-import { StoryRouter } from './StoryRouter';
-import { HydrationState, LoaderFunction } from '@remix-run/router';
-import { addons } from '@storybook/preview-api';
-import { EVENTS } from '../constants';
-import Channel from '@storybook/channels';
+import { LoaderFunction } from '@remix-run/router';
 import { ActionFunctionArgs } from '@remix-run/router/utils';
+import Channel from '@storybook/channels';
+import { addons } from '@storybook/preview-api';
+import * as handlebars from 'handlebars';
+import React from 'react';
+import { ActionFunction, LoaderFunctionArgs, Route } from 'react-router-dom';
+import { EVENTS } from '../constants';
+import { DeepRouteMatchesContext } from '../contexts/DeepRouteMatches';
+import { FCC } from '../fixes';
 import { useDataEventBuilder } from '../hooks/useDataEventBuilder';
+import { useRouteContextMatches } from '../hooks/useRouteContextMatches';
+import { OutletProps, ReactRouterParameters } from '../types/public';
+import { RouterLogger } from './RouterLogger';
+import { StoryRouter } from './StoryRouter';
 
-type OutletProps = {
-  element: React.ReactNode;
-  path?: string;
-  handle?: unknown;
-  loader?: RouteProps['loader'];
-  action?: RouteProps['action'];
-  errorElement?: React.ReactNode | null;
-};
-
-export type StoryRouterProps = {
-  browserPath?: string;
-  routePath?: string;
-  routeParams?: Record<string, string>;
-  routeHandle?: unknown;
-  searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
-  routeState?: unknown;
-  outlet?: React.ReactNode | OutletProps;
-  hydrationData?: HydrationState;
-  loader?: RouteProps['loader'];
-  action?: RouteProps['action'];
-  errorElement?: React.ReactNode | null;
-  shouldRevalidate?: RouteProps['shouldRevalidate'];
-  routeId?: RouteProps['id'];
-};
-
-type Ctx = {
-  _currentValue?: { matches: RouteMatch[] };
-};
-
-export const StoryRouteTree: FCC<StoryRouterProps> = ({
+export const StoryRouteTree: FCC<ReactRouterParameters & { params?: Record<string, string> }> = ({
   children,
-  browserPath: userBrowserPath,
-  routePath = '*',
-  routeParams,
-  routeHandle,
-  searchParams,
-  routeState,
-  outlet,
-  hydrationData,
-  action,
-  loader,
-  errorElement,
-  shouldRevalidate,
-  routeId,
+  ...parameters
 }) => {
   const channel = addons.getChannel();
-  const [deepRouteMatches, setDeepRouteMatches] = useState<RouteMatch[]>([]);
+  const deepRouteMatches = useRouteContextMatches();
 
-  // @ts-ignore
-  UNSAFE_RouteContext.Provider._context = new Proxy(UNSAFE_RouteContext.Provider._context ?? {}, {
-    set(target: Ctx, p: keyof Ctx, v: Ctx[keyof Ctx]) {
-      if (p === '_currentValue') {
-        setDeepRouteMatches((currentMatches) => {
-          if (v !== undefined && v.matches.length > currentMatches.length) {
-            return v.matches;
-          }
-          return currentMatches;
-        });
-      }
+  const { outlet } = parameters;
 
-      return Reflect.set(target, p, v);
-    },
-  });
-
-  const outletConfig: OutletProps = isOutletProps(outlet)
+  const outletConfig: OutletProps<string> = isOutletProps(outlet)
     ? outlet
     : {
         element: outlet,
@@ -93,21 +40,22 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   return (
     <DeepRouteMatchesContext.Provider value={deepRouteMatches}>
       <StoryRouter
-        routePath={routePath}
-        routeParams={routeParams}
-        routeState={routeState}
-        searchParams={searchParams}
-        browserPath={userBrowserPath}
-        hydrationData={hydrationData}
+        path={parameters.path}
+        params={parameters.params}
+        locationState={parameters.locationState}
+        locationSearchParams={parameters.locationSearchParams}
+        locationHash={parameters.locationHash}
+        hydrationData={parameters.hydrationData}
+        descendantRoutes={parameters.descendantRoutes}
       >
         <Route
-          id={routeId}
-          path={routePath}
-          handle={routeHandle}
-          action={action !== undefined ? actionWrapper(channel, action) : undefined}
-          loader={loader !== undefined ? loaderWrapper(channel, loader) : undefined}
-          shouldRevalidate={shouldRevalidate}
-          errorElement={errorElement}
+          id={parameters.id}
+          path={parameters.path}
+          handle={parameters.handle}
+          action={parameters.action !== undefined ? actionWrapper(channel, parameters.action) : undefined}
+          loader={parameters.loader !== undefined ? loaderWrapper(channel, parameters.loader) : undefined}
+          shouldRevalidate={parameters.shouldRevalidate}
+          errorElement={parameters.errorElement}
           element={<RouterLogger>{children}</RouterLogger>}
         >
           {outletConfig.element !== undefined && outletConfig.path === undefined && (
@@ -120,7 +68,7 @@ export const StoryRouteTree: FCC<StoryRouterProps> = ({
   );
 };
 
-function isOutletProps(test: unknown): test is OutletProps {
+function isOutletProps(test: unknown): test is OutletProps<string> {
   return test !== null && typeof test === 'object' && Object.prototype.hasOwnProperty.call(test, 'element');
 }
 
