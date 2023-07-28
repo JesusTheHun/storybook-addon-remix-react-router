@@ -1,6 +1,4 @@
-import { withRouter } from './withRouter';
-import { reactRouterParameters } from './reactRouterParameters';
-import type { ReactRouterParameters, Params, OutletProps } from './types/public';
+import { withRouter } from './features/decorator/withRouter';
+import { reactRouterParameters } from './features/decorator/utils/routesHelpers/reactRouterParameters';
 
 export { withRouter, reactRouterParameters };
-export type { ReactRouterParameters, RouteParams, OutletProps };

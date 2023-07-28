@@ -3,7 +3,7 @@ import React from 'react';
 import { addons, types } from '@storybook/manager-api';
 
 import { ADDON_ID, EVENTS, PANEL_ID, PARAM_KEY } from './constants';
-import { Panel } from './components/Panel';
+import { Panel } from './features/panel/components/Panel';
 import { useEffect, useState } from 'react';
 import { STORY_CHANGED } from '@storybook/core-events';
 

@@ -1,0 +1,58 @@
+import { HydrationState } from '@remix-run/router';
+import { StoryObj } from '@storybook/react';
+import React from 'react';
+import { LazyRouteFunction, RouteObject } from 'react-router';
+import { PromiseType } from 'utility-types';
+import { Merge } from '../../utils/type-utils';
+import { RouterRoute, RouterRoutes } from './components/StoryRouter';
+
+export type ReactRouterAddonParameters = {
+  routes?: RouterRoute | RouterRoutes;
+  hydrationData?: HydrationState;
+} & LocationParameters;
+
+export type LocationParameters = {
+  locationSearchParams?: ConstructorParameters<typeof URLSearchParams>[0];
+  locationHash?: string;
+  locationState?: unknown;
+};
+
+export type RouteDefinitions = ReadonlyArray<RouteDefinition | RouteDefinition[]>;
+
+export type RouteDefinition = React.ReactElement | RouteDefinitionObject;
+export type NonIndexRouteDefinition = React.ReactElement | NonIndexRouteDefinitionObject;
+
+export type RouteDefinitionObject = Merge<Omit<RouteObject, 'children'> & StoryRouteIdentifier>;
+export type NonIndexRouteDefinitionObject = RouteDefinitionObject & { index?: false };
+
+export type StoryRouteIdentifier = { useStoryElement?: boolean };
+
+type Params<Path extends string> = Record<string, never> extends RouteParamsFromPath<Path>
+  ? { path?: Path }
+  : { path: Path; params: RouteParamsFromPath<Path> };
+
+type PushRouteParam<
+  Segment extends string | undefined,
+  RouteParams extends Record<string, unknown> | unknown
+> = Segment extends `:${infer ParamName}` ? { [key in ParamName | keyof RouteParams]: string } : RouteParams;
+
+export type RouteParamsFromPath<Path extends string | undefined> =
+  Path extends `${infer CurrentSegment}/${infer RemainingPath}`
+    ? PushRouteParam<CurrentSegment, RouteParamsFromPath<RemainingPath>>
+    : PushRouteParam<Path, unknown>;
+
+type LazyReturnType<T extends RouteDefinitionObject> = T extends {
+  lazy?: infer Lazy extends LazyRouteFunction<RouteObject>;
+}
+  ? PromiseType<ReturnType<Lazy>>
+  : never;
+
+export type WithReactRouter<T extends StoryObj = StoryObj> = T & {
+  parameters: StoryObjParameters<T> & {
+    reactRouter?: ReactRouterAddonParameters;
+  };
+};
+
+export type StoryObjParameters<T extends StoryObj> = T['parameters'] extends { parameters: infer StoryParameters }
+  ? StoryParameters
+  : Record<string, unknown>;

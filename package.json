@@ -59,6 +59,22 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write ."
   },
+  "dependencies": {
+    "react-inspector": "^6.0.1"
+  },
+  "peerDependencies": {
+    "@storybook/blocks": "^7.0.0",
+    "@storybook/components": "^7.0.0",
+    "@storybook/core-events": "^7.0.0",
+    "@storybook/manager-api": "^7.0.0",
+    "@storybook/preview-api": "^7.0.0",
+    "@storybook/theming": "^7.0.0",
+    "@storybook/channels": "^7.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-router": "^6.4.0",
+    "react-router-dom": "^6.4.0"
+  },
   "devDependencies": {
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
@@ -67,6 +83,8 @@
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
     "prettier": "2.8.8",
     "@remix-run/router": "^1.3.3",
     "@remix-run/web-fetch": "^4.3.2",
@@ -76,6 +94,7 @@
     "@storybook/react": "^7.0.0",
     "@storybook/react-vite": "^7.0.0",
     "@storybook/testing-library": "^0.1.0",
+    "@storybook/types": "^7.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -96,26 +115,13 @@
     "react-router": "^6.14.2",
     "react-router-dom": "^6.14.2",
     "rimraf": "^3.0.2",
-    "storybook": "^7.0.0-rc.3",
+    "storybook": "^7.0.0",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5",
     "utility-types": "^3.10.0",
     "vite": "^4.3.9",
     "vitest": "^0.29.2",
     "zx": "^1.14.1"
-  },
-  "peerDependencies": {
-    "@storybook/blocks": "^7.0.0",
-    "@storybook/components": "^7.0.0",
-    "@storybook/core-events": "^7.0.0",
-    "@storybook/manager-api": "^7.0.0",
-    "@storybook/preview-api": "^7.0.0",
-    "@storybook/theming": "^7.0.0",
-    "@storybook/types": "^7.0.0",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-router": "^6.4.0",
-    "react-router-dom": "^6.4.0"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -137,9 +143,6 @@
       "react"
     ],
     "icon": "https://user-images.githubusercontent.com/94478/167677696-c05c668e-6290-4ced-8b6b-c2a40211f8e7.jpg"
-  },
-  "dependencies": {
-    "react-inspector": "^6.0.1"
   },
   "bugs": {
     "url": "https://github.com/JesusTheHun/storybook-addon-react-router-v6/issues"
