@@ -57,6 +57,7 @@ export const RouteAndOutletLoader = {
         loader: loader('Data loaded'),
         children: [
           {
+            index: true,
             element: <DataLoaderOutlet />,
             loader: loader('Outlet data loaded'),
           },
@@ -66,21 +67,19 @@ export const RouteAndOutletLoader = {
   },
 };
 
-function AddSearchParam() {
-  const location = useLocation();
-
-  return (
-    <div>
-      {location.search}
-      <div>
-        <Link to={{ search: '?foo=bar' }}>Add Search Param</Link>
-      </div>
-    </div>
-  );
-}
-
 export const RouteShouldNotRevalidate = {
-  render: () => <AddSearchParam />,
+  render: () => {
+    const location = useLocation();
+
+    return (
+      <div>
+        {location.search}
+        <div>
+          <Link to={{ search: '?foo=bar' }}>Add Search Param</Link>
+        </div>
+      </div>
+    );
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: {

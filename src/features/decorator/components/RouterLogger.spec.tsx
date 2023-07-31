@@ -5,9 +5,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { EVENTS } from '../../../constants';
 import { addons } from '@storybook/preview-api';
 
-import * as NestingStories from '../../../stories/v1/Nesting.stories';
-import * as ActionStories from '../../../stories/v1/DataRouter/Action.stories';
-import * as LoaderStories from '../../../stories/v1/DataRouter/Loader.stories';
+import * as NestingStories from '../../../stories/v2/Nesting.stories';
+import * as ActionStories from '../../../stories/v2/DataRouter/Action.stories';
+import * as LoaderStories from '../../../stories/v2/DataRouter/Loader.stories';
 import Channel from '@storybook/channels';
 import { SpyInstance } from '@vitest/spy';
 import userEvent from '@testing-library/user-event';

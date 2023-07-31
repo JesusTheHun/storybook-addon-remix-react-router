@@ -1,13 +1,14 @@
-import { addons } from '@storybook/preview-api';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Location, Outlet, RouteMatch, useLocation } from 'react-router-dom';
+import { Location, RouteMatch, useLocation } from 'react-router-dom';
+import { addons } from '@storybook/preview-api';
 
 import { EVENTS } from '../../../constants';
 import { defer } from '../../../utils/misc';
-import { useDeepRouteMatches } from '../hooks/useDeepRouteMatches';
 import { useNavigationEventBuilder } from '../hooks/useNavigationEventBuilder';
+import { FCC } from '../../../fixes';
+import { useDeepRouteMatches } from '../hooks/useDeepRouteMatches';
 
-export const RouterLogger: React.FC = () => {
+export const RouterLogger: FCC = ({ children }) => {
   const channel = addons.getChannel();
   const location = useLocation();
   const [loadedAt, setLoadedAt] = useState<Location>();
@@ -56,5 +57,5 @@ export const RouterLogger: React.FC = () => {
     }
   }, [buildEventData, channel, lastEmittedRouteMatches, loadedEventEmitted, matches]);
 
-  return <Outlet />;
+  return <>{children}</>;
 };

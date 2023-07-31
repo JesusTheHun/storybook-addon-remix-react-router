@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { invariant } from '../../utils/misc';
+import { LocationPathFromFunctionStringResult } from './Basics.stories';
 
 import * as BasicStories from './Basics.stories';
 import * as ActionStories from './DataRouter/Action.stories';
@@ -14,66 +15,110 @@ import * as NestingStories from './Nesting.stories';
 describe('StoryRouteTree', () => {
   describe('Basics', () => {
     const {
-      RenderChildren,
-      RenderChildrenWithStoryArgs,
-      OutletJSX,
-      OutletConfigObject,
-      SpecificPath,
-      RouteParams,
-      MatchesHandles,
-      MatchesHandlesInsideOutlet,
-      SearchParams,
-      RouteId,
+      ZeroConfig,
+      PreserveComponentState,
+      LocationPath,
+      LocationPathFromFunctionStringResult,
+      LocationPathFromFunctionUndefinedResult,
+      LocationPathParams,
+      LocationPathBestGuess,
+      LocationSearchParams,
+      RoutingRouteId,
+      RoutingHandles,
+      RoutingOutletJSX,
+      RoutingOutletConfigObject,
+      RoutingOutlets,
+      RoutingNestedOutlets,
     } = composeStories(BasicStories);
 
-    it('should render child component', () => {
-      render(<RenderChildren />);
+    it('should render the story with zero config', () => {
+      render(<ZeroConfig />);
       expect(screen.getByRole('heading', { name: 'Hi' })).toBeInTheDocument();
     });
 
-    it('should render child component with story args', () => {
-      render(<RenderChildrenWithStoryArgs />);
+    it('should preserve the state of the component when its updated locally or when the story args are changed', async () => {
+      const { rerender } = render(<PreserveComponentState />);
+
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('button'));
+
       expect(screen.getByRole('heading', { name: '42' })).toBeInTheDocument();
+      expect(screen.getByRole('status')).toHaveTextContent('1');
+
+      PreserveComponentState.args.id = '43';
+
+      rerender(<PreserveComponentState />);
+
+      expect(screen.getByRole('heading', { name: '43' })).toBeInTheDocument();
+      expect(screen.getByRole('status')).toHaveTextContent('1');
     });
 
     it('should render component at the specified path', async () => {
-      render(<SpecificPath />);
-      expect(screen.getByText('/foo')).toBeInTheDocument();
+      render(<LocationPath />);
+      expect(screen.getByText('/books')).toBeInTheDocument();
+    });
+
+    it('should render component at the path return by the function', async () => {
+      render(<LocationPathFromFunctionStringResult />);
+      expect(screen.getByText('/books/777')).toBeInTheDocument();
+    });
+
+    it('should render component at the inferred path if the function returns undefined', async () => {
+      render(<LocationPathFromFunctionUndefinedResult />);
+      expect(screen.getByText('/books')).toBeInTheDocument();
     });
 
     it('should render component with the specified route params', async () => {
-      render(<RouteParams />);
-      expect(screen.getByText('{"id":"42"}')).toBeInTheDocument();
+      render(<LocationPathParams />);
+      expect(screen.getByText('{"bookId":"42"}')).toBeInTheDocument();
+    });
+
+    it('should guess the location path and render the component tree', () => {
+      render(<LocationPathBestGuess />);
+      expect(screen.getByRole('heading', { level: 2, name: "I'm the outlet" })).toBeInTheDocument();
     });
 
     it('should render component with the specified search params', async () => {
-      render(<SearchParams />);
+      render(<LocationSearchParams />);
       expect(screen.getByText('{"page":"42"}')).toBeInTheDocument();
     });
 
+    it('should render route with the assigned id', () => {
+      render(<RoutingRouteId />);
+      expect(screen.getByText('["SomeRouteId"]')).toBeInTheDocument();
+    });
+
     it('should render component with the specified route handle', async () => {
-      render(<MatchesHandles />);
-      expect(screen.getByText('["Hi"]')).toBeInTheDocument();
+      render(<RoutingHandles />);
+      expect(screen.getByText('["Handle part 1 out of 2","Handle part 2 out of 2"]')).toBeInTheDocument();
     });
 
-    it('should render component and its outlet with the specified route handles', async () => {
-      render(<MatchesHandlesInsideOutlet />);
-      expect(screen.getByText('["Hi","Yall"]')).toBeInTheDocument();
-    });
-
-    it('should render outlet component', () => {
-      render(<OutletJSX />);
-      expect(screen.getByRole('heading', { name: "I'm an outlet" })).toBeInTheDocument();
+    it('should render outlet component defined by a JSX element', () => {
+      render(<RoutingOutletJSX />);
+      expect(screen.getByRole('heading', { name: "I'm an outlet defined by a JSX element" })).toBeInTheDocument();
     });
 
     it('should render outlet component defined with config object', () => {
-      render(<OutletConfigObject />);
+      render(<RoutingOutletConfigObject />);
       expect(screen.getByRole('heading', { name: "I'm an outlet defined with a config object" })).toBeInTheDocument();
     });
 
-    it('should render route with the assigned id', () => {
-      render(<RouteId />);
-      expect(screen.getByText('["SomeRouteId"]')).toBeInTheDocument();
+    it('should render the component tree and the matching outlet if many are set', async () => {
+      render(<RoutingOutlets />);
+
+      expect(screen.getByText('Outlet Index')).toBeInTheDocument();
+
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('link', { name: 'One' }));
+
+      expect(screen.getByText('Outlet One')).toBeInTheDocument();
+    });
+
+    it('should render all the nested outlets when there is only one per level ', () => {
+      render(<RoutingNestedOutlets />);
+      expect(screen.getByText('Outlet level 1')).toBeInTheDocument();
+      expect(screen.getByText('Outlet level 2')).toBeInTheDocument();
+      expect(screen.getByText('Outlet level 3')).toBeInTheDocument();
     });
   });
 
@@ -159,7 +204,7 @@ describe('StoryRouteTree', () => {
 
       const loader = vi.fn(() => 'Yo');
 
-      RouteShouldNotRevalidate.parameters.reactRouter.loader = loader;
+      RouteShouldNotRevalidate.parameters.reactRouter.routing.loader = loader;
 
       render(<RouteShouldNotRevalidate />);
 
@@ -181,7 +226,7 @@ describe('StoryRouteTree', () => {
       const action = vi.fn();
 
       invariant(TextFormData.parameters);
-      TextFormData.parameters.reactRouter.action = action;
+      TextFormData.parameters.reactRouter.routing.action = action;
 
       render(<TextFormData />);
 
@@ -202,7 +247,7 @@ describe('StoryRouteTree', () => {
       const action = vi.fn();
 
       invariant(FileFormData.parameters);
-      FileFormData.parameters.reactRouter.action = action;
+      FileFormData.parameters.reactRouter.routing.action = action;
 
       const file = new File(['hello'], 'hello.txt', { type: 'plain/text' });
 

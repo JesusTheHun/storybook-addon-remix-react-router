@@ -20,20 +20,10 @@ describe('reactRouterParameters', () => {
     expect(reactRouterParameters(parameters) === parameters).toBeTruthy();
   });
 
-  test.skip('a typescript error should show up if the params property is missing', () => {
+  test.skip('a typescript error should show up if the api v1 is used', () => {
     reactRouterParameters({
       // @ts-expect-error test
       routePath: 'apiV1',
-    });
-  });
-
-  test.skip('a typescript error should show up if a routeParams is missing', () => {
-    reactRouterParameters({
-      path: '/users/:userId/tabs/:tabId',
-      // @ts-expect-error test
-      params: {
-        userId: '42',
-      },
     });
   });
 });

@@ -11,9 +11,9 @@ export type RouterParameters = {
   routing?: RouterRoute | [RouterRoute, ...RouterRoute[]];
 };
 
-export type LocationParameters = {
-  path?: string;
-  pathParams?: Record<string, string | number>;
+export type LocationParameters<PathParams extends Record<string, string | number> = Record<string, string | number>> = {
+  path?: string | ((inferredPath: string, pathParams: PathParams) => string | undefined);
+  pathParams?: PathParams;
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
   hash?: string;
   state?: unknown;
@@ -24,8 +24,6 @@ export type NavigationHistoryEntry = LocationParameters & {
 };
 
 export type RouterRoute = RouteObject & StoryRouteIdentifier;
-
-export type RouteDefinitions = ReadonlyArray<RouteDefinition | RouteDefinition[]>;
 
 export type RouteDefinition = React.ReactElement | RouteDefinitionObject;
 export type NonIndexRouteDefinition = React.ReactElement | NonIndexRouteDefinitionObject;

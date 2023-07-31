@@ -1,6 +1,7 @@
 import React from 'react';
 import { describe, it } from 'vitest';
 import { injectStory } from './InjectStory';
+import { isValidReactNode } from './isValidReactNode';
 
 describe('injectStory', () => {
   it('should return an empty array if routes is an empty array', () => {
@@ -38,7 +39,7 @@ describe('injectStory', () => {
       expect.objectContaining({ path: '/about', useStoryElement: true }),
     ]);
 
-    expect(React.isValidElement(result[1].element)).toBeTruthy();
+    expect(isValidReactNode(result[1].element)).toBeTruthy();
     expect(result[1]).not.toBe(routes[1]);
   });
 
@@ -65,6 +66,6 @@ describe('injectStory', () => {
       },
     ]);
 
-    expect(React.isValidElement(result[0].children?.[1].element)).toBeTruthy();
+    expect(isValidReactNode(result[0].children?.[1].element)).toBeTruthy();
   });
 });

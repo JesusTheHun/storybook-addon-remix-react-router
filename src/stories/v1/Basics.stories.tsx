@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
 import { withRouter } from '../../features/decorator/withRouter';
 
@@ -13,23 +13,6 @@ export const RenderChildren = {
 
 export const RenderChildrenWithStoryArgs = {
   render: ({ id }: { id: string }) => <h1>{id}</h1>,
-  args: {
-    id: '42',
-  },
-};
-
-export const KeepComponentState = {
-  render: ({ id }: { id: string }) => {
-    const [count, setCount] = useState(0);
-
-    return (
-      <div>
-        <h1>{id}</h1>
-        <button onClick={() => setCount((count) => count + 1)}>Increase</button>
-        <div>{count}</div>
-      </div>
-    );
-  },
   args: {
     id: '42',
   },
@@ -58,7 +41,7 @@ export const RouteParams = {
   render: () => <ShowRouteParams />,
   parameters: {
     reactRouter: {
-      routePath: '/book/:id',
+      routePath: '/book/:id', // TODO edit appendPathSegment to handle this case ; the slash in the middle is wrongfully removed
       routeParams: { id: '42' },
     },
   },

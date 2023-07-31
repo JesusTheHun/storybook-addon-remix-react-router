@@ -1,10 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import { RouteObject } from 'react-router';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { useRouteObjectsDecorator } from '../hooks/useRouteObjectsDecorator';
 
 import { injectStory } from '../utils/InjectStory';
-import { useNormalizedHistory } from '../hooks/useNormalizedHistory';
+import { normalizeHistory } from '../utils/normalizeHistory';
 import { normalizeRoutes } from '../utils/normalizeRoutes';
 import { ReactRouterAddonStoryParameters, ReactRouterDecoratorProps } from './ReactRouterDecorator';
 import { RouterLogger } from './RouterLogger';
@@ -17,9 +16,8 @@ export type StoryRouterProps = {
 
 export function StoryRouter(props: StoryRouterProps) {
   const { renderStory, storyContext, storyParameters = {} } = props;
-  const { hydrationData, routing } = storyParameters;
+  const { hydrationData, routing, navigationHistory, location } = storyParameters;
 
-  const { initialEntries, initialIndex } = useNormalizedHistory(storyParameters);
   const decorateRouteObjects = useRouteObjectsDecorator();
 
   const StoryComponent = useCallback(
@@ -30,14 +28,21 @@ export function StoryRouter(props: StoryRouterProps) {
   const memoryRouter = useMemo(() => {
     const normalizedRoutes = normalizeRoutes(routing);
     const decoratedRoutes = decorateRouteObjects(normalizedRoutes);
-    const injectedRoutes = injectStory(decoratedRoutes, <StoryComponent storyContext={storyContext} key={'story'} />);
+    const injectedRoutes = injectStory(
+      decoratedRoutes,
+      <RouterLogger>
+        <StoryComponent storyContext={storyContext} key={'story'} />
+      </RouterLogger>
+    );
 
-    return createMemoryRouter([{ element: <RouterLogger />, children: injectedRoutes }], {
+    const { initialEntries, initialIndex } = normalizeHistory({ navigationHistory, location, routes: injectedRoutes });
+
+    return createMemoryRouter(injectedRoutes, {
       initialEntries,
       initialIndex,
       hydrationData,
     });
-  }, [StoryComponent, decorateRouteObjects, hydrationData, initialEntries, initialIndex, routing, storyContext]);
+  }, [StoryComponent, decorateRouteObjects, hydrationData, location, navigationHistory, routing, storyContext]);
 
   return <RouterProvider router={memoryRouter} fallbackElement={<Fallback />} />;
 }

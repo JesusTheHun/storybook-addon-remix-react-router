@@ -1,3 +1,4 @@
+import { generatePath } from '@remix-run/router';
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
 import { reactRouterNestedOutlets } from '../../features/decorator/utils/routesHelpers/reactRouterNestedOutlets';
@@ -11,18 +12,11 @@ export default {
   decorators: [withRouter],
 };
 
-export const RenderChildren = {
+export const ZeroConfig = {
   render: () => <h1>Hi</h1>,
 };
 
-export const RenderChildrenWithStoryArgs = {
-  render: ({ id }: { id: string }) => <h1>{id}</h1>,
-  args: {
-    id: '42',
-  },
-};
-
-export const KeepComponentState = {
+export const PreserveComponentState = {
   render: ({ id }: { id: string }) => {
     const [count, setCount] = useState(0);
 
@@ -30,7 +24,7 @@ export const KeepComponentState = {
       <div>
         <h1>{id}</h1>
         <button onClick={() => setCount((count) => count + 1)}>Increase</button>
-        <div>{count}</div>
+        <div role={'status'}>{count}</div>
       </div>
     );
   },
@@ -39,52 +33,102 @@ export const KeepComponentState = {
   },
 };
 
-function ShowPath() {
-  const location = useLocation();
-  return <p>{location.pathname}</p>;
-}
-
-export const SpecificPath = {
-  render: () => <ShowPath />,
+export const LocationPath = {
+  render: () => {
+    const location = useLocation();
+    return <p>{location.pathname}</p>;
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       location: {
-        path: '/foo',
+        path: '/books',
       },
-      routing: { path: '/foo' },
+      routing: { path: '/books' },
     }),
   },
 };
 
-function ShowRouteParams() {
-  const routeParams = useParams();
-  return <p>{JSON.stringify(routeParams)}</p>;
-}
-
-export const RouteParams = {
-  render: () => <ShowRouteParams />,
+export const LocationPathFromFunctionStringResult = {
+  render: () => {
+    const location = useLocation();
+    return <p>{location.pathname}</p>;
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       location: {
-        path: '/book/:id',
+        path: (inferredPath, pathParams) => {
+          return generatePath(inferredPath, pathParams);
+        },
+        pathParams: { bookId: 777 },
+      },
+      routing: { path: '/books/:bookId' },
+    }),
+  },
+};
+
+export const LocationPathFromFunctionUndefinedResult = {
+  render: () => {
+    const location = useLocation();
+    return <p>{location.pathname}</p>;
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        path: () => undefined,
+      },
+      routing: { path: '/books' },
+    }),
+  },
+};
+
+export const LocationPathBestGuess = {
+  render: () => (
+    <div>
+      <h1>Story</h1>
+      The outlet should be shown below.
+      <Outlet />
+    </div>
+  ),
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterOutlet(
+        {
+          path: 'books',
+        },
+        {
+          path: 'summary',
+          element: <h2>I'm the outlet</h2>,
+        }
+      ),
+    }),
+  },
+};
+
+export const LocationPathParams = {
+  render: () => {
+    const routeParams = useParams();
+    return <p>{JSON.stringify(routeParams)}</p>;
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        path: '/book/:bookId',
         pathParams: {
-          id: '42',
+          bookId: '42',
         },
       },
       routing: {
-        path: '/book/:id',
+        path: '/book/:bookId',
       },
     }),
   },
 };
 
-function ShowSearchParams() {
-  const [searchParams] = useSearchParams();
-  return <p>{JSON.stringify(Object.fromEntries(searchParams.entries()))}</p>;
-}
-
-export const SearchParams = {
-  render: () => <ShowSearchParams />,
+export const LocationSearchParams = {
+  render: () => {
+    const [searchParams] = useSearchParams();
+    return <p>{JSON.stringify(Object.fromEntries(searchParams.entries()))}</p>;
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       location: {
@@ -94,49 +138,25 @@ export const SearchParams = {
   },
 };
 
-function ShowHandles() {
-  const matches = useMatches();
-  return <p>{JSON.stringify(matches.map((m) => m.handle))}</p>;
-}
-
-export const MatchesHandles = {
-  render: () => <ShowHandles />,
-  parameters: {
-    reactRouter: reactRouterParameters({
-      routing: { handle: 'Hi' },
-    }),
+export const RoutingHandles = {
+  render: () => {
+    const matches = useMatches();
+    return <p>{JSON.stringify(matches.map((m) => m.handle))}</p>;
   },
-};
-
-function ShowHandlesOutlet() {
-  const matches = useMatches();
-  return (
-    <section>
-      <h1>Story route handle</h1>
-      <p>{JSON.stringify(matches.map((m) => m.handle))}</p>
-
-      <h2>Outlet</h2>
-      <Outlet />
-    </section>
-  );
-}
-
-export const MatchesHandlesInsideOutlet = {
-  render: () => <ShowHandlesOutlet />,
   parameters: {
     reactRouter: reactRouterParameters({
       routing: reactRouterOutlet(
-        { handle: 'hi' },
+        { handle: 'Handle part 1 out of 2' },
         {
-          handle: 'Yall',
-          element: <ShowHandles />,
+          handle: 'Handle part 2 out of 2',
+          element: <p>I'm the outlet.</p>,
         }
       ),
     }),
   },
 };
 
-export const OutletJSX = {
+export const RoutingOutletJSX = {
   render: () => <Outlet />,
   parameters: {
     reactRouter: reactRouterParameters({
@@ -145,7 +165,7 @@ export const OutletJSX = {
   },
 };
 
-export const OutletConfigObject = {
+export const RoutingOutletConfigObject = {
   render: () => <Outlet />,
   parameters: {
     reactRouter: reactRouterParameters({
@@ -156,16 +176,26 @@ export const OutletConfigObject = {
   },
 };
 
-export const Outlets = {
+export const RoutingOutlets = {
   render: () => {
     const location = useLocation();
     return (
       <section>
         <h1>Story</h1>
         <h2>Current URL : {location.pathname}</h2>
-        <Link to={'/'}>Index</Link>
-        <Link to={'one'}>One</Link>
-        <Link to={'two'}>Two</Link>
+
+        <p>Go to :</p>
+        <ul>
+          <li>
+            <Link to={'/'}>Index</Link>
+          </li>
+          <li>
+            <Link to={'one'}>One</Link>
+          </li>
+          <li>
+            <Link to={'two'}>Two</Link>
+          </li>
+        </ul>
         <Outlet />
       </section>
     );
@@ -174,7 +204,7 @@ export const Outlets = {
     reactRouter: reactRouterParameters({
       routing: reactRouterOutlets([
         {
-          index: true,
+          path: '',
           element: <p>Outlet Index</p>,
         },
         {
@@ -190,7 +220,7 @@ export const Outlets = {
   },
 };
 
-export const NestedOutlets = {
+export const RoutingNestedOutlets = {
   render: () => (
     <section>
       <h1>Story</h1>
@@ -201,15 +231,15 @@ export const NestedOutlets = {
     reactRouter: reactRouterParameters({
       routing: reactRouterNestedOutlets([
         <>
-          <p>Outlet 1</p>
+          <p>Outlet level 1</p>
           <Outlet />
         </>,
         <>
-          <p>Outlet 2</p>
+          <p>Outlet level 2</p>
           <Outlet />
         </>,
         <>
-          <p>Outlet 3</p>
+          <p>Outlet level 3</p>
           <Outlet />
         </>,
       ]),
@@ -217,13 +247,11 @@ export const NestedOutlets = {
   },
 };
 
-function ShowRouteId() {
-  const matches = useMatches();
-  return <p>{JSON.stringify(matches.map((m) => m.id))}</p>;
-}
-
-export const RouteId = {
-  render: () => <ShowRouteId />,
+export const RoutingRouteId = {
+  render: () => {
+    const matches = useMatches();
+    return <p>{JSON.stringify(matches.map((m) => m.id))}</p>;
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: {
