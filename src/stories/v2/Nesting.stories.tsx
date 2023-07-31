@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
+import { reactRouterParameters } from '../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../features/decorator/withRouter';
 
 export default {
@@ -38,10 +39,10 @@ function SubListingDetailPage() {
 export const IndexAtRoot = {
   render: () => <NestedRoutes />,
   parameters: {
-    reactRouter: {
-      routePath: '/listing/*',
-      browserPath: '/listing',
-    },
+    reactRouter: reactRouterParameters({
+      location: { path: '/listing' },
+      routing: { path: '/listing/*' },
+    }),
   },
 };
 
@@ -73,10 +74,10 @@ function NestedRoutesWithProp({ foo = 1 }: { foo?: number }) {
 export const IndexAtRootWithStoryArgs = {
   render: ({ foo }: { foo: number }) => <NestedRoutesWithProp foo={foo} />,
   parameters: {
-    reactRouter: {
-      routePath: '/listing/*',
-      browserPath: '/listing',
-    },
+    reactRouter: reactRouterParameters({
+      location: { path: '/listing' },
+      routing: { path: '/listing/*' },
+    }),
   },
   args: {
     foo: 42,
@@ -86,19 +87,19 @@ export const IndexAtRootWithStoryArgs = {
 export const MatchingRoute = {
   render: () => <NestedRoutes />,
   parameters: {
-    reactRouter: {
-      routePath: '/listing/*',
-      browserPath: '/listing/13',
-    },
+    reactRouter: reactRouterParameters({
+      routing: { path: '/listing/*' },
+      location: { path: '/listing/13' },
+    }),
   },
 };
 
 export const MatchingNestedRoute = {
   render: () => <NestedRoutes />,
   parameters: {
-    reactRouter: {
-      routePath: '/listing/*',
-      browserPath: '/listing/13/37',
-    },
+    reactRouter: reactRouterParameters({
+      routing: { path: '/listing/*' },
+      location: { path: '/listing/13/37' },
+    }),
   },
 };

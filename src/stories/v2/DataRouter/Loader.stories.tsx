@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLoaderData, useLocation, useRouteError } from 'react-router-dom';
+import { reactRouterParameters } from '../../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
@@ -23,9 +24,9 @@ function DataLoader() {
 export const RouteLoader = {
   render: () => <DataLoader />,
   parameters: {
-    reactRouter: {
-      loader: loader('Data loaded'),
-    },
+    reactRouter: reactRouterParameters({
+      routing: { loader: loader('Data loaded') },
+    }),
   },
 };
 
@@ -51,13 +52,17 @@ function DataLoaderOutlet() {
 export const RouteAndOutletLoader = {
   render: () => <DataLoaderWithOutlet />,
   parameters: {
-    reactRouter: {
-      loader: loader('Data loaded'),
-      outlet: {
-        element: <DataLoaderOutlet />,
-        loader: loader('Outlet data loaded'),
+    reactRouter: reactRouterParameters({
+      routing: {
+        loader: loader('Data loaded'),
+        children: [
+          {
+            element: <DataLoaderOutlet />,
+            loader: loader('Outlet data loaded'),
+          },
+        ],
       },
-    },
+    }),
   },
 };
 
@@ -77,10 +82,12 @@ function AddSearchParam() {
 export const RouteShouldNotRevalidate = {
   render: () => <AddSearchParam />,
   parameters: {
-    reactRouter: {
-      loader: loader('Should not appear again after search param is added'),
-      shouldRevalidate: () => false,
-    },
+    reactRouter: reactRouterParameters({
+      routing: {
+        loader: loader('Should not appear again after search param is added'),
+        shouldRevalidate: () => false,
+      },
+    }),
   },
 };
 
@@ -96,9 +103,11 @@ async function failingLoader() {
 export const ErrorBoundary = {
   render: () => <DataLoader />,
   parameters: {
-    reactRouter: {
-      loader: failingLoader,
-      errorElement: <DataErrorBoundary />,
-    },
+    reactRouter: reactRouterParameters({
+      routing: {
+        loader: failingLoader,
+        errorElement: <DataErrorBoundary />,
+      },
+    }),
   },
 };

@@ -10,20 +10,20 @@ describe('reactRouterParameters', () => {
 
   test.skip('should look nice', () => {
     reactRouterParameters({
-      routes: reactRouterOutlet(<MyComponent />),
-      locationHash: 'title1',
+      routing: reactRouterOutlet(<MyComponent />),
+      location: { hash: 'title1' },
     });
   });
 
   test('it should return the given parameter', () => {
-    const parameters = { path: '/users' };
+    const parameters = { routing: { path: '/users' } };
     expect(reactRouterParameters(parameters) === parameters).toBeTruthy();
   });
 
   test.skip('a typescript error should show up if the params property is missing', () => {
-    // @ts-expect-error test
     reactRouterParameters({
-      path: '/users/:userId',
+      // @ts-expect-error test
+      routePath: 'apiV1',
     });
   });
 

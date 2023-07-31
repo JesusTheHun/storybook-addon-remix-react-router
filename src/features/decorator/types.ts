@@ -4,18 +4,26 @@ import React from 'react';
 import { LazyRouteFunction, RouteObject } from 'react-router';
 import { PromiseType } from 'utility-types';
 import { Merge } from '../../utils/type-utils';
-import { RouterRoute, RouterRoutes } from './components/StoryRouter';
+import { ReactRouterAddonStoryParameters } from './components/ReactRouterDecorator';
 
-export type ReactRouterAddonParameters = {
-  routes?: RouterRoute | RouterRoutes;
+export type RouterParameters = {
   hydrationData?: HydrationState;
-} & LocationParameters;
+  routing?: RouterRoute | [RouterRoute, ...RouterRoute[]];
+};
 
 export type LocationParameters = {
-  locationSearchParams?: ConstructorParameters<typeof URLSearchParams>[0];
-  locationHash?: string;
-  locationState?: unknown;
+  path?: string;
+  pathParams?: Record<string, string | number>;
+  searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
+  hash?: string;
+  state?: unknown;
 };
+
+export type NavigationHistoryEntry = LocationParameters & {
+  isInitialLocation?: boolean;
+};
+
+export type RouterRoute = RouteObject & StoryRouteIdentifier;
 
 export type RouteDefinitions = ReadonlyArray<RouteDefinition | RouteDefinition[]>;
 
@@ -49,7 +57,7 @@ type LazyReturnType<T extends RouteDefinitionObject> = T extends {
 
 export type WithReactRouter<T extends StoryObj = StoryObj> = T & {
   parameters: StoryObjParameters<T> & {
-    reactRouter?: ReactRouterAddonParameters;
+    reactRouter?: ReactRouterAddonStoryParameters;
   };
 };
 

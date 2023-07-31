@@ -1,17 +1,14 @@
-import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { composeStories } from '@storybook/react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { composeStories } from '@storybook/react';
+import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
-import * as BasicStories from '../../../stories/v1/Basics.stories';
-import { MatchesHandles, RenderChildrenWithStoryArgs, RouteId } from '../../../stories/v1/Basics.stories';
-import * as NestingStories from '../../../stories/v1/Nesting.stories';
-import * as LoaderStories from '../../../stories/v1/DataRouter/Loader.stories';
-import { RouteShouldNotRevalidate } from '../../../stories/v1/DataRouter/Loader.stories';
-import * as ActionStories from '../../../stories/v1/DataRouter/Action.stories';
-import { FileFormData } from '../../../stories/v1/DataRouter/Action.stories';
-import * as ComplexStories from '../../../stories/v1/DataRouter/Complex.stories';
+import * as BasicStories from './Basics.stories';
+import * as ActionStories from './DataRouter/Action.stories';
+import * as ComplexStories from './DataRouter/Complex.stories';
+import * as LoaderStories from './DataRouter/Loader.stories';
+import * as NestingStories from './Nesting.stories';
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {

@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router';
+import { hasOwnProperty, invariant } from '../../../../utils/misc';
 import { NonIndexRouteDefinition, NonIndexRouteDefinitionObject, RouteDefinitionObject } from '../../types';
-import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
 
 /**
  * Render the story with multiple possible outlets.
@@ -8,19 +8,25 @@ import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
  * @see withOutlet
  * @see withNestedOutlets
  */
-export function reactRouterOutlets(outlets: RouteDefinitionObject[]): RouteObject[];
-export function reactRouterOutlets(story: NonIndexRouteDefinition, outlets: RouteDefinitionObject[]): RouteObject[];
+export function reactRouterOutlets(outlets: RouteDefinitionObject[]): [RouteObject];
+export function reactRouterOutlets(
+  story: Omit<NonIndexRouteDefinitionObject, 'element'>,
+  outlets: RouteDefinitionObject[]
+): [RouteObject];
 export function reactRouterOutlets(
   ...args: [RouteDefinitionObject[]] | [NonIndexRouteDefinition, RouteDefinitionObject[]]
-): RouteObject[] {
-  const story = args.length === 1 ? {} : args[1];
+): [RouteObject] {
+  const story = (args.length === 1 ? {} : args[0]) as NonIndexRouteDefinitionObject;
   const outlets = args.length === 1 ? args[0] : args[1];
 
-  const storyDefinitionObject = castRouteDefinitionObject(story) as NonIndexRouteDefinitionObject;
+  invariant(
+    !hasOwnProperty(story, 'element'),
+    'The story definition cannot contain the `element property` because the story element will be used'
+  );
 
   return [
     {
-      ...storyDefinitionObject,
+      ...story,
       children: outlets,
     },
   ];

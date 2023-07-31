@@ -15,6 +15,7 @@ import {
   useNavigation,
   useParams,
 } from 'react-router-dom';
+import { reactRouterParameters } from '../../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
@@ -191,15 +192,20 @@ async function todoLoader({ params }: LoaderFunctionArgs) {
 export const TodoListScenario = {
   render: () => <TodosList />,
   parameters: {
-    reactRouter: {
-      routePath: '/todos',
-      loader: todoListLoader,
-      action: todoListAction,
-      outlet: {
-        path: ':id',
-        element: <Todo />,
-        loader: todoLoader,
+    reactRouter: reactRouterParameters({
+      location: { path: '/todos' },
+      routing: {
+        path: '/todos',
+        loader: todoListLoader,
+        action: todoListAction,
+        children: [
+          {
+            path: ':id',
+            element: <Todo />,
+            loader: todoLoader,
+          },
+        ],
       },
-    },
+    }),
   },
 };

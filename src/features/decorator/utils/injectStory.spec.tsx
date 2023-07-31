@@ -4,7 +4,7 @@ import { injectStory } from './InjectStory';
 
 describe('injectStory', () => {
   it('should return an empty array if routes is an empty array', () => {
-    const result = injectStory([], () => null);
+    const result = injectStory([], <h1>StoryComponent</h1>);
     expect(result).toEqual([]);
   });
 
@@ -13,7 +13,7 @@ describe('injectStory', () => {
       { path: '/', element: <div /> },
       { path: '/about', element: <div /> },
     ];
-    const result = injectStory(routes, () => null);
+    const result = injectStory(routes, <h1>StoryComponent</h1>);
     expect(result).toEqual(routes);
     expect(result).not.toBe(routes);
   });
@@ -23,7 +23,7 @@ describe('injectStory', () => {
       { path: '/', element: <div /> },
       { path: '/about', element: <div /> },
     ];
-    const result = injectStory(routes, () => null);
+    const result = injectStory(routes, <h1>StoryComponent</h1>);
     expect(result).toEqual(routes);
   });
 
@@ -32,7 +32,7 @@ describe('injectStory', () => {
       { path: '/', element: <div /> },
       { path: '/about', useStoryElement: true },
     ];
-    const result = injectStory(routes, () => <span />);
+    const result = injectStory(routes, <h1>StoryComponent</h1>);
     expect(result).toEqual([
       { path: '/', element: <div /> },
       expect.objectContaining({ path: '/about', useStoryElement: true }),
@@ -53,7 +53,7 @@ describe('injectStory', () => {
         ],
       },
     ];
-    const result = injectStory(routes, () => <span />);
+    const result = injectStory(routes, <h1>StoryComponent</h1>);
     expect(result).toEqual([
       {
         path: '/',

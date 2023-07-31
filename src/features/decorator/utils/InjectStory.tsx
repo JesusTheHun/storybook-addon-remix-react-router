@@ -1,7 +1,7 @@
 import React from 'react';
-import { RouterRoute, RouterRoutes } from '../components/StoryRouter';
+import { RouterRoute } from '../types';
 
-export function injectStory(routes: RouterRoutes, StoryComponent: React.ReactElement): RouterRoute[] {
+export function injectStory(routes: RouterRoute[], StoryComponent: React.ReactElement): RouterRoute[] {
   const storyRouteIndex = routes.findIndex((route) => route.useStoryElement);
   if (storyRouteIndex !== -1) {
     const localRoutes = Array.from(routes);

@@ -6,11 +6,12 @@ import { ReactRouterDecorator, ReactRouterDecoratorProps } from './components/Re
 export const withRouter = makeDecorator({
   name: 'withRouter',
   parameterName: PARAM_KEY,
-  wrapper: (getStory, context) => {
+  wrapper: (getStory, context, { parameters }) => {
     return (
       <ReactRouterDecorator
-        getStory={getStory as unknown as ReactRouterDecoratorProps['getStory']}
+        renderStory={getStory as unknown as ReactRouterDecoratorProps['renderStory']}
         storyContext={context as ReactRouterDecoratorProps['storyContext']}
+        parameters={parameters}
       />
     );
   },

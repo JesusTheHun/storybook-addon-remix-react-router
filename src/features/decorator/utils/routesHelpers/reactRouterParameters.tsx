@@ -1,7 +1,5 @@
-import React from 'react';
-import { ReactRouterAddonParameters } from '../../types';
-import { reactRouterOutlet } from './reactRouterOutlet';
+import { ReactRouterAddonStoryParameters } from '../../components/ReactRouterDecorator';
 
-export function reactRouterParameters(params: ReactRouterAddonParameters) {
+export function reactRouterParameters(params: ReactRouterAddonStoryParameters) {
   return params;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFetcher } from 'react-router-dom';
+import { reactRouterParameters } from '../../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
@@ -23,9 +24,9 @@ function TinyForm() {
 export const TextFormData = {
   render: () => <TinyForm />,
   parameters: {
-    reactRouter: {
-      action: async () => ({ result: 42 }),
-    },
+    reactRouter: reactRouterParameters({
+      routing: { action: async () => ({ result: 42 }) },
+    }),
   },
 };
 
@@ -47,8 +48,8 @@ function FileForm() {
 export const FileFormData = {
   render: () => <FileForm />,
   parameters: {
-    reactRouter: {
-      action: async () => ({ result: 'file saved' }),
-    },
+    reactRouter: reactRouterParameters({
+      routing: { action: async () => ({ result: 'file saved' }) },
+    }),
   },
 };

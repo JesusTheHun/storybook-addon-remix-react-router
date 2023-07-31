@@ -17,3 +17,9 @@ export type Merge<T, Deep = false> = {
 } & {};
 
 export type ToArray<T> = T extends ReadonlyArray<unknown> ? T : [T];
+
+export type AssertKey<T, K extends PropertyKey> = IsUnion<T> extends true
+  ? Extract<T, { [key in K]: unknown }> extends Extract<T, { [key in K]: infer Value }>
+    ? T & Record<K, Value>
+    : T
+  : T & Record<K, unknown>;

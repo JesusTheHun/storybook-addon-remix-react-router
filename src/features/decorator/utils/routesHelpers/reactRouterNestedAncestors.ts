@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router';
-import { castArray } from '../../../../utils/misc';
-import { NonIndexRouteDefinition, NonIndexRouteDefinitionObject, RouteDefinition } from '../../types';
+import { castArray, hasOwnProperty, invariant } from '../../../../utils/misc';
+import { NonIndexRouteDefinition, NonIndexRouteDefinitionObject, RouteDefinitionObject } from '../../types';
 import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
 
 /**
@@ -13,18 +13,21 @@ export function reactRouterNestedAncestors(
   ancestors: NonIndexRouteDefinition | NonIndexRouteDefinition[]
 ): RouteObject[];
 export function reactRouterNestedAncestors(
-  story: RouteDefinition,
+  story: Omit<RouteDefinitionObject, 'element'>,
   ancestors: NonIndexRouteDefinition | NonIndexRouteDefinition[]
 ): RouteObject[];
 export function reactRouterNestedAncestors(
   ...args:
     | [NonIndexRouteDefinition | NonIndexRouteDefinition[]]
-    | [RouteDefinition, NonIndexRouteDefinition | NonIndexRouteDefinition[]]
+    | [Omit<RouteDefinitionObject, 'element'>, NonIndexRouteDefinition | NonIndexRouteDefinition[]]
 ): RouteObject[] {
-  const story = args.length === 1 ? {} : args[0];
+  const story = (args.length === 1 ? {} : args[0]) as RouteDefinitionObject;
   const ancestors = castArray(args.length === 1 ? args[0] : args[1]);
 
-  const storyDefinitionObject = castRouteDefinitionObject(story);
+  invariant(
+    !hasOwnProperty(story, 'element'),
+    'The story definition cannot contain the `element property` because the story element will be used'
+  );
 
   const ancestorsRoot: RouteObject = {};
   let lastAncestor = ancestorsRoot;
@@ -35,7 +38,7 @@ export function reactRouterNestedAncestors(
     lastAncestor = ancestorDefinitionObjet;
   }, ancestorsRoot);
 
-  lastAncestor.children = [storyDefinitionObject];
+  lastAncestor.children = [story];
 
   return [ancestorsRoot];
 }

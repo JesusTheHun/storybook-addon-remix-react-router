@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
+import { reactRouterNestedOutlets } from '../../features/decorator/utils/routesHelpers/reactRouterNestedOutlets';
+import { reactRouterOutlet } from '../../features/decorator/utils/routesHelpers/reactRouterOutlet';
+import { reactRouterOutlets } from '../../features/decorator/utils/routesHelpers/reactRouterOutlets';
+import { reactRouterParameters } from '../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../features/decorator/withRouter';
 
 export default {
@@ -43,9 +47,12 @@ function ShowPath() {
 export const SpecificPath = {
   render: () => <ShowPath />,
   parameters: {
-    reactRouter: {
-      routePath: '/foo',
-    },
+    reactRouter: reactRouterParameters({
+      location: {
+        path: '/foo',
+      },
+      routing: { path: '/foo' },
+    }),
   },
 };
 
@@ -57,10 +64,17 @@ function ShowRouteParams() {
 export const RouteParams = {
   render: () => <ShowRouteParams />,
   parameters: {
-    reactRouter: {
-      routePath: '/book/:id',
-      routeParams: { id: '42' },
-    },
+    reactRouter: reactRouterParameters({
+      location: {
+        path: '/book/:id',
+        pathParams: {
+          id: '42',
+        },
+      },
+      routing: {
+        path: '/book/:id',
+      },
+    }),
   },
 };
 
@@ -72,9 +86,11 @@ function ShowSearchParams() {
 export const SearchParams = {
   render: () => <ShowSearchParams />,
   parameters: {
-    reactRouter: {
-      searchParams: { page: '42' },
-    },
+    reactRouter: reactRouterParameters({
+      location: {
+        searchParams: { page: '42' },
+      },
+    }),
   },
 };
 
@@ -86,42 +102,118 @@ function ShowHandles() {
 export const MatchesHandles = {
   render: () => <ShowHandles />,
   parameters: {
-    reactRouter: {
-      routeHandle: 'Hi',
-    },
+    reactRouter: reactRouterParameters({
+      routing: { handle: 'Hi' },
+    }),
   },
 };
 
+function ShowHandlesOutlet() {
+  const matches = useMatches();
+  return (
+    <section>
+      <h1>Story route handle</h1>
+      <p>{JSON.stringify(matches.map((m) => m.handle))}</p>
+
+      <h2>Outlet</h2>
+      <Outlet />
+    </section>
+  );
+}
+
 export const MatchesHandlesInsideOutlet = {
-  render: () => <ShowHandles />,
+  render: () => <ShowHandlesOutlet />,
   parameters: {
-    reactRouter: {
-      routeHandle: 'Hi',
-      outlet: {
-        handle: 'Yall',
-        element: <ShowHandles />,
-      },
-    },
+    reactRouter: reactRouterParameters({
+      routing: reactRouterOutlet(
+        { handle: 'hi' },
+        {
+          handle: 'Yall',
+          element: <ShowHandles />,
+        }
+      ),
+    }),
   },
 };
 
 export const OutletJSX = {
   render: () => <Outlet />,
   parameters: {
-    reactRouter: {
-      outlet: <h1>I'm an outlet</h1>,
-    },
+    reactRouter: reactRouterParameters({
+      routing: reactRouterOutlet(<h1>I'm an outlet defined by a JSX element</h1>),
+    }),
   },
 };
 
 export const OutletConfigObject = {
   render: () => <Outlet />,
   parameters: {
-    reactRouter: {
-      outlet: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterOutlet({
         element: <h1>I'm an outlet defined with a config object</h1>,
-      },
-    },
+      }),
+    }),
+  },
+};
+
+export const Outlets = {
+  render: () => {
+    const location = useLocation();
+    return (
+      <section>
+        <h1>Story</h1>
+        <h2>Current URL : {location.pathname}</h2>
+        <Link to={'/'}>Index</Link>
+        <Link to={'one'}>One</Link>
+        <Link to={'two'}>Two</Link>
+        <Outlet />
+      </section>
+    );
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterOutlets([
+        {
+          index: true,
+          element: <p>Outlet Index</p>,
+        },
+        {
+          path: 'one',
+          element: <p>Outlet One</p>,
+        },
+        {
+          path: 'two',
+          element: <p>Outlet Two</p>,
+        },
+      ]),
+    }),
+  },
+};
+
+export const NestedOutlets = {
+  render: () => (
+    <section>
+      <h1>Story</h1>
+      <Outlet />
+    </section>
+  ),
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterNestedOutlets([
+        <>
+          <p>Outlet 1</p>
+          <Outlet />
+        </>,
+        <>
+          <p>Outlet 2</p>
+          <Outlet />
+        </>,
+        <>
+          <p>Outlet 3</p>
+          <Outlet />
+        </>,
+      ]),
+    }),
   },
 };
 
@@ -133,8 +225,10 @@ function ShowRouteId() {
 export const RouteId = {
   render: () => <ShowRouteId />,
   parameters: {
-    reactRouter: {
-      routeId: 'SomeRouteId',
-    },
+    reactRouter: reactRouterParameters({
+      routing: {
+        id: 'SomeRouteId',
+      },
+    }),
   },
 };
