@@ -42,6 +42,6 @@ addons.register(ADDON_ID, (api) => {
       return `React Router${suffix}`;
     },
     match: ({ viewMode }) => viewMode === 'story',
-    render: ({ active, key }) => <Panel active={active || false} key={key} api={api} />,
+    render: ({ active }) => <Panel active={active || false} api={api} />,
   });
 });
