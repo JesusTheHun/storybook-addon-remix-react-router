@@ -17,7 +17,7 @@ describe('reactRouterParameters', () => {
 
   test('it should return the given parameter', () => {
     const parameters = { routing: { path: '/users' } };
-    expect(reactRouterParameters(parameters) === parameters).toBeTruthy();
+    expect(reactRouterParameters(parameters)).toBe(parameters);
   });
 
   test.skip('a typescript error should show up if the api v1 is used', () => {

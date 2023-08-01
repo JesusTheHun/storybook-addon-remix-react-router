@@ -1,6 +1,7 @@
 import { generatePath } from '@remix-run/router';
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
+import { reactRouterNestedAncestors } from '../../features/decorator/utils/routesHelpers/reactRouterNestedAncestors';
 import { reactRouterNestedOutlets } from '../../features/decorator/utils/routesHelpers/reactRouterNestedOutlets';
 import { reactRouterOutlet } from '../../features/decorator/utils/routesHelpers/reactRouterOutlet';
 import { reactRouterOutlets } from '../../features/decorator/utils/routesHelpers/reactRouterOutlets';
@@ -240,6 +241,32 @@ export const RoutingNestedOutlets = {
         </>,
         <>
           <p>Outlet level 3</p>
+          <Outlet />
+        </>,
+      ]),
+    }),
+  },
+};
+
+export const RoutingNestedAncestors = {
+  render: () => (
+    <section>
+      <h1>Story</h1>
+    </section>
+  ),
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterNestedAncestors([
+        <>
+          <p>Ancestor level 1</p>
+          <Outlet />
+        </>,
+        <>
+          <p>Ancestor level 2</p>
+          <Outlet />
+        </>,
+        <>
+          <p>Ancestor level 3</p>
           <Outlet />
         </>,
       ]),

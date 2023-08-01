@@ -1,10 +1,8 @@
 import { HydrationState } from '@remix-run/router';
-import { StoryObj } from '@storybook/react';
 import React from 'react';
 import { LazyRouteFunction, RouteObject } from 'react-router';
-import { PromiseType } from 'utility-types';
+import { Overwrite, PromiseType } from 'utility-types';
 import { Merge } from '../../utils/type-utils';
-import { ReactRouterAddonStoryParameters } from './components/ReactRouterDecorator';
 
 export type RouterParameters = {
   hydrationData?: HydrationState;
@@ -23,7 +21,7 @@ export type NavigationHistoryEntry = LocationParameters & {
   isInitialLocation?: boolean;
 };
 
-export type RouterRoute = RouteObject & StoryRouteIdentifier;
+export type RouterRoute = Overwrite<RouteObject, { children?: RouterRoute[] }> & StoryRouteIdentifier;
 
 export type RouteDefinition = React.ReactElement | RouteDefinitionObject;
 export type NonIndexRouteDefinition = React.ReactElement | NonIndexRouteDefinitionObject;
@@ -53,12 +51,4 @@ type LazyReturnType<T extends RouteDefinitionObject> = T extends {
   ? PromiseType<ReturnType<Lazy>>
   : never;
 
-export type WithReactRouter<T extends StoryObj = StoryObj> = T & {
-  parameters: StoryObjParameters<T> & {
-    reactRouter?: ReactRouterAddonStoryParameters;
-  };
-};
-
-export type StoryObjParameters<T extends StoryObj> = T['parameters'] extends { parameters: infer StoryParameters }
-  ? StoryParameters
-  : Record<string, unknown>;
+export type RoutingHelper = (...args: never[]) => [RouterRoute, ...RouterRoute[]];

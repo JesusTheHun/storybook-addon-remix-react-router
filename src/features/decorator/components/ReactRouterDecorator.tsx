@@ -1,5 +1,3 @@
-import { ReactRenderer } from '@storybook/react';
-import { Addon_StoryContext } from '@storybook/types';
 import React from 'react';
 import { useRouteContextMatches } from '../hooks/useRouteContextMatches';
 import { LocationParameters, NavigationHistoryEntry, RouterParameters } from '../types';
@@ -7,8 +5,8 @@ import { DeepRouteMatchesContext } from './DeepRouteMatches';
 import { StoryRouter } from './StoryRouter';
 
 export type ReactRouterDecoratorProps = {
-  renderStory: (context: Addon_StoryContext<ReactRenderer>) => ReactRenderer['storyResult'];
-  storyContext: Addon_StoryContext<ReactRenderer>;
+  renderStory: (context: unknown) => React.ReactElement;
+  storyContext: unknown;
   parameters: ReactRouterAddonStoryParameters;
 };
 

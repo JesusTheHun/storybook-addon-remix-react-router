@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
+import { RouteObject } from 'react-router';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { useRouteObjectsDecorator } from '../hooks/useRouteObjectsDecorator';
 
 import { injectStory } from '../utils/InjectStory';
 import { normalizeHistory } from '../utils/normalizeHistory';
-import { normalizeRoutes } from '../utils/normalizeRoutes';
+import { normalizeRouting } from '../utils/normalizeRouting';
 import { ReactRouterAddonStoryParameters, ReactRouterDecoratorProps } from './ReactRouterDecorator';
 import { RouterLogger } from './RouterLogger';
 
@@ -26,7 +27,7 @@ export function StoryRouter(props: StoryRouterProps) {
   );
 
   const memoryRouter = useMemo(() => {
-    const normalizedRoutes = normalizeRoutes(routing);
+    const normalizedRoutes = normalizeRouting(routing);
     const decoratedRoutes = decorateRouteObjects(normalizedRoutes);
     const injectedRoutes = injectStory(
       decoratedRoutes,
@@ -37,7 +38,7 @@ export function StoryRouter(props: StoryRouterProps) {
 
     const { initialEntries, initialIndex } = normalizeHistory({ navigationHistory, location, routes: injectedRoutes });
 
-    return createMemoryRouter(injectedRoutes, {
+    return createMemoryRouter(injectedRoutes as RouteObject[], {
       initialEntries,
       initialIndex,
       hydrationData,

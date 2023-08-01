@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
-import { RouteObject } from 'react-router';
+import { RouterRoute } from '../types';
 import { useActionDecorator } from './useActionDecorator';
 import { useLoaderDecorator } from './useLoaderDecorator';
 
-export function useRouteObjectsDecorator(): (routeObjects: RouteObject[]) => RouteObject[] {
+export function useRouteObjectsDecorator() {
   const decorateAction = useActionDecorator();
   const decorateLoader = useLoaderDecorator();
 
   const decorateRouteObjects = useCallback(
-    (routeDefinitions: RouteObject[]) => {
+    <T extends RouterRoute[]>(routeDefinitions: T) => {
       return routeDefinitions.map((routeDefinition) => {
         const { action, loader, children } = routeDefinition;
         const augmentedRouteDefinition = { ...routeDefinition };

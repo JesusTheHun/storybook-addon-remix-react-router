@@ -1,15 +1,10 @@
-import React from 'react';
-import { RouteDefinitionObject } from '../types';
+import { RouteDefinition, RouteDefinitionObject } from '../types';
 import { isValidReactNode } from './isValidReactNode';
 
-export function castRouteDefinitionObject<T extends RouteDefinitionObject>(definition: React.ReactElement | T) {
+export function castRouteDefinitionObject(definition: RouteDefinition): RouteDefinitionObject {
   if (isValidReactNode(definition)) {
-    return { element: definition } as T & { lazy?: undefined };
+    return { element: definition };
   }
 
-  if (definition.lazy) {
-    return definition as T;
-  }
-
-  return definition as T & { lazy?: undefined };
+  return definition;
 }

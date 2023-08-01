@@ -28,6 +28,7 @@ describe('StoryRouteTree', () => {
       RoutingOutletConfigObject,
       RoutingOutlets,
       RoutingNestedOutlets,
+      RoutingNestedAncestors,
     } = composeStories(BasicStories);
 
     it('should render the story with zero config', () => {
@@ -115,9 +116,18 @@ describe('StoryRouteTree', () => {
 
     it('should render all the nested outlets when there is only one per level ', () => {
       render(<RoutingNestedOutlets />);
+      expect(screen.getByText('Story')).toBeInTheDocument();
       expect(screen.getByText('Outlet level 1')).toBeInTheDocument();
       expect(screen.getByText('Outlet level 2')).toBeInTheDocument();
       expect(screen.getByText('Outlet level 3')).toBeInTheDocument();
+    });
+
+    it('should render all the nested ancestors when there is only one per level ', () => {
+      render(<RoutingNestedAncestors />);
+      expect(screen.getByText('Ancestor level 1')).toBeInTheDocument();
+      expect(screen.getByText('Ancestor level 2')).toBeInTheDocument();
+      expect(screen.getByText('Ancestor level 3')).toBeInTheDocument();
+      expect(screen.getByText('Story')).toBeInTheDocument();
     });
   });
 

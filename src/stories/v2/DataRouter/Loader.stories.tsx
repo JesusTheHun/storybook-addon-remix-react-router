@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLoaderData, useLocation, useRouteError } from 'react-router-dom';
+import { reactRouterOutlet } from '../../../features/decorator/utils/routesHelpers/reactRouterOutlet';
 import { reactRouterParameters } from '../../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../../features/decorator/withRouter';
 
@@ -53,16 +54,16 @@ export const RouteAndOutletLoader = {
   render: () => <DataLoaderWithOutlet />,
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: {
-        loader: loader('Data loaded'),
-        children: [
-          {
-            index: true,
-            element: <DataLoaderOutlet />,
-            loader: loader('Outlet data loaded'),
-          },
-        ],
-      },
+      routing: reactRouterOutlet(
+        {
+          loader: loader('Data loaded'),
+        },
+        {
+          index: true,
+          element: <DataLoaderOutlet />,
+          loader: loader('Outlet data loaded'),
+        }
+      ),
     }),
   },
 };

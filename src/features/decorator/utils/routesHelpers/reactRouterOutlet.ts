@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router';
 import { hasOwnProperty, invariant } from '../../../../utils/misc';
-import { NonIndexRouteDefinitionObject, RouteDefinition } from '../../types';
+import { NonIndexRouteDefinitionObject, RouteDefinition, RouterRoute } from '../../types';
 import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
 
 /**
@@ -8,18 +8,18 @@ import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
  * @see withOutlets
  * @see withNestedOutlets
  */
-export function reactRouterOutlet(outlet: RouteDefinition): [RouteObject];
+export function reactRouterOutlet(outlet: RouteDefinition): [RouterRoute];
 export function reactRouterOutlet(
   story: Omit<NonIndexRouteDefinitionObject, 'element'>,
   outlet: RouteDefinition
-): [RouteObject];
-export function reactRouterOutlet(...args: RouteDefinition[]): [RouteObject] {
+): [RouterRoute];
+export function reactRouterOutlet(...args: RouteDefinition[]): [RouterRoute] {
   const story = (args.length === 1 ? {} : args[0]) as NonIndexRouteDefinitionObject;
   const outlet = args.length === 1 ? args[0] : args[1];
 
   invariant(
     !hasOwnProperty(story, 'element'),
-    'The story definition cannot contain the `element property` because the story element will be used'
+    'The story definition cannot contain the `element` property because the story element will be used'
   );
 
   const outletDefinitionObject = castRouteDefinitionObject(outlet);
@@ -28,6 +28,7 @@ export function reactRouterOutlet(...args: RouteDefinition[]): [RouteObject] {
   return [
     {
       ...story,
+      useStoryElement: true,
       children: [outletDefinitionObject],
     },
   ];

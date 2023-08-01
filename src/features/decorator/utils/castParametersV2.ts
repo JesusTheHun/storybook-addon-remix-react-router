@@ -41,5 +41,7 @@ export function castParametersV2(parameters: Record<string, unknown> = {}): Reac
     v2params.routing.children = [outlet];
   }
 
+  v2params.routing.useStoryElement = true;
+
   return v2params;
 }

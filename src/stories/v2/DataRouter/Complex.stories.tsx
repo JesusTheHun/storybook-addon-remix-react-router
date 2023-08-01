@@ -15,6 +15,7 @@ import {
   useNavigation,
   useParams,
 } from 'react-router-dom';
+import { reactRouterOutlet } from '../../../features/decorator/utils/routesHelpers/reactRouterOutlet';
 import { reactRouterParameters } from '../../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../../features/decorator/withRouter';
 
@@ -194,18 +195,18 @@ export const TodoListScenario = {
   parameters: {
     reactRouter: reactRouterParameters({
       location: { path: '/todos' },
-      routing: {
-        path: '/todos',
-        loader: todoListLoader,
-        action: todoListAction,
-        children: [
-          {
-            path: ':id',
-            element: <Todo />,
-            loader: todoLoader,
-          },
-        ],
-      },
+      routing: reactRouterOutlet(
+        {
+          path: '/todos',
+          loader: todoListLoader,
+          action: todoListAction,
+        },
+        {
+          path: ':id',
+          element: <Todo />,
+          loader: todoLoader,
+        }
+      ),
     }),
   },
 };
