@@ -7,15 +7,15 @@
 
 > Use React Router v6 in your stories.
 
-## Recent changes
+## New major version
 
-✅ Added support for route `id`
+The `v2` brings a new API with more **flexibility**, **type safety** and helper functions !
 
-✅ Support for Storybook 7 has been added.
+The upgrade is quite simple. An [upgrade guide](UPGRADE_V1_V2.md) is available.
 
-Version `1.x` only support Storybook 7.  
-If you use Storybook 6, `yarn add -D storybook-addon-react-router-v6@0.3.6`.  
-Features and fixes will continue to be backported for a while.
+_The parameters you used with the v1 are now deprecated but are still supported_
+
+Still using the v1 ? Read the [v1 documentation](DOCUMENTATION_V1.md).
 
 ## Getting Started
 
@@ -29,12 +29,13 @@ Add it to your storybook configuration:
 
 ```js
 // .storybook/main.ts
-module.exports = {
+
+export default {
   addons: ['storybook-addon-react-router-v6'],
-};
+} satisfies StorybookConfig;
 ```
 
-## How to use it as a component decorator
+## Decorate all stories of a component
 
 To add the router to all the stories of a component, simply add it to the `decorators` array.
 
@@ -45,20 +46,20 @@ import { withRouter } from 'storybook-addon-react-router-v6';
 
 export default {
   title: 'User Profile',
-  component: UserProfile,
+  render: () => <UserProfile />,
   decorators: [withRouter],
   parameters: {
-    reactRouter: {
-      routePath: '/users/:userId',
-      routeParams: { userId: '42' },
-    },
+    reactRouter: reactRouterParameters({
+      location: {
+        pathParams: { userId: '42' },
+      },
+      routing: { path: '/users/:userId' },
+    }),
   },
 };
-
-export const Example = () => <UserProfile />;
 ```
 
-## Usage at the story level
+## Decorate a specific story
 
 If you want to change the router config just for one story you can do the following :
 
@@ -67,115 +68,109 @@ import { withRouter } from 'storybook-addon-react-router-v6';
 
 export default {
   title: 'User Profile',
-  component: UserProfile,
+  render: () => <UserProfile />,
   decorators: [withRouter],
 };
 
-export const Example = () => <UserProfile />;
-Example.story = {
+export const FromHomePage = {
   parameters: {
-    reactRouter: {
-      routePath: '/users/:userId',
-      routeParams: { userId: '42' },
-      routeHandle: 'Profile',
-      searchParams: { tab: 'activityLog' },
-      routeState: { fromPage: 'homePage' },
-    },
+    reactRouter: reactRouterParameters({
+      location: {
+        pathParams: { userId: '42' },
+        searchParams: { tab: 'activityLog' },
+        state: { fromPage: 'homePage' },
+      },
+      routing: {
+        path: '/users/:userId',
+        handle: 'Profile',
+      },
+    }),
   },
 };
 ```
 
-## Define a global default
+## Decorate all stories, globally
 
 If you want you can wrap all your stories inside a router by adding the decorator in your `preview.js` file.
 
 ```ts
-// preview.js
+// .storybook/preview.js
 
-export const decorators = [withRouter];
-
-// you can also define global defaults parameters
-export const parameters = {
-  reactRouter: {
-    // ...
-  },
-};
-```
-
-## Data Router
-
-If you use the data routers of `react-router 6.4+`, such as `<BrowserRouter />`, you can use the following properties :
-
-```js
-export const Example = () => <Articles />;
-Example.story = {
-  parameters: {
-    reactRouter: {
-      routePath: '/articles',
-      loader: fetchArticlesFunction,
-      action: articlesActionFunction,
-      errorElement: <FancyErrorComponent />,
-    },
-  },
-};
-```
-
-## Outlet
-
-If your component renders an outlet, you can set the `outlet` property :
-
-```js
-export const Example = () => <Articles />;
-Example.story = {
-  parameters: {
-    reactRouter: {
-      routePath: '/articles',
-      outlet: {
-        element: <Article />,
-        handle: 'Article',
-        path: ':articleId',
-        loader: yourLoaderFunction,
-        action: yourActionFunction,
-        errorElement: <FancyErrorComponent />,
-      },
-      // Or simply
-      outlet: <MostRecentArticles />,
-    },
-  },
-};
-```
-
-## Descendant Routes
-
-`<Route>` can be nested to handle layouts & outlets.
-But components can also render a `<Routes>` component with its set of `<Route>`, leading to a deep nesting called `Descendant Routes`.
-In this case, in order for the whole component tree to render in your story with matching params, you will need to set the `browserPath` property :
-
-```js
 export default {
-  title: 'Descendant Routes',
-  component: SettingsPage, // this component renders a <Routes> with several <Route> with path like `billing` or `privacy`
   decorators: [withRouter],
-};
-
-Default.story = {
   parameters: {
-    reactRouter: {
-      browserPath: '/billing',
-    },
-  },
-};
+    reactRouter: reactRouterParameters({ ... }),
+  }
+} satisfies Preview;
+```
 
-// If you want to render at a specific path, like `/settings`, React Router requires that you add a trailing wildcard
-SpecificPath.story = {
+## Location
+
+If you want to specific anything related to the browser location, you have to set the `location` property.
+
+```tsx
+type LocationParameters = {
+  path?: string | ((inferredPath: string, pathParams: Record<string, string>) => string | undefined);
+  pathParams?: PathParams;
+  searchParams?: ConstructorParameters<typeof URLSearchParams>[0];
+  hash?: string;
+  state?: unknown;
+};
+```
+
+### Inferred path
+
+If `location.path` is not provided, the browser pathname will be generated using the joined `path` from the `routing` property and the `pathParams`.
+
+### Path as a function
+
+You can provide a function to `path`.  
+It will receive the joined `path` from the routing property and the `pathParams` as parameters.  
+If the function returns a `string`, is will be used `as is`. It's up to you to call `generatePath` from `react-router` if you need to.  
+If the function returns `undefined`, it will fallback to the default behavior, just like if you didn't provide any value for `location.path`.
+
+## Routing
+
+You can set `routing` to anything `react-router` would accept for `createBrowserRouter`.  
+But to make your life easier, `storybook-addon-react-router-v6` comes with some routing helpers :
+
+```tsx
+export const MyStory = {
   parameters: {
-    reactRouter: {
-      routePath: '/settings/*',
-      browserPath: '/settings/billing',
-    },
+    reactRouter: reactRouterParameters({
+      routing: reactRouterOutlet(<MyOutlet />),
+    }),
   },
 };
 ```
+
+### Routing Helpers
+
+The following helpers are available out of the box :
+
+```ts
+reactRouterOutlet(); // Render a single outlet
+reactRouterOutlets(); // Render multiple outlets
+reactRouterNestedOutlets(); // Render multiple outlets nested one into the next
+reactRouterNestedAncestors(); // Render the story as an outlet of nested outlets
+```
+
+You can also create your own helper and use the exported type `RoutingHelper` to assist you :
+
+```ts
+import { RoutingHelper } from 'storybook-addon-react-router-v6';
+
+const myCustomHelper: RoutingHelper = () => {
+  // Routing creation logic
+};
+```
+
+`RouterRoute` is basically the native `RouteObject` from `react-router`; augmented with `{ useStoryElement?: boolean }`.
+If you want to accept a JSX and turn it into a `RouterRoute`, you can use the exported function `castRouteDefinitionObject`.
+
+### Use the story as the route element
+
+Just set `{ useStoryElement: true }` in the routing config object.
 
 ## Dedicated panel
 
@@ -183,51 +178,17 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 ![Addon Panel](https://user-images.githubusercontent.com/94478/224843029-b37ff60d-10f8-4198-bbc3-f26e2775437f.png)
 
-## Available Parameters
-
-Every parameter is optional. In most cases they follow the same type used by Route Router itself, sometimes they offer a sugar syntax.
-
-| Parameter        | Type                                                                | Description                                                   |
-| ---------------- | ------------------------------------------------------------------- | ------------------------------------------------------------- |
-| routePath        | `string`                                                            | i.e: `/users/:userId`                                         |
-| routeParams      | `Record<string, string>`                                            | i.e: `{ userId: "777" }`                                      |
-| routeState       | `any`                                                               | Available through `useLocation()`                             |
-| routeHandle      | `any`                                                               | Available through `useMatches()`                              |
-| searchParams     | `string[][] \| Record<string, string> \| string \| URLSearchParams` | Location query string `useSearchParams()`                     |
-| outlet           | `React.ReactNode \| OutletProps`                                    | Outlet rendered by the route. See type `OutletProps` below.   |
-| browserPath      | `string`                                                            | Useful when you have [descendant routes](#descendant-routes). |
-| loader           | `LoaderFunction`                                                    |                                                               |
-| action           | `ActionFunction`                                                    |                                                               |
-| errorElement     | `React.ReactNode \| null`                                           |                                                               |
-| hydrationData    | `HydrationState`                                                    |                                                               |
-| shouldRevalidate | `ShouldRevalidateFunction`                                          |                                                               |
-| routeId          | `string`                                                            | Available through `useMatches()`                              |
-
-```ts
-type OutletProps = {
-  element: React.ReactNode;
-  path?: string;
-  handle?: unknown;
-  loader?: LoaderFunction;
-  action?: ActionFunction;
-  errorElement?: React.ReactNode | null;
-};
-```
-
 ## Compatibility
 
-This package aims to support `Storybook > 6.4` and `React > 16`.
-Storybook versions prior `6.4` are very likely to work, I just didn't test them.
+This package aims to support `Storybook > 7` and `React > 16`.
 
-If you have an issue with any version, open an issue.
-
-✅ Storybook 6.4  
-✅ Storybook 6.5  
 ✅ Storybook 7.0
 
 ✅ React 16  
 ✅ React 17  
 ✅ React 18
+
+If you have an issue with any version, open an issue.
 
 ## Contribution
 

@@ -7,6 +7,10 @@ export function normalizeRouting(routing: ReactRouterAddonStoryParameters['routi
     return [{ path: '/' }];
   }
 
+  if (typeof routing === 'string') {
+    return [{ path: routing }];
+  }
+
   routing = castArray(routing);
 
   if (routing.length === 1) {

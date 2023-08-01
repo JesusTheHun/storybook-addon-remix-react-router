@@ -139,6 +139,18 @@ export const LocationSearchParams = {
   },
 };
 
+export const RoutingString = {
+  render: () => {
+    const location = useLocation();
+    return <p>{location.pathname}</p>;
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: '/books',
+    }),
+  },
+};
+
 export const RoutingHandles = {
   render: () => {
     const matches = useMatches();

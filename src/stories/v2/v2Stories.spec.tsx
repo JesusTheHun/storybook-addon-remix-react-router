@@ -22,6 +22,7 @@ describe('StoryRouteTree', () => {
       LocationPathParams,
       LocationPathBestGuess,
       LocationSearchParams,
+      RoutingString,
       RoutingRouteId,
       RoutingHandles,
       RoutingOutletJSX,
@@ -86,6 +87,11 @@ describe('StoryRouteTree', () => {
     it('should render route with the assigned id', () => {
       render(<RoutingRouteId />);
       expect(screen.getByText('["SomeRouteId"]')).toBeInTheDocument();
+    });
+
+    it('should render component with the specified route handle', async () => {
+      render(<RoutingString />);
+      expect(screen.getByText('/books')).toBeInTheDocument();
     });
 
     it('should render component with the specified route handle', async () => {

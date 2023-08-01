@@ -1,7 +1,7 @@
-import { RouteDefinition, RouteDefinitionObject } from '../types';
+import { RouteDefinition, RouterRoute } from '../types';
 import { isValidReactNode } from './isValidReactNode';
 
-export function castRouteDefinitionObject(definition: RouteDefinition): RouteDefinitionObject {
+export function castRouteDefinitionObject(definition: RouteDefinition): RouterRoute {
   if (isValidReactNode(definition)) {
     return { element: definition };
   }

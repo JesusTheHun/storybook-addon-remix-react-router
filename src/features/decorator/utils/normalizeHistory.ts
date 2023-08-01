@@ -1,5 +1,4 @@
 import { generatePath, InitialEntry } from '@remix-run/router';
-import { RouteObject } from 'react-router';
 import { ReactRouterAddonStoryParameters } from '../components/ReactRouterDecorator';
 import { RouterRoute } from '../types';
 
@@ -59,7 +58,7 @@ export function normalizeHistory({ navigationHistory, location, routes }: Normal
   };
 }
 
-export function inferLocationPathFromRoutes(routes: RouteObject[] = [], basePath = '/'): string {
+export function inferLocationPathFromRoutes(routes: RouterRoute[] = [], basePath = '/'): string {
   if (routes.length !== 1) return basePath;
 
   const obviousRoute = routes[0];

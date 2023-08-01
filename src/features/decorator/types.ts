@@ -6,7 +6,7 @@ import { Merge } from '../../utils/type-utils';
 
 export type RouterParameters = {
   hydrationData?: HydrationState;
-  routing?: RouterRoute | [RouterRoute, ...RouterRoute[]];
+  routing?: string | RouterRoute | [RouterRoute, ...RouterRoute[]];
 };
 
 export type LocationParameters<PathParams extends Record<string, string | number> = Record<string, string | number>> = {
