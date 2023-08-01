@@ -5,7 +5,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { EVENTS } from '../../../constants';
 import { addons } from '@storybook/preview-api';
 
-import * as NestingStories from '../../../stories/v2/Nesting.stories';
+import * as NestingStories from '../../../stories/v2/DescendantRoutes.stories';
 import * as ActionStories from '../../../stories/v2/DataRouter/Action.stories';
 import * as LoaderStories from '../../../stories/v2/DataRouter/Loader.stories';
 import Channel from '@storybook/channels';
@@ -30,23 +30,23 @@ describe('RouterLogger', () => {
   });
 
   it<LocalTestContext>('should log when the story loads', async (context) => {
-    const { MatchingNestedRoute } = composeStories(NestingStories);
+    const { DescendantRoutesTwoRouteMatch } = composeStories(NestingStories);
 
-    render(<MatchingNestedRoute />);
+    render(<DescendantRoutesTwoRouteMatch />);
 
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.STORY_LOADED, {
         type: EVENTS.STORY_LOADED,
         key: `${EVENTS.STORY_LOADED}_0`,
         data: {
-          url: '/listing/13/37',
-          path: '/listing/13/37',
-          routeParams: { '*': '13/37' },
+          url: '/library/13/777',
+          path: '/library/13/777',
+          routeParams: { '*': '13/777' },
           searchParams: {},
           routeMatches: [
-            ['/listing/*', { '*': '13/37' }],
-            [':id/*', { '*': '37', 'id': '13' }],
-            [':subId', { '*': '37', 'id': '13', 'subId': '37' }],
+            { path: '/library/*', params: { '*': '13/777' } },
+            { path: ':collectionId/*', params: { '*': '777', 'collectionId': '13' } },
+            { path: ':bookId', params: { '*': '777', 'collectionId': '13', 'bookId': '777' } },
           ],
           hash: '',
           routeState: null,
@@ -56,12 +56,12 @@ describe('RouterLogger', () => {
   });
 
   it<LocalTestContext>('should log navigation when a link is clicked', async (context) => {
-    const { IndexAtRoot } = composeStories(NestingStories);
+    const { DescendantRoutesOneIndex } = composeStories(NestingStories);
 
-    render(<IndexAtRoot />);
+    render(<DescendantRoutesOneIndex />);
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole('link', { name: 'Navigate to listing' }));
+    await user.click(screen.getByRole('link', { name: 'Explore collection 13' }));
 
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.NAVIGATION, {
@@ -69,13 +69,13 @@ describe('RouterLogger', () => {
         key: expect.stringContaining(EVENTS.NAVIGATION),
         data: {
           navigationType: 'PUSH',
-          url: '/listing/13',
-          path: '/listing/13',
+          url: '/library/13',
+          path: '/library/13',
           routeParams: { '*': '13' },
           searchParams: {},
           routeMatches: [
-            ['/listing/*', { '*': '' }],
-            [undefined, { '*': '' }],
+            { path: '/library/*', params: { '*': '' } },
+            { path: undefined, params: { '*': '' } },
           ],
           hash: '',
           routeState: null,
@@ -85,12 +85,12 @@ describe('RouterLogger', () => {
   });
 
   it<LocalTestContext>('should log new route match when nested Routes is mounted', async (context) => {
-    const { IndexAtRoot } = composeStories(NestingStories);
+    const { DescendantRoutesOneIndex } = composeStories(NestingStories);
 
-    render(<IndexAtRoot />);
+    render(<DescendantRoutesOneIndex />);
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole('link', { name: 'Navigate to listing' }));
+    await user.click(screen.getByRole('link', { name: 'Explore collection 13' }));
 
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ROUTE_MATCHES, {
@@ -98,9 +98,9 @@ describe('RouterLogger', () => {
         key: expect.stringContaining(EVENTS.ROUTE_MATCHES),
         data: {
           matches: [
-            ['/listing/*', { '*': '13' }],
-            [':id/*', { '*': '', 'id': '13' }],
-            [undefined, { '*': '', 'id': '13' }],
+            { path: '/library/*', params: { '*': '13' } },
+            { path: ':collectionId/*', params: { '*': '', 'collectionId': '13' } },
+            { path: undefined, params: { '*': '', 'collectionId': '13' } },
           ],
         },
       });
@@ -111,18 +111,28 @@ describe('RouterLogger', () => {
     const { TextFormData } = composeStories(ActionStories);
     render(<TextFormData />);
 
+    context.emitSpy.mockClear();
+
     const user = userEvent.setup();
     await user.click(screen.getByRole('button'));
 
     await waitFor(() => {
-      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_INVOKED, {
-        type: EVENTS.ACTION_INVOKED,
-        data: {
-          context: undefined,
-          params: { '*': '' },
-          request: expect.anything(),
-        },
-      });
+      expect(context.emitSpy).toHaveBeenCalledWith(
+        EVENTS.ACTION_INVOKED,
+        expect.objectContaining({
+          type: EVENTS.ACTION_INVOKED,
+          key: expect.stringContaining(EVENTS.ACTION_INVOKED),
+          data: expect.objectContaining({
+            request: {
+              url: 'http://localhost/',
+              method: 'POST',
+              body: {
+                foo: 'bar',
+              },
+            },
+          }),
+        })
+      );
     });
   });
 
@@ -141,17 +151,16 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_INVOKED, {
         type: EVENTS.ACTION_INVOKED,
-        data: {
-          context: undefined,
-          params: { '*': '' },
+        key: expect.stringContaining(EVENTS.ACTION_INVOKED),
+        data: expect.objectContaining({
           request: {
             url: 'http://localhost/',
             method: 'POST',
             body: {
-              myFile: '[object File]',
+              myFile: expect.objectContaining({}),
             },
           },
-        },
+        }),
       });
     });
   });
@@ -166,6 +175,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.ACTION_SETTLED, {
         type: EVENTS.ACTION_SETTLED,
+        key: expect.stringContaining(EVENTS.ACTION_SETTLED),
         data: { result: 42 },
       });
     });
@@ -178,11 +188,10 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_INVOKED, {
         type: EVENTS.LOADER_INVOKED,
-        data: {
-          context: undefined,
-          params: { '*': '' },
+        key: expect.stringContaining(EVENTS.LOADER_INVOKED),
+        data: expect.objectContaining({
           request: expect.anything(),
-        },
+        }),
       });
     });
   });
@@ -194,6 +203,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
         type: EVENTS.LOADER_SETTLED,
+        key: expect.stringContaining(EVENTS.LOADER_SETTLED),
         data: { foo: 'Data loaded' },
       });
     });
@@ -201,6 +211,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_SETTLED, {
         type: EVENTS.LOADER_SETTLED,
+        key: expect.stringContaining(EVENTS.LOADER_SETTLED),
         data: { foo: 'Outlet data loaded' },
       });
     });

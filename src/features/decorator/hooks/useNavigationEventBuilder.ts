@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useLocation, useNavigationType, useParams, useSearchParams } from 'react-router-dom';
+import { ValuesType } from 'utility-types';
 import { EVENTS } from '../../../constants';
 import type { NavigationEvent, NavigationEventName, RouteMatchesData } from '../../panel/types';
 import { searchParamsToRecord } from '../../panel/utils';
@@ -17,7 +18,17 @@ export const useNavigationEventBuilder = () => {
   const searchParams = searchParamsToRecord(search);
   const currentUrl = useCurrentUrl();
 
-  const matchesData: RouteMatchesData = matches.map((routeMatch) => [routeMatch.route.path, routeMatch.params]);
+  const matchesData: RouteMatchesData = matches.map((routeMatch) => {
+    const match: ValuesType<RouteMatchesData> = {
+      path: routeMatch.route.path,
+    };
+
+    if (Object.keys(routeMatch.params).length > 0) {
+      match.params = routeMatch.params;
+    }
+
+    return match;
+  });
 
   const locationData = {
     url: currentUrl,
@@ -30,7 +41,7 @@ export const useNavigationEventBuilder = () => {
   };
 
   return (eventName: NavigationEventName): NavigationEvent => {
-    const key = `${EVENTS.STORY_LOADED}_${eventCount.current++}`;
+    const key = `${eventName}_${eventCount.current++}`;
 
     switch (eventName) {
       case EVENTS.STORY_LOADED: {

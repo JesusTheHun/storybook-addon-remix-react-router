@@ -8,7 +8,7 @@ export const useDataEventBuilder = () => {
 
   return useCallback(
     async (eventName: DataEventName, eventArgs?: DataEventArgs[keyof DataEventArgs]): Promise<DataEvent> => {
-      const key = `DataEvent_${eventCount.current++}`;
+      const key = `${eventName}_${eventCount.current++}`;
 
       switch (eventName) {
         case EVENTS.ACTION_INVOKED: {

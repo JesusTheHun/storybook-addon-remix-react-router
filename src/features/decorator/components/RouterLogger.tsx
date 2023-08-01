@@ -1,61 +1,43 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Location, RouteMatch, useLocation } from 'react-router-dom';
+import Channel from '@storybook/channels';
 import { addons } from '@storybook/preview-api';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Location, RouteMatch, useLocation } from 'react-router-dom';
 
 import { EVENTS } from '../../../constants';
-import { defer } from '../../../utils/misc';
-import { useNavigationEventBuilder } from '../hooks/useNavigationEventBuilder';
 import { FCC } from '../../../fixes';
 import { useDeepRouteMatches } from '../hooks/useDeepRouteMatches';
+import { useNavigationEventBuilder } from '../hooks/useNavigationEventBuilder';
 
 export const RouterLogger: FCC = ({ children }) => {
   const channel = addons.getChannel();
   const location = useLocation();
-  const [loadedAt, setLoadedAt] = useState<Location>();
-  const [loadedEventEmitted, setLoadedEventEmitted] = useState(false);
-  const [lastEmittedRouteMatches, setLastEmittedRouteMatches] = useState<RouteMatch[]>([]);
-
-  const buildEventData = useNavigationEventBuilder();
   const matches = useDeepRouteMatches();
 
-  const storyLoadedEmitted = useRef(defer());
+  const buildEventData = useNavigationEventBuilder();
 
-  useLayoutEffect(() => {
-    setLoadedAt(location);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const storyLoadedEmittedLocationKeyRef = useRef<string>();
+  const lastNavigationEventLocationKeyRef = useRef<string>();
+  const lastRouteMatchesRef = useRef<RouteMatch[]>();
 
-  useEffect(() => {
-    if (loadedEventEmitted) storyLoadedEmitted.current.resolve();
-  }, [loadedEventEmitted]);
+  const storyLoaded = storyLoadedEmittedLocationKeyRef.current !== undefined;
+  const shouldEmitNavigationEvents = storyLoaded && location.key !== storyLoadedEmittedLocationKeyRef.current;
 
-  useEffect(() => {
-    setLastEmittedRouteMatches(matches);
+  if (shouldEmitNavigationEvents && lastNavigationEventLocationKeyRef.current !== location.key) {
+    channel.emit(EVENTS.NAVIGATION, buildEventData(EVENTS.NAVIGATION));
+    lastNavigationEventLocationKeyRef.current = location.key;
+  }
 
-    const id = setTimeout(() => {
-      if (!loadedEventEmitted) {
-        setLoadedEventEmitted(true);
-        channel.emit(EVENTS.STORY_LOADED, buildEventData(EVENTS.STORY_LOADED));
-      }
-    }, 0);
+  if (shouldEmitNavigationEvents && matches.length > 0 && matches !== lastRouteMatchesRef.current) {
+    channel.emit(EVENTS.ROUTE_MATCHES, buildEventData(EVENTS.ROUTE_MATCHES));
+  }
 
-    return () => clearTimeout(id);
-  }, [buildEventData, channel, loadedEventEmitted, matches]);
+  if (!storyLoaded && matches.length > 0) {
+    channel.emit(EVENTS.STORY_LOADED, buildEventData(EVENTS.STORY_LOADED));
+    storyLoadedEmittedLocationKeyRef.current = location.key;
+    lastRouteMatchesRef.current = matches;
+  }
 
-  useEffect(() => {
-    if (loadedAt !== undefined && loadedAt.key !== location.key) {
-      storyLoadedEmitted.current.promise.then(() => {
-        channel.emit(EVENTS.NAVIGATION, buildEventData(EVENTS.NAVIGATION));
-      });
-    }
-  }, [buildEventData, channel, loadedAt, location]);
-
-  useEffect(() => {
-    if (loadedEventEmitted && matches.length > lastEmittedRouteMatches.length) {
-      setLastEmittedRouteMatches(matches);
-      channel.emit(EVENTS.ROUTE_MATCHES, buildEventData(EVENTS.ROUTE_MATCHES));
-    }
-  }, [buildEventData, channel, lastEmittedRouteMatches, loadedEventEmitted, matches]);
+  lastRouteMatchesRef.current = matches;
 
   return <>{children}</>;
 };

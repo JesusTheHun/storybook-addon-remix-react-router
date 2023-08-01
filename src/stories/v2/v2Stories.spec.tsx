@@ -4,13 +4,12 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { invariant } from '../../utils/misc';
-import { LocationPathFromFunctionStringResult } from './Basics.stories';
 
 import * as BasicStories from './Basics.stories';
 import * as ActionStories from './DataRouter/Action.stories';
 import * as ComplexStories from './DataRouter/Complex.stories';
 import * as LoaderStories from './DataRouter/Loader.stories';
-import * as NestingStories from './Nesting.stories';
+import * as DescendantRoutesStories from './DescendantRoutes.stories';
 
 describe('StoryRouteTree', () => {
   describe('Basics', () => {
@@ -122,51 +121,53 @@ describe('StoryRouteTree', () => {
     });
   });
 
-  describe('Nesting', () => {
-    const { IndexAtRoot, MatchingRoute, MatchingNestedRoute } = composeStories(NestingStories);
+  describe('DescendantRoutes', () => {
+    const { DescendantRoutesOneIndex, DescendantRoutesOneRouteMatch, DescendantRoutesTwoRouteMatch } =
+      composeStories(DescendantRoutesStories);
 
     it('should render the index route when on root path', async () => {
-      render(<IndexAtRoot />);
+      render(<DescendantRoutesOneIndex />);
 
-      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: 'Navigate to details' })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Library Index' })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Explore collection 13' })).toBeInTheDocument();
+
+      expect(screen.queryByRole('link', { name: 'Pick a book at random' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Collection: 13' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Book id: 777' })).not.toBeInTheDocument();
     });
 
     it('should navigate appropriately when clicking a link', async () => {
-      render(<IndexAtRoot />);
-
-      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: 'Navigate to details' })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
+      render(<DescendantRoutesOneIndex />);
 
       const user = userEvent.setup();
-      await user.click(screen.getByRole('link', { name: 'Navigate to listing' }));
+      await user.click(screen.getByRole('link', { name: 'Explore collection 13' }));
 
-      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: 'Navigate to details' })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Library Index' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Explore collection 13' })).not.toBeInTheDocument();
+
+      expect(screen.queryByRole('heading', { name: 'Collection: 13' })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Pick a book at random' })).toBeInTheDocument();
     });
 
-    it('should render the matching route with bound params when on sub-path', () => {
-      render(<MatchingRoute />);
+    it('should render the nested matching route when accessed directly by location pathname', () => {
+      render(<DescendantRoutesOneRouteMatch />);
 
-      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: 'Navigate to details' })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Library Index' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Explore collection 13' })).not.toBeInTheDocument();
+
+      expect(screen.queryByRole('heading', { name: 'Collection: 13' })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Pick a book at random' })).toBeInTheDocument();
     });
 
-    it('should render the matching route with bound params when on sub-sub-path', () => {
-      render(<MatchingNestedRoute />);
+    it('should render the deeply nested matching route when accessed directly by location pathname', () => {
+      render(<DescendantRoutesTwoRouteMatch />);
 
-      expect(screen.queryByRole('link', { name: 'Navigate to listing' })).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: 'Navigate to details' })).not.toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Listing id: 13', level: 1 })).toBeInTheDocument();
-      expect(screen.queryByRole('heading', { name: 'Details id: 37', level: 2 })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Library Index' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Explore collection 13' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Pick a book at random' })).not.toBeInTheDocument();
+
+      expect(screen.queryByRole('heading', { name: 'Collection: 13' })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Book id: 777' })).toBeInTheDocument();
     });
   });
 

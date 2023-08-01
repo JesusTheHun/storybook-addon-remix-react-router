@@ -8,7 +8,7 @@ export default {
   decorators: [withRouter],
 };
 
-function TinyForm() {
+function TextForm() {
   const fetcher = useFetcher();
 
   return (
@@ -22,7 +22,7 @@ function TinyForm() {
 }
 
 export const TextFormData = {
-  render: () => <TinyForm />,
+  render: () => <TextForm />,
   parameters: {
     reactRouter: reactRouterParameters({
       routing: { action: async () => ({ result: 42 }) },

@@ -28,7 +28,7 @@ export type RouterEvent = {
 export type NavigationEvent = Extract<RouterEvent, { type: NavigationEventName }>;
 export type DataEvent = Extract<RouterEvent, { type: DataEventName }>;
 
-export type RouteMatchesData = Array<[RouteMatch['route']['path'], RouteMatch['params']]>;
+export type RouteMatchesData = Array<{ path: RouteMatch['route']['path']; params?: RouteMatch['params'] }>;
 
 export type EventDataStoryLoaded = {
   url: string;
