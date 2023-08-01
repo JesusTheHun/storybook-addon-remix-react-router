@@ -9,13 +9,13 @@
 
 ## New major version
 
-The `v2` brings a new API with more **flexibility**, **type safety** and helper functions !
-
+The new version brings more **flexibility**, **type safety** and helper functions !  
 The upgrade is quite simple. An [upgrade guide](UPGRADE_V1_V2.md) is available.
 
-_The parameters you used with the v1 are now deprecated but are still supported_
+### Deprecated parameters
 
-Still using the v1 ? Read the [v1 documentation](DOCUMENTATION_V1.md).
+The parameters you used with the previous version are now deprecated but they still work.  
+The old documentation remains accessible : [v1 documentation](DOCUMENTATION_V1.md).
 
 ## Getting Started
 
