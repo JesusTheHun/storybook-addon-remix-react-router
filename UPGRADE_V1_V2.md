@@ -1,6 +1,6 @@
 # Upgrade from v1 to v2
 
-The `v2` makes a clear distinction between routing declaration and the router location.
+The `v2` makes a clear distinction between routing declaration and the browser location.
 
 Here is a simplified view of the two APIs :
 
@@ -50,7 +50,7 @@ export const UserProfile = {
 };
 ```
 
-New version, explicit
+New version, verbose
 
 ```tsx
 export const UserProfile = {
@@ -75,7 +75,7 @@ export const UserProfile = {
 To limit the verbosity, you can do two things :
 
 1. `routing` : if you only want to set the path of the story you can use a `string`. Also, if you have a single route, you can pass an object instead of an array of object.
-2. `location` : you can omit `location.path` if the path you want is the path defined in your `routing`.
+2. `location` : you can omit `location.path` if the path you want is the joined `path`s defined in your `routing`.
 
 New version, using shorthands
 
