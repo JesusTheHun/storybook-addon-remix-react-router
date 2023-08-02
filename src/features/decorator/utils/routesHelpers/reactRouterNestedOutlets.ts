@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router';
 import { hasOwnProperty, invariant } from '../../../../utils/misc';
 import { NonIndexRouteDefinition, NonIndexRouteDefinitionObject, RouteDefinition, RouterRoute } from '../../types';
-import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
+import { castRouterRoute } from '../castRouterRoute';
 
 /**
  * Render the story with multiple outlets nested one into the previous.
@@ -31,7 +31,7 @@ export function reactRouterNestedOutlets(
   let lastOutlet = outletsRoot;
 
   outlets.forEach((outlet) => {
-    const outletDefinitionObjet = castRouteDefinitionObject(outlet) as NonIndexRouteDefinitionObject;
+    const outletDefinitionObjet = castRouterRoute(outlet) as NonIndexRouteDefinitionObject;
     outletDefinitionObjet.path ??= '';
     lastOutlet.children = [outletDefinitionObjet];
     lastOutlet = outletDefinitionObjet;

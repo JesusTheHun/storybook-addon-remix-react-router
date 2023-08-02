@@ -1,13 +1,11 @@
-import { RouteObject } from 'react-router';
 import { castArray, hasOwnProperty, invariant } from '../../../../utils/misc';
 import {
   NonIndexRouteDefinition,
   NonIndexRouteDefinitionObject,
   RouteDefinitionObject,
   RouterRoute,
-  RoutingHelper,
 } from '../../types';
-import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
+import { castRouterRoute } from '../castRouterRoute';
 
 /**
  * Render the story as the outlet of an ancestor.
@@ -42,7 +40,7 @@ export function reactRouterNestedAncestors(
 
   for (let i = 0; i < ancestors.length; i++) {
     const ancestor = ancestors[i];
-    const ancestorDefinitionObjet = castRouteDefinitionObject(ancestor) as NonIndexRouteDefinitionObject;
+    const ancestorDefinitionObjet = castRouterRoute(ancestor) as NonIndexRouteDefinitionObject;
     ancestorDefinitionObjet.path ??= '';
     lastAncestor.children = [ancestorDefinitionObjet];
 

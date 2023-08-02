@@ -1,7 +1,6 @@
-import { RouteObject } from 'react-router';
 import { hasOwnProperty, invariant } from '../../../../utils/misc';
 import { NonIndexRouteDefinitionObject, RouteDefinition, RouterRoute } from '../../types';
-import { castRouteDefinitionObject } from '../castRouteDefinitionObject';
+import { castRouterRoute } from '../castRouterRoute';
 
 /**
  * Render the story with a single outlet
@@ -22,7 +21,7 @@ export function reactRouterOutlet(...args: RouteDefinition[]): [RouterRoute] {
     'The story definition cannot contain the `element` property because the story element will be used'
   );
 
-  const outletDefinitionObject = castRouteDefinitionObject(outlet);
+  const outletDefinitionObject = castRouterRoute(outlet);
   outletDefinitionObject.index = true;
 
   return [

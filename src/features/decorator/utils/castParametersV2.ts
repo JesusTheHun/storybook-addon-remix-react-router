@@ -3,7 +3,7 @@
 import { hasOwnProperty } from '../../../utils/misc';
 import { ReactRouterAddonStoryParameters } from '../components/ReactRouterDecorator';
 import { LocationParameters, RouterRoute } from '../types';
-import { castRouteDefinitionObject } from './castRouteDefinitionObject';
+import { castRouterRoute } from './castRouterRoute';
 
 export function castParametersV2(parameters: Record<string, unknown> = {}): ReactRouterAddonStoryParameters {
   const exclusiveV2properties = ['location', 'navigationHistory', 'routing'];
@@ -36,7 +36,7 @@ export function castParametersV2(parameters: Record<string, unknown> = {}): Reac
   if (hasOwnProperty(parameters, 'routeId')) v2params.routing.id = parameters.routeId as any;
 
   if (hasOwnProperty(parameters, 'outlet')) {
-    const outlet = castRouteDefinitionObject(parameters.outlet as any);
+    const outlet = castRouterRoute(parameters.outlet as any);
     outlet.path ??= '';
     v2params.routing.children = [outlet];
   }

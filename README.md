@@ -39,7 +39,7 @@ export default {
 
 To add the router to all the stories of a component, simply add it to the `decorators` array.
 
-Note that the `parameters.reactRouter` property is optional, by default the router will render the component at `/`.
+Note that `parameters.reactRouter` is optional, by default the router will render the component at `/`.
 
 ```tsx
 import { withRouter } from 'storybook-addon-react-router-v6';
@@ -61,7 +61,7 @@ export default {
 
 ## Decorate a specific story
 
-If you want to change the router config just for one story you can do the following :
+To change the config for a single story, you can do the following :
 
 ```tsx
 import { withRouter } from 'storybook-addon-react-router-v6';
@@ -91,7 +91,7 @@ export const FromHomePage = {
 
 ## Decorate all stories, globally
 
-If you want you can wrap all your stories inside a router by adding the decorator in your `preview.js` file.
+To wrap all your project's stories inside a router by adding the decorator in your `preview.js` file.
 
 ```ts
 // .storybook/preview.js
@@ -106,7 +106,7 @@ export default {
 
 ## Location
 
-If you want to specific anything related to the browser location, you have to set the `location` property.
+To specify anything related to the browser location, use the `location` property.
 
 ```tsx
 type LocationParameters = {
@@ -120,19 +120,19 @@ type LocationParameters = {
 
 ### Inferred path
 
-If `location.path` is not provided, the browser pathname will be generated using the joined `path` from the `routing` property and the `pathParams`.
+If `location.path` is not provided, the browser pathname will be generated using the joined `path`s from the `routing` property and the `pathParams`.
 
 ### Path as a function
 
 You can provide a function to `path`.  
-It will receive the joined `path` from the routing property and the `pathParams` as parameters.  
-If the function returns a `string`, is will be used `as is`. It's up to you to call `generatePath` from `react-router` if you need to.  
+It will receive the joined `path`s from the routing property and the `pathParams` as parameters.  
+If the function returns a `string`, is will be used _as is_. It's up to you to call `generatePath` from `react-router` if you need to.  
 If the function returns `undefined`, it will fallback to the default behavior, just like if you didn't provide any value for `location.path`.
 
 ## Routing
 
-You can set `routing` to anything `react-router` would accept for `createBrowserRouter`.  
-But to make your life easier, `storybook-addon-react-router-v6` comes with some routing helpers :
+You can set `routing` to anything accepted by `createBrowserRouter`.  
+To make your life easier, `storybook-addon-react-router-v6` comes with some routing helpers :
 
 ```tsx
 export const MyStory = {
@@ -151,7 +151,7 @@ The following helpers are available out of the box :
 ```ts
 reactRouterOutlet(); // Render a single outlet
 reactRouterOutlets(); // Render multiple outlets
-reactRouterNestedOutlets(); // Render multiple outlets nested one into the next
+reactRouterNestedOutlets(); // Render multiple outlets nested one into another
 reactRouterNestedAncestors(); // Render the story as an outlet of nested outlets
 ```
 
@@ -166,7 +166,7 @@ const myCustomHelper: RoutingHelper = () => {
 ```
 
 `RouterRoute` is basically the native `RouteObject` from `react-router`; augmented with `{ useStoryElement?: boolean }`.
-If you want to accept a JSX and turn it into a `RouterRoute`, you can use the exported function `castRouteDefinitionObject`.
+If you want to accept a JSX and turn it into a `RouterRoute`, you can use the exported function `castRouterRoute`.
 
 ### Use the story as the route element
 

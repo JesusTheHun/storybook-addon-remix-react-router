@@ -4,7 +4,7 @@ import { reactRouterOutlet } from './features/decorator/utils/routesHelpers/reac
 import { reactRouterOutlets } from './features/decorator/utils/routesHelpers/reactRouterOutlets';
 import { reactRouterNestedOutlets } from './features/decorator/utils/routesHelpers/reactRouterNestedOutlets';
 import { reactRouterNestedAncestors } from './features/decorator/utils/routesHelpers/reactRouterNestedAncestors';
-import { castRouteDefinitionObject } from './features/decorator/utils/castRouteDefinitionObject';
+import { castRouterRoute } from './features/decorator/utils/castRouterRoute';
 
 import type { ReactRouterAddonStoryParameters } from './features/decorator/components/ReactRouterDecorator';
 import type {
@@ -23,7 +23,7 @@ export {
   reactRouterOutlets,
   reactRouterNestedOutlets,
   reactRouterNestedAncestors,
-  castRouteDefinitionObject,
+  castRouterRoute,
 };
 
 export type {
