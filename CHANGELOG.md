@@ -1,3 +1,18 @@
+# v2.0.1 (Fri Aug 04 2023)
+
+#### ⚠️ Pushed to `main`
+
+- feat(panel): add banner when a new version is available ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(panel): update panel registration title to return a ReactElement ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(npm): add required package at build time to dev deps ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(helper): remove forgotten log statement ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v1.0.2 (Thu Jun 01 2023)
 
 #### ⚠️ Pushed to `main`
