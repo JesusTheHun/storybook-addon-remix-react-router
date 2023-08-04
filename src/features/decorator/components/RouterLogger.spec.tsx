@@ -37,7 +37,7 @@ describe('RouterLogger', () => {
     await waitFor(() => {
       expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.STORY_LOADED, {
         type: EVENTS.STORY_LOADED,
-        key: `${EVENTS.STORY_LOADED}_0`,
+        key: `${EVENTS.STORY_LOADED}_1`,
         data: {
           url: '/library/13/777',
           path: '/library/13/777',
