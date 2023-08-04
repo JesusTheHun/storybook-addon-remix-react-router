@@ -1,3 +1,17 @@
+# v2.0.2 (Fri Aug 04 2023)
+
+#### ⚠️ Pushed to `main`
+
+- test(event): the suffix of the first event is now 1 ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(event): duplicate event key when hmr triggers before any new event ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(panel): use template literal for styled components ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.1 (Fri Aug 04 2023)
 
 #### ⚠️ Pushed to `main`
