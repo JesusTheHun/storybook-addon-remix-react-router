@@ -1,7 +1,6 @@
-import Channel from '@storybook/channels';
 import { addons } from '@storybook/preview-api';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Location, RouteMatch, useLocation } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { RouteMatch, useLocation } from 'react-router-dom';
 
 import { EVENTS } from '../../../constants';
 import { FCC } from '../../../fixes';

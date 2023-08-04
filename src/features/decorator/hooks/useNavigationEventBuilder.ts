@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import { useLocation, useNavigationType, useParams, useSearchParams } from 'react-router-dom';
 import { ValuesType } from 'utility-types';
 import { EVENTS } from '../../../constants';
-import type { NavigationEvent, NavigationEventName, RouteMatchesData } from '../../panel/types';
-import { searchParamsToRecord } from '../../panel/utils';
+import type { RouterNavigationEvent, RouterNavigationEventName, RouteMatchesData } from '../../panel/types';
+
+import { searchParamsToRecord } from '../utils/searchParamsToRecord';
 import { useCurrentUrl } from './useCurrentUrl';
 import { useDeepRouteMatches } from './useDeepRouteMatches';
 
@@ -40,7 +41,7 @@ export const useNavigationEventBuilder = () => {
     routeMatches: matchesData,
   };
 
-  return (eventName: NavigationEventName): NavigationEvent => {
+  return (eventName: RouterNavigationEventName): RouterNavigationEvent => {
     const key = `${eventName}_${eventCount.current++}`;
 
     switch (eventName) {

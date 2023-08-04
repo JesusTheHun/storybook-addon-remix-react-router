@@ -1,13 +1,17 @@
-import type { DataEvent, DataEventArgs, DataEventName } from '../../panel/types';
+import type { RouterDataEvent, DataEventArgs, RouterDataEventName } from '../../panel/types';
 import { useCallback, useRef } from 'react';
 import { EVENTS } from '../../../constants';
-import { getHumanReadableBody } from '../../panel/utils';
+
+import { getHumanReadableBody } from '../utils/getHumanReadableBody';
 
 export const useDataEventBuilder = () => {
   const eventCount = useRef(0);
 
   return useCallback(
-    async (eventName: DataEventName, eventArgs?: DataEventArgs[keyof DataEventArgs]): Promise<DataEvent> => {
+    async (
+      eventName: RouterDataEventName,
+      eventArgs?: DataEventArgs[keyof DataEventArgs]
+    ): Promise<RouterDataEvent> => {
       const key = `${eventName}_${eventCount.current++}`;
 
       switch (eventName) {

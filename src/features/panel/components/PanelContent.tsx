@@ -9,7 +9,7 @@ import { RouterEventDisplayWrapper } from './RouterEventDisplayWrapper';
 import { ThemedInspector } from './ThemedInspector';
 
 export type PanelContentProps = {
-  routerEvents: Array<RouterEvent & { key: string }>;
+  routerEvents: Array<RouterEvent>;
   onClear: () => void;
 };
 

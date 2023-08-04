@@ -1,3 +1,6 @@
+// @ts-ignore
+import packageJson from '../package.json';
+
 export const ADDON_ID = 'storybook/react-router-v6';
 export const PANEL_ID = `${ADDON_ID}/panel`;
 export const PARAM_KEY = `reactRouter`;
@@ -12,3 +15,5 @@ export const EVENTS = {
   LOADER_INVOKED: `${ADDON_ID}/loader_invoked`,
   LOADER_SETTLED: `${ADDON_ID}/loader_settled`,
 } as const;
+
+export const ADDON_VERSION = packageJson.version;

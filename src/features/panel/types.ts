@@ -1,21 +1,25 @@
 import { ActionFunctionArgs, LoaderFunctionArgs, NavigationType, RouteMatch, useParams } from 'react-router-dom';
 import { PromiseType } from 'utility-types';
 import { EVENTS } from '../../constants';
-import { getHumanReadableBody } from './utils';
+import { getHumanReadableBody } from '../decorator/utils/getHumanReadableBody';
 
 export type AddonEvents = typeof EVENTS;
-export type RouterEvents = Omit<AddonEvents, 'CLEAR'>;
 
-export type NavigationEventKey = 'NAVIGATION' | 'STORY_LOADED' | 'ROUTE_MATCHES';
-export type DataEventKey = 'ACTION_INVOKED' | 'ACTION_SETTLED' | 'LOADER_INVOKED' | 'LOADER_SETTLED';
+///////////////////
+// Router Events //
+///////////////////
+export type RouterEvents = Omit<AddonEvents, 'CLEAR' | 'NEW_VERSION'>;
 
-export type NavigationEventName = RouterEvents[NavigationEventKey];
-export type DataEventName = RouterEvents[DataEventKey];
+export type RouterNavigationEventKey = 'NAVIGATION' | 'STORY_LOADED' | 'ROUTE_MATCHES';
+export type RouterDataEventKey = 'ACTION_INVOKED' | 'ACTION_SETTLED' | 'LOADER_INVOKED' | 'LOADER_SETTLED';
 
-export type NavigationEvents = Pick<RouterEvents, NavigationEventKey>;
-export type DataEvents = Pick<RouterEvents, DataEventKey>;
+export type RouterNavigationEventName = RouterEvents[RouterNavigationEventKey];
+export type RouterDataEventName = RouterEvents[RouterDataEventKey];
 
-export type RouterEventData = NavigationEventData & DataEventData;
+export type RouterNavigationEvents = Pick<RouterEvents, RouterNavigationEventKey>;
+export type RouterDataEvents = Pick<RouterEvents, RouterDataEventKey>;
+
+export type RouterEventData = RouterLocationEventData & RouterDataEventData;
 
 export type RouterEvent = {
   [Key in keyof RouterEvents]: {
@@ -25,12 +29,12 @@ export type RouterEvent = {
   };
 }[keyof RouterEvents];
 
-export type NavigationEvent = Extract<RouterEvent, { type: NavigationEventName }>;
-export type DataEvent = Extract<RouterEvent, { type: DataEventName }>;
+export type RouterNavigationEvent = Extract<RouterEvent, { type: RouterNavigationEventName }>;
+export type RouterDataEvent = Extract<RouterEvent, { type: RouterDataEventName }>;
 
 export type RouteMatchesData = Array<{ path: RouteMatch['route']['path']; params?: RouteMatch['params'] }>;
 
-export type EventDataStoryLoaded = {
+export type RouterStoryLoadedEventData = {
   url: string;
   path: string;
   hash: string;
@@ -40,7 +44,7 @@ export type EventDataStoryLoaded = {
   routeMatches: RouteMatchesData;
 };
 
-export type EventDataNavigation = {
+export type RouterNavigationEventData = {
   url: string;
   navigationType: NavigationType;
   path: string;
@@ -51,7 +55,7 @@ export type EventDataNavigation = {
   routeMatches: RouteMatchesData;
 };
 
-export type EventDataRouteMatches = {
+export type RouterRouteMatchesEventData = {
   matches: RouteMatchesData;
 };
 
@@ -68,19 +72,19 @@ export type RequestSummary = {
   body: PromiseType<ReturnType<typeof getHumanReadableBody>>;
 };
 
-export type DataEventData = {
+export type RouterDataEventData = {
   [EVENTS.ACTION_INVOKED]: Pick<ActionFunctionArgs, 'params' | 'context'> & {
     request: RequestSummary;
   };
-  [EVENTS.ACTION_SETTLED]: DataEventArgs[DataEvents['ACTION_SETTLED']];
+  [EVENTS.ACTION_SETTLED]: DataEventArgs[RouterDataEvents['ACTION_SETTLED']];
   [EVENTS.LOADER_INVOKED]: Pick<LoaderFunctionArgs, 'params' | 'context'> & {
     request: RequestSummary;
   };
-  [EVENTS.LOADER_SETTLED]: DataEventArgs[DataEvents['LOADER_SETTLED']];
+  [EVENTS.LOADER_SETTLED]: DataEventArgs[RouterDataEvents['LOADER_SETTLED']];
 };
 
-export type NavigationEventData = {
-  [EVENTS.NAVIGATION]: EventDataNavigation;
-  [EVENTS.STORY_LOADED]: EventDataStoryLoaded;
-  [EVENTS.ROUTE_MATCHES]: EventDataRouteMatches;
+export type RouterLocationEventData = {
+  [EVENTS.NAVIGATION]: RouterNavigationEventData;
+  [EVENTS.STORY_LOADED]: RouterStoryLoadedEventData;
+  [EVENTS.ROUTE_MATCHES]: RouterRouteMatchesEventData;
 };

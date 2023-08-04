@@ -1,9 +1,12 @@
-import React, { useRef, useState } from 'react';
 import { AddonPanel } from '@storybook/components';
-import { PanelContent, PanelContentProps } from './PanelContent';
-import { API, useChannel } from '@storybook/manager-api';
-import { EVENTS } from '../../../constants';
 import { STORY_CHANGED } from '@storybook/core-events';
+import { API, useChannel } from '@storybook/manager-api';
+import React, { useState } from 'react';
+import { EVENTS } from '../../../constants';
+import { useAddonVersions } from '../hooks/useAddonVersions';
+import { RouterEvent } from '../types';
+import { InformationBanner } from './InformationBanner';
+import { PanelContent } from './PanelContent';
 
 interface PanelProps {
   active: boolean;
@@ -11,10 +14,12 @@ interface PanelProps {
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {
-  const eventCount = useRef(0);
-  const [navigationEvents, setNavigationEvents] = useState<PanelContentProps['routerEvents']>([]);
+  const [navigationEvents, setNavigationEvents] = useState<RouterEvent[]>([]);
+  const { latestAddonVersion, addonUpdateAvailable } = useAddonVersions();
 
-  const pushEvent = (event: any) => setNavigationEvents((prev) => [...prev, { ...event, key: eventCount.current++ }]);
+  const pushEvent = (event: RouterEvent) => {
+    setNavigationEvents((prev) => [...prev, event]);
+  };
 
   useChannel({
     [EVENTS.ROUTE_MATCHES]: pushEvent,
@@ -34,6 +39,17 @@ export const Panel: React.FC<PanelProps> = (props) => {
 
   return (
     <AddonPanel {...props}>
+      {addonUpdateAvailable && (
+        <InformationBanner>
+          Version {latestAddonVersion} is now available !{' '}
+          <a
+            href={`https://github.com/JesusTheHun/storybook-addon-react-router-v6/releases/tag/v${latestAddonVersion}`}
+          >
+            Changelog
+          </a>
+          .
+        </InformationBanner>
+      )}
       <PanelContent routerEvents={navigationEvents} onClear={clear} />
     </AddonPanel>
   );
