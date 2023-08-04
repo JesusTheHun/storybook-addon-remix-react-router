@@ -39,7 +39,7 @@ addons.register(ADDON_ID, (api) => {
       });
 
       const suffix = badgeCount === 0 ? '' : ` (${badgeCount})`;
-      return `React Router${suffix}`;
+      return <>`React Router${suffix}`</>;
     },
     match: ({ viewMode }) => viewMode === 'story',
     render: ({ active }) => <Panel active={active || false} api={api} />,
