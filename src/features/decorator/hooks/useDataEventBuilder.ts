@@ -12,7 +12,8 @@ export const useDataEventBuilder = () => {
       eventName: RouterDataEventName,
       eventArgs?: DataEventArgs[keyof DataEventArgs]
     ): Promise<RouterDataEvent> => {
-      const key = `${eventName}_${eventCount.current++}`;
+      eventCount.current++;
+      const key = `${eventName}_${eventCount.current}`;
 
       switch (eventName) {
         case EVENTS.ACTION_INVOKED: {

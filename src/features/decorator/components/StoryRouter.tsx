@@ -32,7 +32,7 @@ export function StoryRouter(props: StoryRouterProps) {
     const injectedRoutes = injectStory(
       decoratedRoutes,
       <RouterLogger>
-        <StoryComponent storyContext={storyContext} key={'story'} />
+        <StoryComponent storyContext={storyContext} />
       </RouterLogger>
     );
 

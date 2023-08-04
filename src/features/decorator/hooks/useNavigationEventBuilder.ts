@@ -42,7 +42,8 @@ export const useNavigationEventBuilder = () => {
   };
 
   return (eventName: RouterNavigationEventName): RouterNavigationEvent => {
-    const key = `${eventName}_${eventCount.current++}`;
+    eventCount.current++;
+    const key = `${eventName}_${eventCount.current}`;
 
     switch (eventName) {
       case EVENTS.STORY_LOADED: {

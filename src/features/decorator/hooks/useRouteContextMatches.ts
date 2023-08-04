@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { UNSAFE_RouteContext } from 'react-router';
-import { RouteMatch, useLocation } from 'react-router-dom';
+import { RouteMatch } from 'react-router-dom';
 
 type Ctx = {
   _currentValue?: { matches: RouteMatch[] };
