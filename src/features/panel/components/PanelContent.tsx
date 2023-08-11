@@ -25,9 +25,9 @@ export const PanelContent: FCC<PanelContentProps> = ({ routerEvents, onClear }) 
   return (
     <Fragment>
       <Wrapper title="reactRouterLogger">
-        {routerEvents.map((event) => {
+        {routerEvents.map((event, i) => {
           return (
-            <RouterEventDisplayWrapper key={event.key}>
+            <RouterEventDisplayWrapper key={i}>
               <InspectorContainer>
                 <ThemedInspector
                   name={humanReadableEventNames[event.type]}
