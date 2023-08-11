@@ -14,5 +14,6 @@ export default defineConfig((options) => ({
   platform: 'browser',
   esbuildOptions(options) {
     options.conditions = ['module'];
+    options.external = ['*package.json'];
   },
 }));
