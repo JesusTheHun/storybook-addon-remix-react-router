@@ -1,3 +1,15 @@
+# v2.0.3 (Fri Aug 11 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(panel): duplicate event key when hmr triggers ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.2 (Fri Aug 04 2023)
 
 #### ⚠️ Pushed to `main`
