@@ -11,7 +11,9 @@ export function useAddonVersions() {
     const abortController = new AbortController();
     fetch(`https://registry.npmjs.org/storybook-addon-react-router-v6/latest`, { signal: abortController.signal })
       .then((b) => b.json())
-      .then((json) => setVersion(json.version));
+      .then((json) => setVersion(json.version))
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch(() => {});
 
     return () => abortController.abort();
   }, [version]);
