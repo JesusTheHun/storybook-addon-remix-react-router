@@ -1,3 +1,19 @@
+# v2.0.4 (Sun Aug 13 2023)
+
+#### ⚠️ Pushed to `main`
+
+- misc(build): smaller tsup external ([@JesusTheHun](https://github.com/JesusTheHun))
+- misc: add package/ to gitignore ([@JesusTheHun](https://github.com/JesusTheHun))
+- Merge branch 'fix/runtime-package.json' ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(panel): catch failed npmjs requests ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(panel): get version from package.json at runtime ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.3 (Fri Aug 11 2023)
 
 #### ⚠️ Pushed to `main`
