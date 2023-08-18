@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   stories: ['../src/stories/**/*.stories.@(ts|tsx)'],
-  addons: ['./local-preset.js'],
+  addons: ['@storybook/addon-essentials', './local-preset.js'],
 };
 
 export default config;
