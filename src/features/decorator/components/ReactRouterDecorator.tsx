@@ -1,13 +1,14 @@
 import React from 'react';
+import { DeepRouteMatchesContext } from '../contexts/DeepRouteMatchesContext';
+import { StoryContext } from '../contexts/StoryContext';
 import { useRouteContextMatches } from '../hooks/useRouteContextMatches';
 import { LocationParameters, NavigationHistoryEntry, RouterParameters } from '../types';
-import { DeepRouteMatchesContext } from './DeepRouteMatches';
 import { StoryRouter } from './StoryRouter';
 
 export type ReactRouterDecoratorProps = {
   renderStory: (context: unknown) => React.ReactElement;
-  storyContext: unknown;
-  parameters: ReactRouterAddonStoryParameters;
+  storyContext: { args: Record<string, unknown> };
+  addonParameters: ReactRouterAddonStoryParameters;
 };
 
 export type ReactRouterAddonStoryParameters =
@@ -23,13 +24,15 @@ export type ReactRouterAddonStoryParameters =
 export const ReactRouterDecorator: React.FC<ReactRouterDecoratorProps> = ({
   renderStory,
   storyContext,
-  parameters,
+  addonParameters,
 }) => {
   const deepRouteMatches = useRouteContextMatches();
 
   return (
-    <DeepRouteMatchesContext.Provider value={deepRouteMatches}>
-      <StoryRouter renderStory={renderStory} storyContext={storyContext} storyParameters={parameters} />
-    </DeepRouteMatchesContext.Provider>
+    <StoryContext.Provider value={{ renderStory, storyContext, addonParameters }}>
+      <DeepRouteMatchesContext.Provider value={deepRouteMatches}>
+        <StoryRouter />
+      </DeepRouteMatchesContext.Provider>
+    </StoryContext.Provider>
   );
 };

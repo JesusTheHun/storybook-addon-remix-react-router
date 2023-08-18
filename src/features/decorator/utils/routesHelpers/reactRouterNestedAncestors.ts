@@ -36,8 +36,6 @@ export function reactRouterNestedAncestors(
   const ancestorsRoot: RouterRoute = { path: '/' };
   let lastAncestor = ancestorsRoot;
 
-  console.log('ancestorsRoot', ancestorsRoot);
-
   for (let i = 0; i < ancestors.length; i++) {
     const ancestor = ancestors[i];
     const ancestorDefinitionObjet = castRouterRoute(ancestor) as NonIndexRouteDefinitionObject;

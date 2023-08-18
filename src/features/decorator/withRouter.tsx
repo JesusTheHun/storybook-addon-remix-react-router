@@ -8,13 +8,13 @@ export const withRouter = makeDecorator({
   name: 'withRouter',
   parameterName: PARAM_KEY,
   wrapper: (getStory, context, { parameters }) => {
-    const v2parameters = castParametersV2(parameters);
+    const addonParameters = castParametersV2(parameters);
 
     return (
       <ReactRouterDecorator
         renderStory={getStory as unknown as ReactRouterDecoratorProps['renderStory']}
         storyContext={context as ReactRouterDecoratorProps['storyContext']}
-        parameters={v2parameters}
+        addonParameters={addonParameters}
       />
     );
   },

@@ -1,4 +1,5 @@
 import { generatePath } from '@remix-run/router';
+import { StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
 import { reactRouterNestedAncestors } from '../../features/decorator/utils/routesHelpers/reactRouterNestedAncestors';
@@ -234,12 +235,15 @@ export const RoutingOutlets = {
 };
 
 export const RoutingNestedOutlets = {
-  render: () => (
+  render: ({ title }) => (
     <section>
-      <h1>Story</h1>
+      <h1>{title}</h1>
       <Outlet />
     </section>
   ),
+  args: {
+    title: 'Story',
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: reactRouterNestedOutlets([
@@ -258,14 +262,23 @@ export const RoutingNestedOutlets = {
       ]),
     }),
   },
-};
+} satisfies StoryObj<{ title: string }>;
 
 export const RoutingNestedAncestors = {
-  render: () => (
-    <section>
-      <h1>Story</h1>
-    </section>
-  ),
+  render: ({ title }) => {
+    const [count, setCount] = useState(0);
+
+    return (
+      <section>
+        <h1>{title}</h1>
+        <button onClick={() => setCount((count) => count + 1)}>Increase</button>
+        <div role={'status'}>{count}</div>
+      </section>
+    );
+  },
+  args: {
+    title: 'Story',
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: reactRouterNestedAncestors([
@@ -284,7 +297,7 @@ export const RoutingNestedAncestors = {
       ]),
     }),
   },
-};
+} satisfies StoryObj<{ title: string }>;
 
 export const RoutingRouteId = {
   render: () => {

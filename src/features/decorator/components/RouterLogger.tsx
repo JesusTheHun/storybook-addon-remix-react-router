@@ -3,11 +3,12 @@ import React, { useRef } from 'react';
 import { RouteMatch, useLocation } from 'react-router-dom';
 
 import { EVENTS } from '../../../constants';
-import { FCC } from '../../../fixes';
 import { useDeepRouteMatches } from '../hooks/useDeepRouteMatches';
 import { useNavigationEventBuilder } from '../hooks/useNavigationEventBuilder';
+import { useStory } from '../hooks/useStory';
 
-export const RouterLogger: FCC = ({ children }) => {
+export function RouterLogger() {
+  const { renderStory, storyContext } = useStory();
   const channel = addons.getChannel();
   const location = useLocation();
   const matches = useDeepRouteMatches();
@@ -38,5 +39,5 @@ export const RouterLogger: FCC = ({ children }) => {
 
   lastRouteMatchesRef.current = matches;
 
-  return <>{children}</>;
-};
+  return <>{renderStory(storyContext)}</>;
+}
