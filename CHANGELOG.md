@@ -1,3 +1,16 @@
+# v2.0.5 (Fri Aug 18 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(decorator): story not updating on arg change if the story itself is an outlet ([@JesusTheHun](https://github.com/JesusTheHun))
+- test(controls): bring back addon-essentials ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.4 (Sun Aug 13 2023)
 
 #### ⚠️ Pushed to `main`
