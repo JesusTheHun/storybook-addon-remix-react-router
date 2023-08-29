@@ -10,8 +10,21 @@ export function useRouteObjectsDecorator() {
   const decorateRouteObjects = useCallback(
     <T extends RouterRoute[]>(routeDefinitions: T) => {
       return routeDefinitions.map((routeDefinition) => {
-        const { action, loader, children } = routeDefinition;
+        // eslint-disable-next-line prefer-const
+        let { action, loader, children, lazy } = routeDefinition;
         const augmentedRouteDefinition = { ...routeDefinition };
+
+        if (lazy) {
+          augmentedRouteDefinition.lazy = async function () {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const lazyResult = await lazy!();
+            const augmentedLazyResult = { ...lazyResult };
+            if (lazyResult.action) augmentedLazyResult.action = decorateAction(lazyResult.action);
+            if (lazyResult.loader) augmentedLazyResult.loader = decorateLoader(lazyResult.loader);
+
+            return augmentedLazyResult;
+          };
+        }
 
         if (action) {
           augmentedRouteDefinition.action = decorateAction(action);

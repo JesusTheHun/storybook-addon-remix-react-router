@@ -6,6 +6,7 @@ import { EVENTS } from '../../../constants';
 import { addons } from '@storybook/preview-api';
 
 import * as BasicsStories from '../../../stories/v2/Basics.stories';
+import * as LazyStories from '../../../stories/v2/DataRouter/Lazy.stories';
 import * as NestingStories from '../../../stories/v2/DescendantRoutes.stories';
 import * as ActionStories from '../../../stories/v2/DataRouter/Action.stories';
 import * as LoaderStories from '../../../stories/v2/DataRouter/Loader.stories';
@@ -258,6 +259,21 @@ describe('RouterLogger', () => {
         type: EVENTS.LOADER_SETTLED,
         key: expect.stringContaining(EVENTS.LOADER_SETTLED),
         data: { foo: 'Outlet data loaded' },
+      });
+    });
+  });
+
+  it<LocalTestContext>('should log lazy data router loader when triggered', async (context) => {
+    const { LazyRouting } = composeStories(LazyStories);
+    render(<LazyRouting />);
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.LOADER_INVOKED, {
+        type: EVENTS.LOADER_INVOKED,
+        key: expect.stringContaining(EVENTS.LOADER_INVOKED),
+        data: expect.objectContaining({
+          request: expect.anything(),
+        }),
       });
     });
   });

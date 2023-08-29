@@ -8,6 +8,7 @@ import { invariant } from '../../utils/misc';
 import * as BasicStories from './Basics.stories';
 import * as ActionStories from './DataRouter/Action.stories';
 import * as ComplexStories from './DataRouter/Complex.stories';
+import * as LazyStories from './DataRouter/Lazy.stories';
 import * as LoaderStories from './DataRouter/Loader.stories';
 import * as DescendantRoutesStories from './DescendantRoutes.stories';
 
@@ -297,6 +298,18 @@ describe('StoryRouteTree', () => {
       render(<TodoListScenario />);
 
       await waitFor(() => expect(screen.queryByRole('heading', { level: 1, name: 'Todos' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
+    });
+  });
+
+  describe('Lazy', () => {
+    const { LazyRouting } = composeStories(LazyStories);
+
+    it('should render route with loader properly', async () => {
+      render(<LazyRouting />);
+
+      await waitFor(() => expect(screen.queryByText('Data from lazy loader : 42')).toBeInTheDocument(), {
         timeout: 1000,
       });
     });
