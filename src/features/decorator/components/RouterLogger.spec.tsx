@@ -5,6 +5,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { EVENTS } from '../../../constants';
 import { addons } from '@storybook/preview-api';
 
+import * as BasicsStories from '../../../stories/v2/Basics.stories';
 import * as NestingStories from '../../../stories/v2/DescendantRoutes.stories';
 import * as ActionStories from '../../../stories/v2/DataRouter/Action.stories';
 import * as LoaderStories from '../../../stories/v2/DataRouter/Loader.stories';
@@ -49,6 +50,50 @@ describe('RouterLogger', () => {
             { path: ':bookId', params: { '*': '777', 'collectionId': '13', 'bookId': '777' } },
           ],
           hash: '',
+          routeState: null,
+        },
+      });
+    });
+  });
+
+  it<LocalTestContext>('should includes a question mark between the pathname and the query string', async (context) => {
+    const { LocationSearchParams } = composeStories(BasicsStories);
+
+    render(<LocationSearchParams />);
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.STORY_LOADED, {
+        type: EVENTS.STORY_LOADED,
+        key: `${EVENTS.STORY_LOADED}_1`,
+        data: {
+          url: '/?page=42',
+          path: '/',
+          routeParams: {},
+          searchParams: { page: '42' },
+          routeMatches: [{ path: '/' }],
+          hash: '',
+          routeState: null,
+        },
+      });
+    });
+  });
+
+  it<LocalTestContext>('should includes a sharp character between the pathname and the hash string', async (context) => {
+    const { LocationHash } = composeStories(BasicsStories);
+
+    render(<LocationHash />);
+
+    await waitFor(() => {
+      expect(context.emitSpy).toHaveBeenCalledWith(EVENTS.STORY_LOADED, {
+        type: EVENTS.STORY_LOADED,
+        key: `${EVENTS.STORY_LOADED}_1`,
+        data: {
+          url: '/#section-title',
+          path: '/',
+          routeParams: {},
+          searchParams: {},
+          routeMatches: [{ path: '/' }],
+          hash: 'section-title',
           routeState: null,
         },
       });

@@ -140,6 +140,20 @@ export const LocationSearchParams = {
   },
 };
 
+export const LocationHash = {
+  render: () => {
+    const location = useLocation();
+    return <p>{location.hash}</p>;
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        hash: 'section-title',
+      },
+    }),
+  },
+};
+
 export const RoutingString = {
   render: () => {
     const location = useLocation();
