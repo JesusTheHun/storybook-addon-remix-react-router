@@ -1,3 +1,15 @@
+# v2.0.7 (Tue Aug 29 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(logs): loader and action are now logged correctly if the functions come from the lazy property. ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.6 (Tue Aug 29 2023)
 
 #### ⚠️ Pushed to `main`
