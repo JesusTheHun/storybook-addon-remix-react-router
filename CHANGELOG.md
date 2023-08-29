@@ -1,3 +1,17 @@
+# v2.0.6 (Tue Aug 29 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(logs): current url now correctly add question mark and sharp character. ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix(logs): missing question mark before query string ([@JesusTheHun](https://github.com/JesusTheHun))
+- build(deps): remove react-router from the peerDependencies ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.5 (Fri Aug 18 2023)
 
 #### ⚠️ Pushed to `main`
