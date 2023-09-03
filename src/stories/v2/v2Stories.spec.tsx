@@ -23,6 +23,8 @@ describe('StoryRouteTree', () => {
       LocationPathParams,
       LocationPathBestGuess,
       LocationSearchParams,
+      LocationHash,
+      LocationState,
       RoutingString,
       RoutingRouteId,
       RoutingHandles,
@@ -83,6 +85,16 @@ describe('StoryRouteTree', () => {
     it('should render component with the specified search params', async () => {
       render(<LocationSearchParams />);
       expect(screen.getByText('{"page":"42"}')).toBeInTheDocument();
+    });
+
+    it('should render component with the specified hash', async () => {
+      render(<LocationHash />);
+      expect(screen.getByText('section-title')).toBeInTheDocument();
+    });
+
+    it('should render component with the specified state', async () => {
+      render(<LocationState />);
+      expect(screen.getByText('location state')).toBeInTheDocument();
     });
 
     it('should render route with the assigned id', () => {

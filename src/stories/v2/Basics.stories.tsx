@@ -154,6 +154,20 @@ export const LocationHash = {
   },
 };
 
+export const LocationState = {
+  render: () => {
+    const location = useLocation();
+    return <p>{location.state}</p>;
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        state: 'location state',
+      },
+    }),
+  },
+};
+
 export const RoutingString = {
   render: () => {
     const location = useLocation();
