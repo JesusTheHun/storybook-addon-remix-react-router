@@ -1,6 +1,7 @@
 import { hasOwnProperty, invariant } from '../../../../utils/misc';
-import { NonIndexRouteDefinitionObject, RouteDefinition, RouterRoute } from '../../types';
+import { RouteDefinition, RouterRoute } from '../../types';
 import { castRouterRoute } from '../castRouterRoute';
+import { optionalStoryArg, StoryRouteDefinition } from '../optionalStoryArg';
 
 /**
  * Render the story with a single outlet
@@ -8,13 +9,9 @@ import { castRouterRoute } from '../castRouterRoute';
  * @see withNestedOutlets
  */
 export function reactRouterOutlet(outlet: RouteDefinition): [RouterRoute];
-export function reactRouterOutlet(
-  story: Omit<NonIndexRouteDefinitionObject, 'element'>,
-  outlet: RouteDefinition
-): [RouterRoute];
-export function reactRouterOutlet(...args: RouteDefinition[]): [RouterRoute] {
-  const story = (args.length === 1 ? {} : args[0]) as NonIndexRouteDefinitionObject;
-  const outlet = args.length === 1 ? args[0] : args[1];
+export function reactRouterOutlet(story: StoryRouteDefinition, outlet: RouteDefinition): [RouterRoute];
+export function reactRouterOutlet(...args: [RouteDefinition] | [StoryRouteDefinition, RouteDefinition]): [RouterRoute] {
+  const [story, outlet] = optionalStoryArg(args);
 
   invariant(
     !hasOwnProperty(story, 'element'),

@@ -20,7 +20,7 @@ import { reactRouterParameters } from '../../../features/decorator/utils/routesH
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
-  title: 'v2/Complex',
+  title: 'v2/DataRouter/Complex',
   decorators: [withRouter],
 };
 

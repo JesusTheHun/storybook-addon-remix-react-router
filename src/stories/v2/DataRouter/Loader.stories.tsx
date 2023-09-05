@@ -5,7 +5,7 @@ import { reactRouterParameters } from '../../../features/decorator/utils/routesH
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
-  title: 'v2/Loader',
+  title: 'v2/DataRouter/Loader',
   decorators: [withRouter],
 };
 

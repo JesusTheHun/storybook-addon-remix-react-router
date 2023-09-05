@@ -4,7 +4,7 @@ import { reactRouterParameters } from '../../../features/decorator/utils/routesH
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
-  title: 'v2/Lazy',
+  title: 'v2/DataRouter/Lazy',
   decorators: [withRouter],
 };
 

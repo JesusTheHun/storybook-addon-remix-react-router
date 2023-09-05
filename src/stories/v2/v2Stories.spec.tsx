@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { invariant } from '../../utils/misc';
+import * as AdvancedRoutingStories from './AdvancedRouting.stories';
 
 import * as BasicStories from './Basics.stories';
 import * as ActionStories from './DataRouter/Action.stories';
@@ -18,6 +19,7 @@ describe('StoryRouteTree', () => {
       ZeroConfig,
       PreserveComponentState,
       LocationPath,
+      DefaultLocation,
       LocationPathFromFunctionStringResult,
       LocationPathFromFunctionUndefinedResult,
       LocationPathParams,
@@ -25,15 +27,14 @@ describe('StoryRouteTree', () => {
       LocationSearchParams,
       LocationHash,
       LocationState,
+      RouteId,
       RoutingString,
-      RoutingRouteId,
       RoutingHandles,
       RoutingOutletJSX,
       RoutingOutletConfigObject,
-      RoutingOutlets,
-      RoutingNestedOutlets,
-      RoutingNestedAncestors,
     } = composeStories(BasicStories);
+
+    const { RoutingOutlets, RoutingNestedOutlets, RoutingNestedAncestors } = composeStories(AdvancedRoutingStories);
 
     it('should render the story with zero config', () => {
       render(<ZeroConfig />);
@@ -60,6 +61,11 @@ describe('StoryRouteTree', () => {
     it('should render component at the specified path', async () => {
       render(<LocationPath />);
       expect(screen.getByText('/books')).toBeInTheDocument();
+    });
+
+    it('should render component at the path inferred from the routing & the route params', async () => {
+      render(<DefaultLocation />);
+      expect(screen.getByText('/books/42')).toBeInTheDocument();
     });
 
     it('should render component at the path return by the function', async () => {
@@ -98,7 +104,7 @@ describe('StoryRouteTree', () => {
     });
 
     it('should render route with the assigned id', () => {
-      render(<RoutingRouteId />);
+      render(<RouteId />);
       expect(screen.getByText('["SomeRouteId"]')).toBeInTheDocument();
     });
 

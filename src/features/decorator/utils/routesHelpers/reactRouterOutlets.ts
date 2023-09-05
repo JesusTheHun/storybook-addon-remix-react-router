@@ -1,11 +1,6 @@
-import { RouteObject } from 'react-router';
 import { hasOwnProperty, invariant } from '../../../../utils/misc';
-import {
-  NonIndexRouteDefinition,
-  NonIndexRouteDefinitionObject,
-  RouteDefinitionObject,
-  RouterRoute,
-} from '../../types';
+import { NonIndexRouteDefinitionObject, RouteDefinitionObject, RouterRoute } from '../../types';
+import { optionalStoryArg } from '../optionalStoryArg';
 
 /**
  * Render the story with multiple possible outlets.
@@ -15,14 +10,15 @@ import {
  */
 export function reactRouterOutlets(outlets: RouteDefinitionObject[]): [RouterRoute];
 export function reactRouterOutlets(
-  story: Omit<NonIndexRouteDefinitionObject, 'element'>,
+  story: string | Omit<NonIndexRouteDefinitionObject, 'element'>,
   outlets: RouteDefinitionObject[]
 ): [RouterRoute];
 export function reactRouterOutlets(
-  ...args: [RouteDefinitionObject[]] | [NonIndexRouteDefinition, RouteDefinitionObject[]]
+  ...args:
+    | [RouteDefinitionObject[]]
+    | [string | Omit<NonIndexRouteDefinitionObject, 'element'>, RouteDefinitionObject[]]
 ): [RouterRoute] {
-  const story = (args.length === 1 ? {} : args[0]) as NonIndexRouteDefinitionObject;
-  const outlets = args.length === 1 ? args[0] : args[1];
+  const [story, outlets] = optionalStoryArg(args);
 
   invariant(
     !hasOwnProperty(story, 'element'),

@@ -4,7 +4,7 @@ import { reactRouterParameters } from '../../../features/decorator/utils/routesH
 import { withRouter } from '../../../features/decorator/withRouter';
 
 export default {
-  title: 'v2/Action',
+  title: 'v2/DataRouter/Action',
   decorators: [withRouter],
 };
 
