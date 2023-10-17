@@ -41,3 +41,5 @@ export function RouterLogger() {
 
   return <>{renderStory(storyContext)}</>;
 }
+
+RouterLogger.displayName = 'RouterLogger';

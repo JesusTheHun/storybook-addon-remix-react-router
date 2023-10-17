@@ -7,15 +7,11 @@
 
 > Use React Router v6 in your stories.
 
-## New major version
+This is the documentation for version `2.x`. If you are still using version `1.x`, visit [v1 documentation](DOCUMENTATION_V1.md).
 
-The new version brings more **flexibility**, **type safety** and helper functions !  
-The upgrade is quite simple. An [upgrade guide](UPGRADE_V1_V2.md) is available.
+## Recent changes
 
-### Deprecated parameters
-
-The parameters you used with the previous version are now deprecated but they still work.  
-The old documentation remains accessible : [v1 documentation](DOCUMENTATION_V1.md).
+✅The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
 
 ## Getting Started
 
@@ -180,6 +176,7 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 ## Compatibility
 
+Version `6.4+` of `react-router` is required.
 This package aims to support `Storybook > 7` and `React > 16`.
 
 ✅ Storybook 7.0
