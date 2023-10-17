@@ -1,3 +1,15 @@
+# v2.0.8 (Tue Oct 17 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(panel): import router context from react-router-dom ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.7 (Tue Aug 29 2023)
 
 #### ⚠️ Pushed to `main`
