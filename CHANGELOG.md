@@ -1,3 +1,15 @@
+# v2.0.9 (Fri Nov 03 2023)
+
+#### 🐛 Bug Fix
+
+- Added assert type to json import [#55](https://github.com/JesusTheHun/storybook-addon-react-router-v6/pull/55) ([@BCaspari](https://github.com/BCaspari))
+
+#### Authors: 1
+
+- [@BCaspari](https://github.com/BCaspari)
+
+---
+
 # v2.0.8 (Tue Oct 17 2023)
 
 #### ⚠️ Pushed to `main`
