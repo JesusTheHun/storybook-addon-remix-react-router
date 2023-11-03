@@ -1,5 +1,5 @@
 // @ts-ignore
-import packageJson from '../package.json';
+import packageJson from '../package.json' assert { type: 'json' };
 
 export const ADDON_ID = 'storybook/react-router-v6';
 export const PANEL_ID = `${ADDON_ID}/panel`;
