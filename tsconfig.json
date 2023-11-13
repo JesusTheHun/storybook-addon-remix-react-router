@@ -10,12 +10,12 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "lib": ["es2020", "dom", "dom.iterable"],
-    "module": "commonjs",
+    "module": "nodenext",
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": false,
     "rootDir": "./src",
     "skipLibCheck": true,
-    "target": "es2020"
+    "target": "esnext"
   },
   "include": ["src/**/*"]
 }
