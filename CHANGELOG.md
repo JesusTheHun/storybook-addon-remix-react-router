@@ -1,3 +1,15 @@
+# v2.0.10 (Tue Nov 14 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix(build): change module target to include import assertions into result ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.9 (Fri Nov 03 2023)
 
 #### 🐛 Bug Fix
