@@ -12,13 +12,13 @@ jobs:
     outputs:
       should-test: ${{ steps.check.outputs.shouldTest }}
     steps:
+      - uses: actions/checkout@v3
+
       - name: Setup Node.js v18
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
           cache: 'yarn'
-
-      - uses: actions/checkout@v3
 
       - name: Fetch latest version and release date
         run: |
