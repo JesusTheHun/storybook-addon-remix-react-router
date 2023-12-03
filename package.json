@@ -33,7 +33,7 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist/**/*",
@@ -45,7 +45,7 @@
     "clean": "rimraf ./dist",
     "prebuild": "yarn clean",
     "build": "tsup",
-    "build:watch": "yarn build --watch",
+    "build:watch": "tsup --watch",
     "test": "vitest",
     "test:ci": "vitest run",
     "start": "concurrently \"yarn build:watch\" \"yarn storybook --quiet\"",

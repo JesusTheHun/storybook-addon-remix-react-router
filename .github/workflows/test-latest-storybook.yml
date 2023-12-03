@@ -1,0 +1,50 @@
+name: Test latest Storybook version
+
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron: '0 18 * * *'
+
+jobs:
+  test-against-latest-storybook:
+    runs-on: ubuntu-latest
+    #    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    outputs:
+      should-test: ${{ steps.check.outputs.shouldTest }}
+    steps:
+      - name: Setup Node.js v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+
+      - uses: actions/checkout@v3
+
+      - name: Fetch latest version and release date
+        run: |
+          LATEST_VERSION=$(npm show @storybook/react version)
+          PUBLISHED_DATE=$(node -e "const json = $(npm show @storybook/react time); console.log(json['$LATEST_VERSION'])")
+          echo "Latest version is ($LATEST_VERSION), published on $PUBLISHED_DATE"
+          echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
+          echo "PUBLISHED_DATE=$PUBLISHED_DATE" >> $GITHUB_ENV
+
+      - name: Exit workflow if version is not new
+        run: |
+          CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          if [[ "$PUBLISHED_DATE" > $(date -u -d 'yesterday' +"%Y-%m-%dT%H:%M:%SZ") ]]; then
+            echo "shouldTest=true" >> "$GITHUB_OUTPUT"
+            exit 0;
+          else
+            echo "shouldTest=false" >> "$GITHUB_OUTPUT"
+            exit 0;
+          fi
+        env:
+          LATEST_VERSION: ${{ env.LATEST_VERSION }}
+          PUBLISHED_DATE: ${{ env.PUBLISHED_DATE }}
+
+      - if: steps.check.output.shouldTest == true
+        name: Install latest version of Storybook
+        run: yarn dlx storybook@latest upgrade -y
+
+      - name: Tests
+        run: yarn test:ci
