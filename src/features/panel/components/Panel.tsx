@@ -43,7 +43,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
         <InformationBanner>
           Version {latestAddonVersion} is now available !{' '}
           <a
-            href={`https://github.com/JesusTheHun/storybook-addon-react-router-v6/releases/tag/v${latestAddonVersion}`}
+            href={`https://github.com/JesusTheHun/storybook-addon-remix-react-router/releases/tag/v${latestAddonVersion}`}
           >
             Changelog
           </a>

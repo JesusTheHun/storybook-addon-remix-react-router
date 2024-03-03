@@ -7,7 +7,7 @@ Only supports for Storybook 7
 Install the package
 
 ```
-yarn add -D storybook-addon-react-router-v6
+yarn add -D storybook-addon-remix-react-router
 ```
 
 Add it to your storybook configuration:
@@ -15,7 +15,7 @@ Add it to your storybook configuration:
 ```js
 // .storybook/main.ts
 module.exports = {
-  addons: ['storybook-addon-react-router-v6'],
+  addons: ['storybook-addon-remix-react-router'],
 };
 ```
 
@@ -26,7 +26,7 @@ To add the router to all the stories of a component, simply add it to the `decor
 Note that the `parameters.reactRouter` property is optional, by default the router will render the component at `/`.
 
 ```tsx
-import { withRouter } from 'storybook-addon-react-router-v6';
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 export default {
   title: 'User Profile',
@@ -48,7 +48,7 @@ export const Example = () => <UserProfile />;
 If you want to change the router config just for one story you can do the following :
 
 ```tsx
-import { withRouter } from 'storybook-addon-react-router-v6';
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 export default {
   title: 'User Profile',

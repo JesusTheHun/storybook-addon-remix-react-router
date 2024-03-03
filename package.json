@@ -1,7 +1,7 @@
 {
-  "name": "storybook-addon-react-router-v6",
+  "name": "storybook-addon-remix-react-router",
   "version": "2.0.11",
-  "description": "Use React Router v6 in your stories",
+  "description": "Use Remix React Router in your stories",
   "keywords": [
     "storybook",
     "storybook-addons",
@@ -11,10 +11,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JesusTheHun/storybook-addon-react-router-v6.git"
+    "url": "git+https://github.com/JesusTheHun/storybook-addon-remix-react-router.git"
   },
   "author": "Jonathan MASSUCHETTI <jonathan.massuchetti@dappit.fr>",
-  "license": "Unlicense",
+  "license": "Apache-2.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -139,14 +139,14 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "React Router v6",
+    "displayName": "Remix React Router (formerly React Router v6)",
     "supportedFrameworks": [
       "react"
     ],
     "icon": "https://user-images.githubusercontent.com/94478/167677696-c05c668e-6290-4ced-8b6b-c2a40211f8e7.jpg"
   },
   "bugs": {
-    "url": "https://github.com/JesusTheHun/storybook-addon-react-router-v6/issues"
+    "url": "https://github.com/JesusTheHun/storybook-addon-remix-react-router/issues"
   },
-  "homepage": "https://github.com/JesusTheHun/storybook-addon-react-router-v6#readme"
+  "homepage": "https://github.com/JesusTheHun/storybook-addon-remix-react-router#readme"
 }
