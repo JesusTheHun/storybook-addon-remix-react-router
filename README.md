@@ -11,6 +11,7 @@ This is the documentation for version `2.x`. If you are still using version `1.x
 
 ## Recent changes
 
+✅You can now use `useStoryElement` to inject the story at multiple points.
 ✅The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
 
 ## Getting Started

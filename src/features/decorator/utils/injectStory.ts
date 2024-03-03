@@ -1,21 +1,23 @@
 import React from 'react';
 import { RouterRoute } from '../types';
 
-export function injectStory(routes: RouterRoute[], StoryComponent: React.ReactElement): RouterRoute[] {
+export function injectStory(routes: RouterRoute[], StoryElement: React.ReactElement, injections = 0): RouterRoute[] {
   // Single route, no children
   if (routes.length === 1 && (routes[0].children === undefined || routes[0].children.length === 0)) {
-    return [{ ...routes[0], element: StoryComponent }];
+    return [{ ...routes[0], element: StoryElement }];
   }
 
   const storyRouteIndex = routes.findIndex((route) => route.useStoryElement);
 
   if (storyRouteIndex !== -1) {
-    const localRoutes = Array.from(routes);
-    localRoutes.splice(storyRouteIndex, 1, {
-      ...routes[storyRouteIndex],
-      element: StoryComponent,
+    return routes.map((route) => {
+      if (!route.useStoryElement) return route;
+
+      return {
+        ...route,
+        element: StoryElement,
+      };
     });
-    return localRoutes;
   }
 
   return routes.map((route) => {
@@ -23,7 +25,7 @@ export function injectStory(routes: RouterRoute[], StoryComponent: React.ReactEl
 
     return {
       ...route,
-      children: injectStory(route.children, StoryComponent),
+      children: injectStory(route.children, StoryElement),
     };
   });
 }

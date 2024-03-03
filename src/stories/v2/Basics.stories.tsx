@@ -1,6 +1,6 @@
 import { generatePath } from '@remix-run/router';
 import React, { useState } from 'react';
-import { Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useMatches, useParams, useSearchParams } from 'react-router-dom';
 import { reactRouterOutlet } from '../../features/decorator/utils/routesHelpers/reactRouterOutlet';
 import { reactRouterParameters } from '../../features/decorator/utils/routesHelpers/reactRouterParameters';
 import { withRouter } from '../../features/decorator/withRouter';
@@ -239,6 +239,29 @@ export const RoutingOutletConfigObject = {
       routing: reactRouterOutlet({
         element: <h1>I'm an outlet defined with a config object</h1>,
       }),
+    }),
+  },
+};
+
+export const MultipleStoryInjection = {
+  render: () => {
+    const location = useLocation();
+    return (
+      <div>
+        <p>{location.pathname}</p>
+        <Link to={'/login'}>Login</Link> | <Link to={'/signup'}>Sign Up</Link>
+      </div>
+    );
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        path: '/login',
+      },
+      routing: [
+        { path: '/login', useStoryElement: true },
+        { path: '/signup', useStoryElement: true },
+      ],
     }),
   },
 };

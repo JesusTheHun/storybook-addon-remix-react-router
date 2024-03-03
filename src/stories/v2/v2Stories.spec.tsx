@@ -5,6 +5,7 @@ import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { invariant } from '../../utils/misc';
 import * as AdvancedRoutingStories from './AdvancedRouting.stories';
+import { MultipleStoryInjection } from './Basics.stories';
 
 import * as BasicStories from './Basics.stories';
 import * as ActionStories from './DataRouter/Action.stories';
@@ -32,6 +33,7 @@ describe('StoryRouteTree', () => {
       RoutingHandles,
       RoutingOutletJSX,
       RoutingOutletConfigObject,
+      MultipleStoryInjection,
     } = composeStories(BasicStories);
 
     const { RoutingOutlets, RoutingNestedOutlets, RoutingNestedAncestors } = composeStories(AdvancedRoutingStories);
@@ -153,6 +155,16 @@ describe('StoryRouteTree', () => {
       expect(screen.getByText('Ancestor level 2')).toBeInTheDocument();
       expect(screen.getByText('Ancestor level 3')).toBeInTheDocument();
       expect(screen.getByText('Story')).toBeInTheDocument();
+    });
+
+    it('should render the story for each route with useStoryElement', async () => {
+      render(<MultipleStoryInjection />);
+      expect(screen.getByText('/login')).toBeInTheDocument();
+
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('link', { name: 'Sign Up' }));
+
+      expect(screen.getByText('/signup')).toBeInTheDocument();
     });
   });
 

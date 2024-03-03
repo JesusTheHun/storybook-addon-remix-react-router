@@ -3,7 +3,7 @@ import { createMemoryRouter, RouteObject, RouterProvider } from 'react-router-do
 import { useRouteObjectsDecorator } from '../hooks/useRouteObjectsDecorator';
 import { useStory } from '../hooks/useStory';
 
-import { injectStory } from '../utils/InjectStory';
+import { injectStory } from '../utils/injectStory';
 import { normalizeHistory } from '../utils/normalizeHistory';
 import { normalizeRouting } from '../utils/normalizeRouting';
 import { RouterLogger } from './RouterLogger';

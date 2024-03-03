@@ -33,13 +33,32 @@ describe('injectStory', () => {
       { path: '/', element: <div /> },
       { path: '/about', useStoryElement: true },
     ];
-    const result = injectStory(routes, <h1>StoryComponent</h1>);
+    const StoryElement = <h1>StoryComponent</h1>;
+    const result = injectStory(routes, StoryElement);
     expect(result).toEqual([
       { path: '/', element: <div /> },
-      expect.objectContaining({ path: '/about', useStoryElement: true }),
+      { path: '/about', useStoryElement: true, element: StoryElement },
     ]);
 
     expect(isValidReactNode(result[1].element)).toBeTruthy();
+    expect(result[1]).not.toBe(routes[1]);
+  });
+
+  it('should inject the story into every route with useStoryElement', () => {
+    const routes = [
+      { path: '/login', useStoryElement: true },
+      { path: '/signup', useStoryElement: true },
+    ];
+    const StoryElement = <h1>StoryComponent</h1>;
+    const result = injectStory(routes, StoryElement);
+    expect(result).toEqual([
+      { path: '/login', useStoryElement: true, element: StoryElement },
+      { path: '/signup', useStoryElement: true, element: StoryElement },
+    ]);
+
+    expect(isValidReactNode(result[0].element)).toBeTruthy();
+    expect(isValidReactNode(result[1].element)).toBeTruthy();
+    expect(result[0]).not.toBe(routes[0]);
     expect(result[1]).not.toBe(routes[1]);
   });
 
