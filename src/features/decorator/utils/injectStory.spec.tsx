@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it } from 'vitest';
-import { injectStory } from './InjectStory';
+import { injectStory } from './injectStory';
 import { isValidReactNode } from './isValidReactNode';
 
 describe('injectStory', () => {
