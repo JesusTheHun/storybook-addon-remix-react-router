@@ -1,3 +1,18 @@
+# v2.0.11 (Sun Mar 03 2024)
+
+#### ⚠️ Pushed to `main`
+
+- chore: upgrade tsup & auto ([@JesusTheHun](https://github.com/JesusTheHun))
+- fix: import case ([@JesusTheHun](https://github.com/JesusTheHun))
+- ci: gh action upgrades ([@JesusTheHun](https://github.com/JesusTheHun))
+- feat(decorator): allow the story to be injected multiple times ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jesus The Hun ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v2.0.10 (Tue Nov 14 2023)
 
 #### ⚠️ Pushed to `main`
