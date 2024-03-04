@@ -39,17 +39,23 @@ export const Panel: React.FC<PanelProps> = (props) => {
 
   return (
     <AddonPanel {...props}>
-      {addonUpdateAvailable && (
-        <InformationBanner>
-          Version {latestAddonVersion} is now available !{' '}
-          <a
-            href={`https://github.com/JesusTheHun/storybook-addon-react-router-v6/releases/tag/v${latestAddonVersion}`}
-          >
-            Changelog
-          </a>
-          .
-        </InformationBanner>
-      )}
+      <InformationBanner>
+        {addonUpdateAvailable && (
+          <>
+            Version {latestAddonVersion} is now available !{' '}
+            <a
+              href={`https://github.com/JesusTheHun/storybook-addon-react-router-v6/releases/tag/v${latestAddonVersion}`}
+            >
+              Changelog
+            </a>
+            . <br />
+          </>
+        )}
+        The addon will be renamed <span style={{ fontStyle: 'italic' }}>storybook-addon-remix-react-router</span> for
+        its next major release, supporting Storybook 8.{' '}
+        <a href={'https://github.com/JesusTheHun/storybook-addon-remix-react-router/issues/63'}>See the announcement</a>
+        .
+      </InformationBanner>
       <PanelContent routerEvents={navigationEvents} onClear={clear} />
     </AddonPanel>
   );
