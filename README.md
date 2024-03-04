@@ -9,10 +9,15 @@
 
 This is the documentation for version `2.x`. If you are still using version `1.x`, visit [v1 documentation](DOCUMENTATION_V1.md).
 
+## Support for Storybook 8
+
+Install `npm i -D storybook-addon-remix-react-router@3.0.0-rc.1` to use this addon with `Storybook 8`.
+
 ## Recent changes
 
-✅You can now use `useStoryElement` to inject the story at multiple points.  
-✅The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
+✅ You can now use `useStoryElement` to inject the story at multiple points.
+
+✅ The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
 
 ## Getting Started
 
