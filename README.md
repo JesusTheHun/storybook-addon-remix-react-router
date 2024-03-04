@@ -7,8 +7,6 @@
 
 > Use Remix React Router in your stories.
 
-This is the documentation for version `>=2.x`. If you are still using version `1.x`, visit [v1 documentation](DOCUMENTATION_V1.md).
-
 ## Recent changes
 
 ✅Support for Storybook 8 in version `3.x`.
