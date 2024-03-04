@@ -5,11 +5,7 @@
 [![Release](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml)
 ![npm](https://img.shields.io/npm/dm/storybook-addon-remix-react-router)
 
-> [!IMPORTANT]
->
-> The package has been renamed `storybook-addon-remix-react-router`.
-
-> Use React Router v6 in your stories.
+> Use Remix React Router in your stories.
 
 This is the documentation for version `>=2.x`. If you are still using version `1.x`, visit [v1 documentation](DOCUMENTATION_V1.md).
 
@@ -199,3 +195,7 @@ If you have an issue with any version, open an issue.
 Contributions are welcome.
 
 Before writing any code, file an issue to showcase the bug or the use case for the feature you want to see in this addon.
+
+## License
+
+This package is released under the Apache 2.0 license.
