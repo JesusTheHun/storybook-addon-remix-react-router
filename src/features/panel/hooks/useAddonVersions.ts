@@ -9,7 +9,7 @@ export function useAddonVersions() {
     if (version !== undefined) return;
 
     const abortController = new AbortController();
-    fetch(`https://registry.npmjs.org/storybook-addon-react-router-v6/latest`, { signal: abortController.signal })
+    fetch(`https://registry.npmjs.org/storybook-addon-remix-react-router/latest`, { signal: abortController.signal })
       .then((b) => b.json())
       .then((json) => setVersion(json.version))
       // eslint-disable-next-line @typescript-eslint/no-empty-function

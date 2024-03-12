@@ -1,5 +1,5 @@
 function managerEntries(entry = []) {
-  return [...entry, require.resolve('../dist/manager.mjs')];
+  return [...entry, require.resolve('../dist/manager.js')];
 }
 
 module.exports = {

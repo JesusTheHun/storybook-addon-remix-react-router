@@ -1,30 +1,24 @@
-# Storybook Addon React Router v6
+# Storybook Addon Remix React Router
 
 [![Storybook](https://raw.githubusercontent.com/storybookjs/brand/master/badge/badge-storybook.svg?sanitize=true)](https://storybook.js.org)
-[![npm](https://img.shields.io/npm/v/storybook-addon-react-router-v6?color=blue)](https://www.npmjs.com/package/storybook-addon-react-router-v6)
-[![Release](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-react-router-v6/actions/workflows/release.yml)
-![npm](https://img.shields.io/npm/dm/storybook-addon-react-router-v6)
+[![npm](https://img.shields.io/npm/v/storybook-addon-remix-react-router?color=blue)](https://www.npmjs.com/package/storybook-addon-remix-react-router)
+[![Release](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml)
+![npm](https://img.shields.io/npm/dm/storybook-addon-remix-react-router)
 
-> Use React Router v6 in your stories.
-
-This is the documentation for version `2.x`. If you are still using version `1.x`, visit [v1 documentation](DOCUMENTATION_V1.md).
-
-## Support for Storybook 8
-
-Install `npm i -D storybook-addon-remix-react-router@3.0.0-rc.1` to use this addon with `Storybook 8`.
+> Use Remix React Router in your stories.
 
 ## Recent changes
 
-✅ You can now use `useStoryElement` to inject the story at multiple points.
-
-✅ The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
+✅Support for Storybook 8 in version `3.x`.
+✅You can now use `useStoryElement` to inject the story at multiple points.
+✅The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
 
 ## Getting Started
 
 Install the package
 
 ```
-yarn add -D storybook-addon-react-router-v6
+npm i -D storybook-addon-remix-react-router
 ```
 
 Add it to your storybook configuration:
@@ -33,7 +27,7 @@ Add it to your storybook configuration:
 // .storybook/main.ts
 
 export default {
-  addons: ['storybook-addon-react-router-v6'],
+  addons: ['storybook-addon-remix-react-router'],
 } satisfies StorybookConfig;
 ```
 
@@ -44,7 +38,7 @@ To add the router to all the stories of a component, simply add it to the `decor
 Note that `parameters.reactRouter` is optional, by default the router will render the component at `/`.
 
 ```tsx
-import { withRouter } from 'storybook-addon-react-router-v6';
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 export default {
   title: 'User Profile',
@@ -66,7 +60,7 @@ export default {
 To change the config for a single story, you can do the following :
 
 ```tsx
-import { withRouter } from 'storybook-addon-react-router-v6';
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 export default {
   title: 'User Profile',
@@ -134,7 +128,7 @@ If the function returns `undefined`, it will fallback to the default behavior, j
 ## Routing
 
 You can set `routing` to anything accepted by `createBrowserRouter`.  
-To make your life easier, `storybook-addon-react-router-v6` comes with some routing helpers :
+To make your life easier, `storybook-addon-remix-react-router` comes with some routing helpers :
 
 ```tsx
 export const MyStory = {
@@ -160,7 +154,7 @@ reactRouterNestedAncestors(); // Render the story as an outlet of nested outlets
 You can also create your own helper and use the exported type `RoutingHelper` to assist you :
 
 ```ts
-import { RoutingHelper } from 'storybook-addon-react-router-v6';
+import { RoutingHelper } from 'storybook-addon-remix-react-router';
 
 const myCustomHelper: RoutingHelper = () => {
   // Routing creation logic
@@ -185,11 +179,12 @@ Navigation events, loader and actions are logged, for you to better understand t
 Version `6.4+` of `react-router` is required.
 This package aims to support `Storybook > 7` and `React > 16`.
 
+✅ Storybook 8.0  
 ✅ Storybook 7.0
 
-✅ React 16  
+✅ React 18  
 ✅ React 17  
-✅ React 18
+✅ React 16
 
 If you have an issue with any version, open an issue.
 
@@ -198,3 +193,7 @@ If you have an issue with any version, open an issue.
 Contributions are welcome.
 
 Before writing any code, file an issue to showcase the bug or the use case for the feature you want to see in this addon.
+
+## License
+
+This package is released under the Apache 2.0 license.
