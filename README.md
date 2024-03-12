@@ -7,11 +7,15 @@
 
 > Use Remix React Router in your stories.
 
+🚨️ The package has been renamed `storybook-addon-remix-react-router` 🚨
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp; The migration is mandatory to support Storybook 8.
+
 ## Recent changes
 
-✅Support for Storybook 8 in version `3.x`.
-✅You can now use `useStoryElement` to inject the story at multiple points.
-✅The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
+✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.  
+✅ You can now use `useStoryElement` to inject the story at multiple points.  
+✅ The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
 
 ## Getting Started
 
