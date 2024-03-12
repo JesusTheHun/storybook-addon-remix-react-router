@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-react-router-v6",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Use React Router v6 in your stories",
   "keywords": [
     "storybook-addons",
@@ -57,7 +57,8 @@
     "chromatic": "npx chromatic --project-token=e29962fd32f5",
     "prepare": "husky install",
     "prettier:check": "prettier --check .",
-    "prettier:write": "prettier --write ."
+    "prettier:write": "prettier --write .",
+    "postinstall": "[ \"$npm_package_name\" = \"storybook-addon-react-router-v6\" ] && sh scripts/announcement.sh || :"
   },
   "dependencies": {
     "compare-versions": "^6.0.0",
