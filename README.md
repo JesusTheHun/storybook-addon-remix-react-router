@@ -1,9 +1,9 @@
 # Storybook Addon Remix React Router
 
 [![Storybook](https://raw.githubusercontent.com/storybookjs/brand/master/badge/badge-storybook.svg?sanitize=true)](https://storybook.js.org)
-[![npm](https://img.shields.io/npm/v/storybook-addon-remix-react-router?color=blue)](https://www.npmjs.com/package/storybook-addon-react-router-v6)
+[![npm](https://img.shields.io/npm/v/storybook-addon-remix-react-router?color=blue)](https://www.npmjs.com/package/storybook-addon-remix-react-router)
 [![Release](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml)
-![npm](https://img.shields.io/npm/dm/storybook-addon-remix-react-router)
+![npm](https://img.shields.io/npm/dm/storybook-addon-react-router-v6)
 
 > Use Remix React Router in your stories.
 
