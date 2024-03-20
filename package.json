@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-react-router-v6",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "Use React Router v6 in your stories",
   "keywords": [
     "storybook-addons",
@@ -37,6 +37,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist/**/*",
+    "scripts/announcement.js",
     "README.md",
     "*.js",
     "*.d.ts"
@@ -51,7 +52,6 @@
     "start": "concurrently \"yarn build:watch\" \"yarn storybook --quiet\"",
     "prerelease": "zx scripts/prepublish-checks.mjs",
     "release": "yarn build && auto shipit",
-    "eject-ts": "zx scripts/eject-typescript.mjs",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=e29962fd32f5",
