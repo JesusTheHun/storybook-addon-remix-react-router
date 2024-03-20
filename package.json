@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-react-router-v6",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "Use React Router v6 in your stories",
   "keywords": [
     "storybook-addons",
@@ -58,7 +58,7 @@
     "prepare": "husky install",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
-    "postinstall": "[ \"$npm_package_name\" = \"storybook-addon-react-router-v6\" ] && sh scripts/announcement.sh || :"
+    "postinstall": "node scripts/announcement.js"
   },
   "dependencies": {
     "compare-versions": "^6.0.0",
