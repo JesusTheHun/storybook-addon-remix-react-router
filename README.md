@@ -7,9 +7,10 @@
 
 > Use Remix React Router in your stories.
 
-🚨️ The package has been renamed `storybook-addon-remix-react-router` 🚨
-<br />
-&nbsp;&nbsp;&nbsp;&nbsp; The migration is mandatory to support Storybook 8.
+✨Notice ✨  
+The package has been renamed `storybook-addon-remix-react-router`.  
+The repository has also been renamed, so you are on the right page.  
+The migration is mandatory to support Storybook 8.
 
 ## Recent changes
 
