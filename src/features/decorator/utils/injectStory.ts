@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouterRoute } from '../types';
 
-export function injectStory(routes: RouterRoute[], StoryElement: React.ReactElement, injections = 0): RouterRoute[] {
+export function injectStory(routes: RouterRoute[], StoryElement: React.ReactElement): RouterRoute[] {
   // Single route, no children
   if (routes.length === 1 && (routes[0].children === undefined || routes[0].children.length === 0)) {
     return [{ ...routes[0], element: StoryElement }];
