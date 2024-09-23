@@ -4,7 +4,7 @@ import { PARAM_KEY } from '../../constants';
 import { ReactRouterDecorator, ReactRouterDecoratorProps } from './components/ReactRouterDecorator';
 import { castParametersV2 } from './utils/castParametersV2';
 
-export const withRouter = makeDecorator({
+export const withRouter: () => any = makeDecorator({
   name: 'withRouter',
   parameterName: PARAM_KEY,
   wrapper: (getStory, context, { parameters }) => {

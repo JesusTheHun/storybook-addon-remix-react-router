@@ -1,28 +1,51 @@
 import { compareVersions } from 'compare-versions';
 import { useEffect, useState } from 'react';
-import { ADDON_VERSION } from '../../../constants';
 
 export function useAddonVersions() {
-  const [version, setVersion] = useState<string>();
+  const [currentVersion, setCurrentVersion] = useState<string>();
+  const [latestVersion, setLatestVersion] = useState<string>();
 
   useEffect(() => {
-    if (version !== undefined) return;
-
     const abortController = new AbortController();
     fetch(`https://registry.npmjs.org/storybook-addon-remix-react-router/latest`, { signal: abortController.signal })
       .then((b) => b.json())
-      .then((json) => setVersion(json.version))
+      .then((json) => setLatestVersion(json.version))
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       .catch(() => {});
 
     return () => abortController.abort();
-  }, [version]);
+  }, []);
 
-  const newVersionAvailable = version === undefined ? undefined : compareVersions(version, ADDON_VERSION) === 1;
+  useEffect(() => {
+    getAddonVersion().then((v) => setCurrentVersion(v));
+  }, []);
+
+  const newVersionAvailable =
+    !latestVersion || !currentVersion ? undefined : compareVersions(latestVersion, currentVersion) === 1;
 
   return {
-    currentAddonVersion: ADDON_VERSION,
-    latestAddonVersion: version,
+    currentAddonVersion: currentVersion,
+    latestAddonVersion: latestVersion,
     addonUpdateAvailable: newVersionAvailable,
   };
+}
+
+async function getAddonVersion() {
+  try {
+    const packageJson = await import('../../../../package.json', {
+      with: {
+        type: 'json',
+      },
+    });
+
+    return packageJson.version;
+  } catch (error) {
+    const packageJson = await import('../../../../package.json', {
+      assert: {
+        type: 'json',
+      },
+    });
+
+    return packageJson.version;
+  }
 }
