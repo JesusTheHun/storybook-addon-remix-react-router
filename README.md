@@ -43,7 +43,7 @@ To add the router to all the stories of a component, simply add it to the `decor
 Note that `parameters.reactRouter` is optional, by default the router will render the component at `/`.
 
 ```tsx
-import { withRouter } from 'storybook-addon-remix-react-router';
+import { withRouter, reactRouterParameters } from 'storybook-addon-remix-react-router';
 
 export default {
   title: 'User Profile',
@@ -65,7 +65,7 @@ export default {
 To change the config for a single story, you can do the following :
 
 ```tsx
-import { withRouter } from 'storybook-addon-remix-react-router';
+import { withRouter, reactRouterParameters } from 'storybook-addon-remix-react-router';
 
 export default {
   title: 'User Profile',
