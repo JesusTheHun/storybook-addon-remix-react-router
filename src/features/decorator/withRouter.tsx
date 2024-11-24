@@ -1,3 +1,4 @@
+import { FutureConfig } from '@remix-run/router/router';
 import { makeDecorator } from '@storybook/preview-api';
 import React from 'react';
 import { PARAM_KEY } from '../../constants';
