@@ -6,7 +6,7 @@ import { LocationParameters, RouterRoute } from '../types';
 import { castRouterRoute } from './castRouterRoute';
 
 export function castParametersV2(parameters: Record<string, unknown> = {}): ReactRouterAddonStoryParameters {
-  const exclusiveV2properties = ['location', 'navigationHistory', 'routing'];
+  const exclusiveV2properties = ['location', 'navigationHistory', 'routing', 'future'];
   const isV2 = Object.keys(parameters ?? {}).some((prop) => exclusiveV2properties.includes(prop));
 
   if (isV2) return parameters;
