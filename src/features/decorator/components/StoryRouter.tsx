@@ -24,11 +24,12 @@ export function StoryRouter() {
     return createMemoryRouter(injectedRoutes as RouteObject[], {
       initialEntries,
       initialIndex,
+      future,
       hydrationData,
     });
-  }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing]);
+  }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing, future]);
 
-  return <RouterProvider router={memoryRouter} fallbackElement={<Fallback />} future={future as never} />;
+  return <RouterProvider router={memoryRouter} fallbackElement={<Fallback />} />;
 }
 
 function Fallback() {
