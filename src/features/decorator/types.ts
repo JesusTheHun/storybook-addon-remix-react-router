@@ -1,4 +1,5 @@
-import { HydrationState } from '@remix-run/router';
+import { HydrationState, FutureConfig } from '@remix-run/router';
+import { FutureConfig as FutureConfigRouter } from 'react-router';
 import React from 'react';
 import { LazyRouteFunction, RouteObject } from 'react-router';
 import { Overwrite, PromiseType } from 'utility-types';
@@ -7,6 +8,8 @@ import { Merge } from '../../utils/type-utils';
 export type RouterParameters = {
   hydrationData?: HydrationState;
   routing?: string | RouterRoute | [RouterRoute, ...RouterRoute[]];
+  future?: Partial<FutureConfig & FutureConfigRouter>;
+  fallback?: React.JSX.Element;
 };
 
 export type LocationParameters<PathParams extends Record<string, string | number> = Record<string, string | number>> = {

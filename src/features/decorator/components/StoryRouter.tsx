@@ -10,7 +10,7 @@ import { RouterLogger } from './RouterLogger';
 
 export function StoryRouter() {
   const { addonParameters = {} } = useStory();
-  const { hydrationData, routing, navigationHistory, location } = addonParameters;
+  const { hydrationData, routing, navigationHistory, location, future, fallback } = addonParameters;
 
   const decorateRouteObjects = useRouteObjectsDecorator();
 
@@ -21,14 +21,35 @@ export function StoryRouter() {
 
     const { initialEntries, initialIndex } = normalizeHistory({ navigationHistory, location, routes: injectedRoutes });
 
-    return createMemoryRouter(injectedRoutes as RouteObject[], {
+    const resolvedOptions: Parameters<typeof createMemoryRouter>[1] = {
       initialEntries,
       initialIndex,
       hydrationData,
-    });
-  }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing]);
+    };
 
-  return <RouterProvider router={memoryRouter} fallbackElement={<Fallback />} />;
+    if (future) {
+      resolvedOptions.future = future;
+    }
+
+    return createMemoryRouter(injectedRoutes as RouteObject[], resolvedOptions);
+  }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing, future]);
+
+  const expandProps: Record<string, unknown> = {};
+  const fallbackElement = fallback ?? <Fallback />;
+
+  if (future) {
+    expandProps.future = future;
+  }
+
+  if (future?.v7_partialHydration === true) {
+    expandProps.HydrateFallback = fallbackElement;
+  }
+
+  if (future?.v7_partialHydration === false) {
+    expandProps.fallbackElement = fallbackElement;
+  }
+
+  return <RouterProvider router={memoryRouter} {...expandProps} />;
 }
 
 function Fallback() {
