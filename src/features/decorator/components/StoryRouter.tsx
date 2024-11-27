@@ -31,12 +31,7 @@ export function StoryRouter() {
       resolvedOptions.future = future;
     }
 
-    return createMemoryRouter(injectedRoutes as RouteObject[], {
-      initialEntries,
-      initialIndex,
-      future,
-      hydrationData,
-    });
+    return createMemoryRouter(injectedRoutes as RouteObject[], resolvedOptions);
   }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing, future]);
 
   return <RouterProvider router={memoryRouter} fallbackElement={<Fallback />} />;
