@@ -4,11 +4,6 @@
 
 - docs: add reactRouterParameters to the import list [#77](https://github.com/JesusTheHun/storybook-addon-remix-react-router/pull/77) ([@benhuangbmj](https://github.com/benhuangbmj))
 
-#### ⚠️ Pushed to `main`
-
-- fix: allow react router dom v7 ([@JesusTheHun](https://github.com/JesusTheHun))
-- v3.0.1 ([@JesusTheHun](https://github.com/JesusTheHun))
-
 #### Authors: 2
 
 - Ben Huang ([@benhuangbmj](https://github.com/benhuangbmj))
