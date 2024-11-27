@@ -10,7 +10,7 @@ import { RouterLogger } from './RouterLogger';
 
 export function StoryRouter() {
   const { addonParameters = {} } = useStory();
-  const { hydrationData, routing, navigationHistory, location, future } = addonParameters;
+  const { hydrationData, routing, navigationHistory, location, future, fallback } = addonParameters;
 
   const decorateRouteObjects = useRouteObjectsDecorator();
 
@@ -34,7 +34,22 @@ export function StoryRouter() {
     return createMemoryRouter(injectedRoutes as RouteObject[], resolvedOptions);
   }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing, future]);
 
-  return <RouterProvider router={memoryRouter} fallbackElement={<Fallback />} />;
+  const expandProps: Record<string, unknown> = {};
+  const fallbackElement = fallback ?? <Fallback />;
+
+  if (future) {
+    expandProps.future = future;
+  }
+
+  if (future?.v7_partialHydration === true) {
+    expandProps.HydrateFallback = fallbackElement;
+  }
+
+  if (future?.v7_partialHydration === false) {
+    expandProps.fallbackElement = fallbackElement;
+  }
+
+  return <RouterProvider router={memoryRouter} {...expandProps} />;
 }
 
 function Fallback() {

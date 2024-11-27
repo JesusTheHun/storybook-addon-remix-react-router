@@ -8,8 +8,8 @@ import { Merge } from '../../utils/type-utils';
 export type RouterParameters = {
   hydrationData?: HydrationState;
   routing?: string | RouterRoute | [RouterRoute, ...RouterRoute[]];
-  future?: Partial<FutureConfig>;
   future?: Partial<FutureConfig & FutureConfigRouter>;
+  fallback?: React.JSX.Element;
 };
 
 export type LocationParameters<PathParams extends Record<string, string | number> = Record<string, string | number>> = {
