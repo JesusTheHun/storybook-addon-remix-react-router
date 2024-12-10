@@ -1,0 +1,139 @@
+{
+  "name": "storybook-addon-remix-react-router",
+  "version": "3.0.2",
+  "description": "Use Remix React Router in your stories. (Formerly storybook-addon-react-router-v6)",
+  "keywords": [
+    "storybook",
+    "storybook-addons",
+    "remix",
+    "react",
+    "router",
+    "react-router",
+    "remix-react-router"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JesusTheHun/storybook-addon-remix-react-router.git"
+  },
+  "author": "Jonathan MASSUCHETTI <jonathan.massuchetti@dappit.fr>",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@9.15.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./preview": {
+      "types": "./dist/preview.d.ts",
+      "import": "./dist/preview.js",
+      "require": "./dist/preview.js"
+    },
+    "./preset": "./dist/preset.cjs",
+    "./manager": "./dist/manager.js",
+    "./package.json": "./package.json",
+    "./internals": {
+      "types": "./dist/internals.d.ts",
+      "import": "./dist/internals.js",
+      "require": "./dist/internals.js"
+    }
+  },
+  "type": "module",
+  "main": "../../dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "../../README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "clean": "rimraf ./dist",
+    "prebuild": "npm run clean",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "test": "vitest --run",
+    "prerelease": "npm run build",
+    "release": " auto shipit",
+    "prepare": "husky install",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write ."
+  },
+  "dependencies": {
+    "@storybook/theming": "^8.0.0",
+    "compare-versions": "^6.0.0",
+    "react-inspector": "6.0.2",
+    "@mjackson/form-data-parser": "^0.4.0"
+  },
+  "peerDependencies": {
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/channels": "^8.0.0",
+    "@storybook/components": "^8.0.0",
+    "@storybook/core-events": "^8.0.0",
+    "@storybook/manager-api": "^8.0.0",
+    "@storybook/preview-api": "^8.0.0",
+    "@storybook/theming": "^8.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-router": "^7.0.2"
+  },
+  "devDependencies": {
+    "@remix-run/router": "^1.3.3",
+    "@remix-run/web-fetch": "^4.3.2",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/components": "^8.0.0",
+    "@storybook/core-common": "^8.0.0",
+    "@storybook/core-events": "^8.0.0",
+    "@storybook/manager-api": "^8.0.0",
+    "@storybook/preview-api": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/react-vite": "^8.0.0",
+    "@types/node": "^18.15.0",
+    "@types/react": "^18.3.14",
+    "@types/react-inspector": "^4.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "chromatic": "^6.17.4",
+    "concurrently": "^6.2.0",
+    "dedent": "^0.7.0",
+    "expect-type": "^0.16.0",
+    "jsdom": "^25.0.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.0.1",
+    "react-dom": "^18.0.1",
+    "react-router": "^7.0.2",
+    "rimraf": "^6.0.1",
+    "storybook": "^8.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "5.3.2",
+    "utility-types": "^3.10.0",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "storybook": {
+    "displayName": "Remix React Router (formerly React Router v6)",
+    "supportedFrameworks": [
+      "react"
+    ],
+    "icon": "https://user-images.githubusercontent.com/94478/167677696-c05c668e-6290-4ced-8b6b-c2a40211f8e7.jpg"
+  },
+  "bugs": {
+    "url": "https://github.com/JesusTheHun/storybook-addon-remix-react-router/issues"
+  },
+  "homepage": "https://github.com/JesusTheHun/storybook-addon-remix-react-router#readme"
+}
