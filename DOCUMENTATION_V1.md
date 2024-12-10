@@ -206,6 +206,7 @@ type OutletProps = {
 ✅ React 16  
 ✅ React 17  
 ✅ React 18
+✅ React 19
 
 If you face an issue with any version, open an issue.
 
