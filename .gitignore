@@ -9,3 +9,4 @@ build-storybook.log
 .idea
 
 *storybook.log
+tests-report
