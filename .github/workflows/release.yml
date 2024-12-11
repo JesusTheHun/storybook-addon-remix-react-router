@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Build packages
+        run: pnpm --filter "storybook-addon-remix-react-router" run build
+
       - name: Vitest cache
         uses: actions/cache@v4
         with:
@@ -30,7 +33,6 @@ jobs:
             vitest-cache-${{ github.ref_name }}
 
       - name: Run tests
-        id: tests
         run: pnpm vitest --run --bail 5
 
       - name: Create Release

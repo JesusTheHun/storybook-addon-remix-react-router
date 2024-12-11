@@ -51,12 +51,12 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "clean": "rimraf ./dist",
-    "prebuild": "npm run clean",
+    "prebuild": "pnpm run clean",
     "build": "tsup",
     "build:watch": "tsup --watch",
     "test": "vitest --run",
-    "prerelease": "npm run build",
-    "release": " auto shipit",
+    "prerelease": "pnpm run build",
+    "release": "auto shipit",
     "prepare": "husky install",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write ."
