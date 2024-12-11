@@ -7,7 +7,7 @@
 
 > Use Remix React Router in your stories.
 
-Starting with `react-router@7`, the package `react-router-dom` is deprecated.  
+Starting with `react-router@7`, the package `react-router-dom` is deprecated by Remix.  
 If you still use this package, use the `v3` of this addon.  
 If you have dropped it in favor of `react-router`, use the `v4`.
 
@@ -181,12 +181,15 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 ## Compatibility
 
-Version `6.4+` of `react-router` is required.
-This package aims to support `Storybook > 7` and `React > 16`.
+The list below is given for the `v4` of this addon.  
+To use this addon with React Router 6, install the `v3`.  
+To use this addon with Storybook 7, install `v2`.  
 
-✅ Storybook 8.0  
-✅ Storybook 7.0
+✅ React Router 7
 
+✅ Storybook 8
+
+✅ React 19  
 ✅ React 18  
 ✅ React 17  
 ✅ React 16
