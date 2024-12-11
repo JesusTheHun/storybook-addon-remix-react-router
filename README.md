@@ -187,7 +187,6 @@ This package aims to support `Storybook > 7` and `React > 16`.
 ✅ Storybook 8.0  
 ✅ Storybook 7.0
 
-✅ React 19  
 ✅ React 18  
 ✅ React 17  
 ✅ React 16
