@@ -7,10 +7,9 @@
 
 > Use Remix React Router in your stories.
 
-✨Notice ✨  
-The package has been renamed `storybook-addon-remix-react-router`.  
-The repository has also been renamed, so you are on the right page.  
-The migration is mandatory to support Storybook 8.
+Starting with `react-router@7`, the package `react-router-dom` is deprecated by Remix.  
+If you still use this package, use the `v3` of this addon.  
+If you have dropped it in favor of `react-router`, use the `v4`.
 
 ## Recent changes
 
