@@ -183,7 +183,7 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 The list below is given for the `v4` of this addon.  
 To use this addon with React Router 6, install the `v3`.  
-To use this addon with Storybook 7, install `v2`.  
+To use this addon with Storybook 7, install `v2`.
 
 ✅ React Router 7
 
