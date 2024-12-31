@@ -1,3 +1,28 @@
+# v3.1.0 (Tue Dec 31 2024)
+
+#### 🚀 Enhancement
+
+- feat: add support for react 19 ([@JesusTheHun](https://github.com/JesusTheHun))
+- Feat/v7 future [#80](https://github.com/JesusTheHun/storybook-addon-remix-react-router/pull/80) ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### 🐛 Bug Fix
+
+- fix: allow React 19 as peer dep ([@JesusTheHun](https://github.com/JesusTheHun))
+- ci: use json config file ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### ⚠️ Pushed to `main`
+
+- revert: move to react 19 ([@JesusTheHun](https://github.com/JesusTheHun))
+- build: set dev dep to React 19 ([@JesusTheHun](https://github.com/JesusTheHun))
+- ci: use auto conventional commits ([@JesusTheHun](https://github.com/JesusTheHun))
+- docs: remove canary entry from changelog ([@JesusTheHun](https://github.com/JesusTheHun))
+
+#### Authors: 1
+
+- Jonathan MASSUCHETTI ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v3.0.2 (Tue Nov 26 2024)
 
 #### 🐛 Bug Fix
