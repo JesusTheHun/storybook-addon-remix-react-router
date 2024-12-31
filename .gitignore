@@ -10,3 +10,5 @@ build-storybook.log
 
 *storybook.log
 tests-report
+
+packages/storybook-addon-remix-react-router/README.md

@@ -183,12 +183,12 @@ Navigation events, loader and actions are logged, for you to better understand t
 This package aims to support `Storybook > 7` and `React > 16`.  
 Here is a compatibility table :
 
-| Addon | React                   | Storybook | React Router     |
-| ----- | ----------------------- | --------- | ---------------- |
-| 4.x   | &gt;= 16.8.0            | 8.x       | 7.x              |
-| 3.x   | &gt;= 16.8.0            | 8.x       | 6.x <sup>1</sup> |
-| 2.x   | &gt;= v16.8.0 < v19.0.0 | 7.x       | 6.x              |
-| 1.x   | &gt;= v16.8.0 < v19.0.0 | 7.x       | 6.x              |
+| Addon | React                 | Storybook | React Router     |
+|-------|-----------------------|-----------|------------------|
+| 4.x   | &gt;= 16.8.0          | 8.x       | 7.x              |
+| 3.x   | &gt;= 16.8.0          | 8.x       | 6.x <sup>1</sup> |
+| 2.x   | &gt;= 16.8.0 < 19.0.0 | 7.x       | 6.x              |
+| 1.x   | &gt;= 16.8.0 < 19.0.0 | 7.x       | 6.x              |
 
 <sup>1</sup> You can actually use react-router v7 if you import from `react-router-dom` and not `react-router`.
 
