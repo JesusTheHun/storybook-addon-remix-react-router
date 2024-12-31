@@ -14,9 +14,9 @@ The migration is mandatory to support Storybook 8.
 
 ## Recent changes
 
+✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.  
 ✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.  
-✅ You can now use `useStoryElement` to inject the story at multiple points.  
-✅ The `routing` parameter now accept a string, that will be used both as the route path and the location pathname.
+✅ You can now use `useStoryElement` to inject the story at multiple points.
 
 ## Getting Started
 
@@ -181,15 +181,17 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 ## Compatibility
 
-Version `6.4+` of `react-router` is required.
-This package aims to support `Storybook > 7` and `React > 16`.
+This package aims to support `Storybook > 7` and `React > 16`.  
+Here is a compatibility table :
 
-✅ Storybook 8.0  
-✅ Storybook 7.0
+| Addon | React                   | Storybook | React Router     |
+| ----- | ----------------------- | --------- | ---------------- |
+| 4.x   | &gt;= 16.8.0            | 8.x       | 7.x              |
+| 3.x   | &gt;= 16.8.0            | 8.x       | 6.x <sup>1</sup> |
+| 2.x   | &gt;= v16.8.0 < v19.0.0 | 7.x       | 6.x              |
+| 1.x   | &gt;= v16.8.0 < v19.0.0 | 7.x       | 6.x              |
 
-✅ React 18  
-✅ React 17  
-✅ React 16
+<sup>1</sup> You can actually use react-router v7 if you import from `react-router-dom` and not `react-router`.
 
 If you have an issue with any version, open an issue.
 
