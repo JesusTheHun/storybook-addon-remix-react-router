@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-remix-react-router",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Use Remix React Router in your stories. (Formerly storybook-addon-react-router-v6)",
   "keywords": [
     "storybook",
@@ -55,7 +55,7 @@
     "build": "tsup",
     "build:watch": "tsup --watch",
     "test": "vitest --run",
-    "prerelease": "pnpm run build",
+    "prerelease": "pnpm run build && cp ../../README.md .",
     "release": "auto shipit",
     "prepare": "husky install",
     "prettier:check": "prettier --check .",

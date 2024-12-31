@@ -1,7 +1,7 @@
 {
   "name": "@storybook-addon-remix-react-router/repo",
   "private": true,
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Use Remix React Router in your stories",
   "type": "module",
   "packageManager": "pnpm@9.15.0",
