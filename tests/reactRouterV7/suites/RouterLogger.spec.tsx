@@ -1,11 +1,11 @@
 import React from 'react';
 import { beforeEach, describe, it, vi, expect } from 'vitest';
-import { composeStories } from '@storybook/react';
+import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import { EVENTS } from 'storybook-addon-remix-react-router/internals';
-import { addons } from '@storybook/preview-api';
+import { addons } from 'storybook/preview-api';
 
-import { Channel } from '@storybook/channels';
+import { Channel } from 'storybook/internal/channels';
 import type { MockInstance } from 'vitest';
 import userEvent from '@testing-library/user-event';
 

@@ -1,4 +1,4 @@
-import { addons } from '@storybook/preview-api';
+import { addons } from 'storybook/preview-api';
 import React, { useRef } from 'react';
 import { useLocation, RouteMatch } from 'react-router';
 

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/react';
+import { StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useParams } from 'react-router';
 import {

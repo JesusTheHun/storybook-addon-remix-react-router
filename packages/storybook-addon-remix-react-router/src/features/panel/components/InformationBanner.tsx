@@ -1,6 +1,6 @@
-import { styled, StyledComponent } from '@storybook/theming';
+import { styled } from 'storybook/theming';
 
-export const InformationBanner: StyledComponent<NonNullable<unknown>> = styled.p`
+export const InformationBanner = styled.p`
   background: #ffebba;
   padding: 5px;
   margin-top: 0;

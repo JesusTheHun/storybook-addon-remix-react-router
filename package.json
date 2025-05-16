@@ -1,7 +1,7 @@
 {
   "name": "@storybook-addon-remix-react-router/repo",
   "private": true,
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Use Remix React Router in your stories",
   "type": "module",
   "packageManager": "pnpm@9.15.0",
@@ -13,7 +13,7 @@
     "@auto-it/conventional-commits": "^11.3.0",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
-    "@vitest/ui": "2.1.8",
+    "@vitest/ui": "^3.1.3",
     "auto": "^11.3.0",
     "boxen": "^5.0.1",
     "dedent": "^0.7.0",
@@ -22,11 +22,10 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
-    "husky": "^9.1.7",
     "lint-staged": "^13.2.3",
     "prettier": "2.8.8",
     "typescript": "5.3.2",
     "vite": "^6.0.3",
-    "vitest": "^2.1.8"
+    "vitest": "^3.1.3"
   }
 }

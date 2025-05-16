@@ -1,4 +1,4 @@
-import { addons } from '@storybook/preview-api';
+import { addons } from 'storybook/preview-api';
 import { useCallback } from 'react';
 import { LoaderFunction, LoaderFunctionArgs } from 'react-router';
 import { EVENTS } from '../../../constants';

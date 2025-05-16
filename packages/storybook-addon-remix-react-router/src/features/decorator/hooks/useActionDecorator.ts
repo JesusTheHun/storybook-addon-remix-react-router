@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from '@remix-run/router/utils';
-import { addons } from '@storybook/preview-api';
+import { addons } from 'storybook/preview-api';
 import { useCallback } from 'react';
 import { ActionFunction } from 'react-router';
 import { EVENTS } from '../../../constants';

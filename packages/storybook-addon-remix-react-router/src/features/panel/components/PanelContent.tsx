@@ -1,5 +1,5 @@
-import { ActionBar, ScrollArea } from '@storybook/components';
-import { styled, StyledComponent } from '@storybook/theming';
+import { ActionBar, ScrollArea } from 'storybook/internal/components';
+import { styled, StyledComponent } from 'storybook/theming';
 import React, { Fragment, PropsWithChildren, ReactNode } from 'react';
 import { EVENTS } from '../../../constants';
 import { FCC } from '../../../fixes';

@@ -1,4 +1,4 @@
-import { styled, StyledComponent } from '@storybook/theming';
+import { styled, StyledComponent } from 'storybook/theming';
 import { ReactNode } from 'react';
 
 export const RouterEventDisplayWrapper: StyledComponent<{ children: ReactNode }> = styled.div({
