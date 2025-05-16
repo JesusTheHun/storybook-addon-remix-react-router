@@ -9,7 +9,8 @@
 
 Starting with `react-router@7`, the package `react-router-dom` is deprecated by Remix.  
 If you still use this package, use the `v3` of this addon.  
-If you have dropped it in favor of `react-router`, use the `v4`.
+If you have dropped it in favor of `react-router`, use the `v4` or `v5` depending on your Storybook version.  
+Check the compatibility table at the bottom.
 
 ## Recent changes
 
