@@ -13,7 +13,7 @@ If you have dropped it in favor of `react-router`, use the `v4`.
 
 ## Recent changes
 
-✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.
+✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.  
 ✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.  
 ✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.
 
