@@ -1,5 +1,5 @@
-import { STORY_CHANGED } from '@storybook/core-events';
-import { ManagerContext } from '@storybook/manager-api';
+import { STORY_CHANGED } from 'storybook/internal/core-events';
+import { ManagerContext } from 'storybook/manager-api';
 import React, { useContext, useEffect, useState } from 'react';
 import { EVENTS } from '../../../constants';
 import { useAddonVersions } from '../hooks/useAddonVersions';

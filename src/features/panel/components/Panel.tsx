@@ -1,6 +1,6 @@
-import { AddonPanel } from '@storybook/components';
-import { STORY_CHANGED } from '@storybook/core-events';
-import { API, useChannel } from '@storybook/manager-api';
+import { AddonPanel } from 'storybook/internal/components';
+import { STORY_CHANGED } from 'storybook/internal/core-events';
+import { API, useChannel } from 'storybook/manager-api';
 import React, { useState } from 'react';
 import { EVENTS } from '../../../constants';
 import { useAddonVersions } from '../hooks/useAddonVersions';
@@ -39,18 +39,20 @@ export const Panel: React.FC<PanelProps> = (props) => {
 
   return (
     <AddonPanel {...props}>
-      {addonUpdateAvailable && (
-        <InformationBanner>
-          Version {latestAddonVersion} is now available !{' '}
-          <a
-            href={`https://github.com/JesusTheHun/storybook-addon-remix-react-router/releases/tag/v${latestAddonVersion}`}
-          >
-            Changelog
-          </a>
-          .
-        </InformationBanner>
-      )}
-      <PanelContent routerEvents={navigationEvents} onClear={clear} />
+      <>
+        {addonUpdateAvailable && (
+          <InformationBanner>
+            Version {latestAddonVersion} is now available !{' '}
+            <a
+              href={`https://github.com/JesusTheHun/storybook-addon-remix-react-router/releases/tag/v${latestAddonVersion}`}
+            >
+              Changelog
+            </a>
+            .
+          </InformationBanner>
+        )}
+        <PanelContent routerEvents={navigationEvents} onClear={clear} />
+      </>
     </AddonPanel>
   );
 };

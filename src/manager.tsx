@@ -1,4 +1,4 @@
-import { addons, types } from '@storybook/manager-api';
+import { addons, types } from 'storybook/manager-api';
 import React from 'react';
 
 import { ADDON_ID, PANEL_ID, PARAM_KEY } from './constants';
