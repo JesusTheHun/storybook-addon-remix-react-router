@@ -27,7 +27,6 @@
       "types": "./dist/preview.d.ts",
       "import": "./dist/preview.js"
     },
-    "./preset": "./dist/preset.cjs",
     "./manager": "./dist/manager.js",
     "./package.json": "./package.json",
     "./internals": {
