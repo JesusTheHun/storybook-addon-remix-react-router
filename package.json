@@ -1,7 +1,7 @@
 {
-  "name": "storybook-addon-remix-react-router",
-  "version": "3.1.0",
-  "description": "Use Remix React Router in your stories. (Formerly storybook-addon-react-router-v6)",
+  "name": "storybook-addon-react-router-v6",
+  "version": "4.0.0",
+  "description": "Use React Router v6 in your stories",
   "keywords": [
     "storybook",
     "storybook-addons",
