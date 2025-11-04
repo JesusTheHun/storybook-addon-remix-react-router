@@ -1,3 +1,16 @@
+# v3.1.1 (Tue Nov 04 2025)
+
+#### 📝 Documentation
+
+- docs: add postinstall announcement explaining the new package name to use for React Router v6 support going forward
+
+#### Authors: 2
+
+- Darren Vong ([@darrenvong](https://github.com/darrenvong))
+- Jonathan MASSUCHETTI ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
 # v3.1.0 (Tue Dec 31 2024)
 
 #### 🚀 Enhancement

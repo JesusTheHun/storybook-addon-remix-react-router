@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-remix-react-router",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Use Remix React Router in your stories. (Formerly storybook-addon-react-router-v6)",
   "keywords": [
     "storybook",
@@ -58,7 +58,8 @@
     "chromatic": "npx chromatic --project-token=e29962fd32f5",
     "prepare": "husky install",
     "prettier:check": "prettier --check .",
-    "prettier:write": "prettier --write ."
+    "prettier:write": "prettier --write .",
+    "postinstall": "sh scripts/announcement.sh || :"
   },
   "dependencies": {
     "compare-versions": "^6.0.0",
