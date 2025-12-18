@@ -1,6 +1,19 @@
-# v4.0.0 (Tue Nov 04 2025)
+# v4.0.0 (Thu Dec 18 2025)
 
 - Add support for React Router v6 with Storybook 9 [#98](https://github.com/JesusTheHun/storybook-addon-remix-react-router/pull/98) ([@darrenvong](https://github.com/darrenvong))
+
+#### Authors: 2
+
+- Darren Vong ([@darrenvong](https://github.com/darrenvong))
+- Jonathan MASSUCHETTI ([@JesusTheHun](https://github.com/JesusTheHun))
+
+---
+
+# v3.1.1 (Tue Nov 04 2025)
+
+#### 📝 Documentation
+
+- docs: add postinstall announcement explaining the new package name to use for React Router v6 support going forward
 
 #### Authors: 2
 

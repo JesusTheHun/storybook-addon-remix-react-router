@@ -58,7 +58,8 @@
     "chromatic": "npx chromatic --project-token=e29962fd32f5",
     "prepare": "husky install",
     "prettier:check": "prettier --check .",
-    "prettier:write": "prettier --write ."
+    "prettier:write": "prettier --write .",
+    "postinstall": "sh scripts/announcement.sh || :"
   },
   "dependencies": {
     "compare-versions": "^6.0.0",
