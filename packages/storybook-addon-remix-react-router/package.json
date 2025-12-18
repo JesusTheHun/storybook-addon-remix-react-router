@@ -21,17 +21,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./preview": {
       "types": "./dist/preview.d.ts",
-      "import": "./dist/preview.js"
+      "default": "./dist/preview.js"
     },
     "./manager": "./dist/manager.js",
     "./package.json": "./package.json",
     "./internals": {
       "types": "./dist/internals.d.ts",
-      "import": "./dist/internals.js"
+      "default": "./dist/internals.js"
     }
   },
   "type": "module",
