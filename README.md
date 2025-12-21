@@ -14,8 +14,9 @@ Check the compatibility table at the bottom.
 
 ## Recent changes
 
-✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.  
-✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.  
+✅ Support for Storybook 10 with `storybook-addon-remix-react-router@6`.
+✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.
+✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.
 ✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.
 
 ## Getting Started
@@ -181,11 +182,12 @@ Navigation events, loader and actions are logged, for you to better understand t
 
 ## Compatibility
 
-This package aims to support `Storybook > 7` and `React > 16`.  
+This package aims to support `Storybook > 7` and `React >= 18`.  
 Here is a compatibility table :
 
 | Addon | React                 | Storybook | React Router     |
 |-------|-----------------------|-----------|------------------|
+| 6.x   | &gt;= 18.0.0          | 10.x      | 7.x              |
 | 5.x   | &gt;= 16.8.0          | 9.x       | 7.x              |
 | 4.x   | &gt;= 16.8.0          | 8.x       | 7.x              |
 | 3.x   | &gt;= 16.8.0          | 8.x       | 6.x <sup>1</sup> |
