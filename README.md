@@ -14,10 +14,10 @@ Check the compatibility table at the bottom.
 
 ## Recent changes
 
-✅ Support for Storybook 10 with `storybook-addon-remix-react-router@6`.
-✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.
-✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.
-✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.
+✅ Support for Storybook 10 with `storybook-addon-remix-react-router@6`.  
+✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.  
+✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.  
+✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.  
 
 ## Getting Started
 
