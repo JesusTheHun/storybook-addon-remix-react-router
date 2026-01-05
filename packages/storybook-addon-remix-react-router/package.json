@@ -60,7 +60,7 @@
   "dependencies": {
     "@mjackson/form-data-parser": "^0.4.0",
     "compare-versions": "^6.0.0",
-    "react-inspector": "6.0.2"
+    "react-inspector": "9.0.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
