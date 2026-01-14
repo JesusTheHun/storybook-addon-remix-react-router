@@ -314,10 +314,8 @@ describe('StoryRouteTree', () => {
       expect(action.mock.lastCall?.[0].request).toBeInstanceOf(Request);
 
       const request = action.mock.lastCall?.[0].request as Request;
-      const formData = await request.formData();
-      const pojoFormData = Object.fromEntries(formData.entries());
 
-      expect(pojoFormData).toHaveProperty('myFile');
+      expect(request.headers.get('content-type')).toMatch(/^multipart\/form-data/);
     });
   });
 

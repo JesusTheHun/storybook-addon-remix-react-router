@@ -15,7 +15,13 @@ export async function getHumanReadableBody(request: Request) {
       break;
     case contentTypeHeader.startsWith('multipart/form-data'):
     case contentTypeHeader.startsWith('application/x-www-form-urlencoded'): {
-      humanReadableBody = getFormDataSummary(await requestClone.formData());
+      try {
+        humanReadableBody = getFormDataSummary(await requestClone.formData());
+      } catch {
+        // formData parsing can fail in certain environments (e.g., @web3-storage/multipart-parser in vitest)
+        // This is only for logging purposes, so gracefully degrade instead of crashing
+        humanReadableBody = undefined;
+      }
       break;
     }
   }
