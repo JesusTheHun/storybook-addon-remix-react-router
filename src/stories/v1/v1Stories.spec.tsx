@@ -198,7 +198,6 @@ describe('StoryRouteTree', () => {
       expect(pojoFormData).toEqual({ foo: 'bar' });
     });
 
-    // Some internals have changed in remix packages, leading to a different body format
     it('should handle route action with file form', async () => {
       const action = vi.fn();
 
