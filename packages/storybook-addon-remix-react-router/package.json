@@ -53,7 +53,7 @@
     "test": "vitest --run",
     "prepack": "pnpm run build && cp ../../README.md .",
     "prerelease": "pnpm run build && cp ../../README.md .",
-    "release": "auto shipit",
+    "release": "release-it --verbose",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write ."
   },
