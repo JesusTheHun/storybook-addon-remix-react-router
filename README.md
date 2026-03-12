@@ -1,22 +1,20 @@
-# Storybook Addon Remix React Router
+# Storybook Addon React Router v6
 
 [![Storybook](https://raw.githubusercontent.com/storybookjs/brand/master/badge/badge-storybook.svg?sanitize=true)](https://storybook.js.org)
 [![npm](https://img.shields.io/npm/v/storybook-addon-remix-react-router?color=blue)](https://www.npmjs.com/package/storybook-addon-remix-react-router)
 [![Release](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml/badge.svg)](https://github.com/JesusTheHun/storybook-addon-remix-react-router/actions/workflows/release.yml)
 ![npm](https://img.shields.io/npm/dm/storybook-addon-remix-react-router)
 
-> Use Remix React Router in your stories.
+> Use React Router v6 in your stories.
 
 ✨Notice ✨  
-The package has been renamed `storybook-addon-remix-react-router`.  
-The repository has also been renamed, so you are on the right page.  
-The migration is mandatory to support Storybook 8.
+The old package name `storybook-addon-react-router-v6` has been revived to exclusively support React Router v6 with new versions of Storybook going forward.
+This will exist alongside the current `storybook-addon-remix-react-router` package, which supports Remix React Router and React Router v7.
+The migration is mandatory to support Storybook 9.
 
 ## Recent changes
 
-✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.  
-✅ Support for Storybook 8 with `storybook-addon-remix-react-router@3`.  
-✅ You can now use `useStoryElement` to inject the story at multiple points.
+✅ Support for Storybook 9 with `storybook-addon-react-router-v6@4`.
 
 ## Getting Started
 
@@ -186,7 +184,7 @@ Here is a compatibility table :
 
 | Addon | React                   | Storybook | React Router     |
 | ----- | ----------------------- | --------- | ---------------- |
-| 4.x   | &gt;= 16.8.0            | 8.x       | 7.x              |
+| 4.x   | &gt;= 16.8.0            | 9.x       | 6.x <sup>1</sup> |
 | 3.x   | &gt;= 16.8.0            | 8.x       | 6.x <sup>1</sup> |
 | 2.x   | &gt;= v16.8.0 < v19.0.0 | 7.x       | 6.x              |
 | 1.x   | &gt;= v16.8.0 < v19.0.0 | 7.x       | 6.x              |

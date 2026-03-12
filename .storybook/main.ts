@@ -5,11 +5,9 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
   stories: ['../src/stories/**/*.stories.@(ts|tsx)'],
-  addons: ['@storybook/addon-essentials', './local-preset.js'],
+  addons: ['./local-preset.js', '@storybook/addon-docs'],
 };
 
 export default config;

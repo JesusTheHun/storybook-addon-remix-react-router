@@ -1,4 +1,4 @@
-import { makeDecorator } from '@storybook/preview-api';
+import { makeDecorator } from 'storybook/preview-api';
 import React from 'react';
 import { PARAM_KEY } from '../../constants';
 import { ReactRouterDecorator, ReactRouterDecoratorProps } from './components/ReactRouterDecorator';
