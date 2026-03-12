@@ -52,4 +52,7 @@ jobs:
         run: pnpm --filter "storybook-addon-remix-react-router" run release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          # Add following line if you are publishing to npm
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
+          # Add more env variables if needed
