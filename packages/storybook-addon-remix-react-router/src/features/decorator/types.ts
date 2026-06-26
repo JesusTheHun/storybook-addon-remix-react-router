@@ -1,4 +1,4 @@
-import type { HydrationState, FutureConfig } from '@remix-run/router';
+import type { HydrationState } from 'react-router';
 
 import { createMemoryRouter } from 'react-router';
 
@@ -12,7 +12,7 @@ type FutureConfigRouter = Exclude<Parameters<typeof createMemoryRouter>[1], unde
 export type RouterParameters = {
   hydrationData?: HydrationState;
   routing?: string | RouterRoute | [RouterRoute, ...RouterRoute[]];
-  future?: Partial<FutureConfig & FutureConfigRouter>;
+  future?: Partial<NonNullable<FutureConfigRouter>>;
   fallback?: React.JSX.Element;
 };
 
