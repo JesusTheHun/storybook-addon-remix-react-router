@@ -1,4 +1,4 @@
-import { generatePath, InitialEntry } from '@remix-run/router';
+import { generatePath, InitialEntry } from 'react-router';
 import { ReactRouterAddonStoryParameters } from '../components/ReactRouterDecorator';
 import { RouterRoute } from '../types';
 
