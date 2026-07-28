@@ -19,6 +19,13 @@ export function StoryRouter() {
     const decoratedRoutes = decorateRouteObjects(normalizedRoutes);
     const injectedRoutes = injectStory(decoratedRoutes, <RouterLogger />);
 
+    // React Router v8 always uses partial hydration and renders the route-level
+    // `HydrateFallback` during the initial data load — the `future` and
+    // `fallbackElement` props on `RouterProvider` were removed. Attach the
+    // configured fallback to the root route(s) so it keeps working on v7 and v8.
+    const fallbackElement = fallback ?? <Fallback />;
+    const routesWithFallback = injectedRoutes.map((route) => ({ hydrateFallbackElement: fallbackElement, ...route }));
+
     const { initialEntries, initialIndex } = normalizeHistory({ navigationHistory, location, routes: injectedRoutes });
 
     const resolvedOptions: Parameters<typeof createMemoryRouter>[1] = {
@@ -31,25 +38,10 @@ export function StoryRouter() {
       resolvedOptions.future = future;
     }
 
-    return createMemoryRouter(injectedRoutes as RouteObject[], resolvedOptions);
-  }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing, future]);
+    return createMemoryRouter(routesWithFallback as RouteObject[], resolvedOptions);
+  }, [decorateRouteObjects, hydrationData, location, navigationHistory, routing, future, fallback]);
 
-  const expandProps: Record<string, unknown> = {};
-  const fallbackElement = fallback ?? <Fallback />;
-
-  if (future) {
-    expandProps.future = future;
-  }
-
-  if (future?.v7_partialHydration === true) {
-    expandProps.HydrateFallback = fallbackElement;
-  }
-
-  if (future?.v7_partialHydration === false) {
-    expandProps.fallbackElement = fallbackElement;
-  }
-
-  return <RouterProvider router={memoryRouter} {...expandProps} />;
+  return <RouterProvider router={memoryRouter} />;
 }
 
 function Fallback() {
