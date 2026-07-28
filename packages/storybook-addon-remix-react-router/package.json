@@ -45,7 +45,6 @@
     "*.d.ts"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "clean": "rimraf ./dist",
     "prebuild": "pnpm run clean",
     "build": "tsup",
