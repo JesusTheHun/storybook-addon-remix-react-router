@@ -267,6 +267,50 @@ describe('StoryRouteTree', () => {
     });
   });
 
+  describe('Fallback', () => {
+    const { RouteLoaderWithDefaultFallback, RouteLoaderWithCustomFallback, RouteLoaderWithOwnHydrateFallback } =
+      composeStories(LoaderStories);
+
+    it('should render the built-in fallback while the route loader runs', async () => {
+      render(<RouteLoaderWithDefaultFallback />);
+
+      expect(screen.getByText('Performing initial data load')).toBeInTheDocument();
+
+      await waitFor(() => expect(screen.getByRole('heading', { name: 'Data loaded' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
+      expect(screen.queryByText('Performing initial data load')).not.toBeInTheDocument();
+    });
+
+    it('should render the configured fallback while the route loader runs', async () => {
+      render(<RouteLoaderWithCustomFallback />);
+
+      expect(screen.getByText('Custom fallback')).toBeInTheDocument();
+
+      await waitFor(() => expect(screen.getByRole('heading', { name: 'Data loaded' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
+      expect(screen.queryByText('Custom fallback')).not.toBeInTheDocument();
+    });
+
+    it('should let a route keep its own HydrateFallback instead of the configured fallback', async () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+      render(<RouteLoaderWithOwnHydrateFallback />);
+
+      expect(screen.getByText('Route hydrate fallback')).toBeInTheDocument();
+      expect(screen.queryByText('Custom fallback')).not.toBeInTheDocument();
+
+      // react-router warns when a route carries both `HydrateFallback` and
+      // `hydrateFallbackElement`, so the addon must not inject over the former.
+      expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('HydrateFallback'));
+
+      await waitFor(() => expect(screen.getByRole('heading', { name: 'Data loaded' })).toBeInTheDocument(), {
+        timeout: 1000,
+      });
+    });
+  });
+
   describe('Action', () => {
     const { TextFormData, FileFormData } = composeStories(ActionStories);
 

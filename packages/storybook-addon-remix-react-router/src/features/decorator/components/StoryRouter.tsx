@@ -23,8 +23,14 @@ export function StoryRouter() {
     // `HydrateFallback` during the initial data load — the `future` and
     // `fallbackElement` props on `RouterProvider` were removed. Attach the
     // configured fallback to the root route(s) so it keeps working on v7 and v8.
+    // A route bringing its own fallback keeps it: react-router warns when both
+    // `HydrateFallback` and `hydrateFallbackElement` are set on the same route.
     const fallbackElement = fallback ?? <Fallback />;
-    const routesWithFallback = injectedRoutes.map((route) => ({ hydrateFallbackElement: fallbackElement, ...route }));
+    const routesWithFallback = injectedRoutes.map((route) =>
+      route.hydrateFallbackElement || route.HydrateFallback
+        ? route
+        : { ...route, hydrateFallbackElement: fallbackElement }
+    );
 
     const { initialEntries, initialIndex } = normalizeHistory({ navigationHistory, location, routes: injectedRoutes });
 
