@@ -14,6 +14,7 @@ Check the compatibility table at the bottom.
 
 ## Recent changes
 
+✅ Support for React Router v8 with `storybook-addon-remix-react-router@7`.  
 ✅ Support for Storybook 10 with `storybook-addon-remix-react-router@6`.  
 ✅ Support for Storybook 9 with `storybook-addon-remix-react-router@5`.  
 ✅ Support for React Router v7 with `storybook-addon-remix-react-router@4`.  
@@ -174,6 +175,25 @@ If you want to accept a JSX and turn it into a `RouterRoute`, you can use the ex
 
 Just set `{ useStoryElement: true }` in the routing config object.
 
+## Initial data load
+
+If your routing uses a `loader` or a `lazy` route, react-router renders a fallback while the initial data load runs.  
+By default the addon renders `Performing initial data load`. Use the `fallback` property to render your own :
+
+```tsx
+export const MyStory = {
+  parameters: {
+    reactRouter: reactRouterParameters({
+      fallback: <MySpinner />,
+      routing: { loader: fetchUser },
+    }),
+  },
+};
+```
+
+The fallback is attached to the root route(s) as `hydrateFallbackElement`.  
+A route that defines its own `HydrateFallback` or `hydrateFallbackElement` keeps it, and `fallback` is ignored for that route.
+
 ## Dedicated panel
 
 Navigation events, loader and actions are logged, for you to better understand the lifecycle of your components.
@@ -185,16 +205,19 @@ Navigation events, loader and actions are logged, for you to better understand t
 This package aims to support `Storybook > 7` and `React >= 18`.  
 Here is a compatibility table :
 
-| Addon | React                 | Storybook | React Router     |
-|-------|-----------------------|-----------|------------------|
-| 6.x   | &gt;= 18.0.0          | 10.x      | 7.x              |
-| 5.x   | &gt;= 16.8.0          | 9.x       | 7.x              |
-| 4.x   | &gt;= 16.8.0          | 8.x       | 7.x              |
-| 3.x   | &gt;= 16.8.0          | 8.x       | 6.x <sup>1</sup> |
-| 2.x   | &gt;= 16.8.0 < 19.0.0 | 7.x       | 6.x              |
-| 1.x   | &gt;= 16.8.0 < 19.0.0 | 7.x       | 6.x              |
+| Addon | React                 | Storybook | React Router              |
+|-------|-----------------------|-----------|---------------------------|
+| 7.x   | &gt;= 18.0.0          | 10.x      | 7.x \|\| 8.x <sup>1</sup> |
+| 6.x   | &gt;= 18.0.0          | 10.x      | 7.x                       |
+| 5.x   | &gt;= 16.8.0          | 9.x       | 7.x                       |
+| 4.x   | &gt;= 16.8.0          | 8.x       | 7.x                       |
+| 3.x   | &gt;= 16.8.0          | 8.x       | 6.x <sup>2</sup>          |
+| 2.x   | &gt;= 16.8.0 < 19.0.0 | 7.x       | 6.x                       |
+| 1.x   | &gt;= 16.8.0 < 19.0.0 | 7.x       | 6.x                       |
 
-<sup>1</sup> You can actually use react-router v7 if you import from `react-router-dom` and not `react-router`.
+<sup>1</sup> react-router v8 requires `React >= 19.2.7` itself. On react-router v7 the addon still supports `React >= 18`.
+
+<sup>2</sup> You can actually use react-router v7 if you import from `react-router-dom` and not `react-router`.
 
 If you have an issue with any version, open an issue.
 

@@ -7,7 +7,7 @@ type ReactContextInternals = {
   _currentValue?: RouteContextValue;
   // React <=18 keeps a back-reference to the real context on the Provider; React >=19
   // makes the context its own Provider, so this is absent.
-  Provider: { _context?: { _currentValue?: RouteContextValue } };
+  Provider?: { _context?: { _currentValue?: RouteContextValue } };
 };
 
 /**
@@ -21,6 +21,10 @@ type ReactContextInternals = {
  *   object in a Proxy.
  * - React >=19: the context is its own Provider and the value lands on the context's
  *   own `_currentValue` — replace that field with a getter/setter.
+ *
+ * Both branches chain onto whatever interceptor is already installed, so several
+ * concurrent decorators — a docs page rendering many stories at once — all keep
+ * observing instead of only the last one to render.
  */
 export function useRouteContextMatches(): RouteMatch[] {
   const [deepRouteMatches, setDeepRouteMatches] = useState<RouteMatch[]>([]);
@@ -38,9 +42,9 @@ export function useRouteContextMatches(): RouteMatch[] {
 
   const RouteContext = UNSAFE_RouteContext as unknown as ReactContextInternals;
 
-  if (RouteContext.Provider._context !== undefined) {
-    const realContext = RouteContext.Provider._context;
-    RouteContext.Provider._context = new Proxy(realContext, {
+  if (RouteContext.Provider?._context !== undefined) {
+    // Wrapping the previous target — itself possibly a Proxy — chains the traps.
+    RouteContext.Provider._context = new Proxy(RouteContext.Provider._context, {
       set(target, p: string | symbol, v) {
         if (p === '_currentValue') {
           observe(v as RouteContextValue | undefined);
@@ -50,6 +54,7 @@ export function useRouteContextMatches(): RouteMatch[] {
     });
   } else {
     const descriptor = Object.getOwnPropertyDescriptor(RouteContext, '_currentValue');
+    const previousSet = descriptor?.set;
     let backingValue = descriptor?.get
       ? (descriptor.get.call(RouteContext) as RouteContextValue | undefined)
       : RouteContext._currentValue;
@@ -61,6 +66,9 @@ export function useRouteContextMatches(): RouteMatch[] {
       },
       set(value: RouteContextValue | undefined) {
         backingValue = value;
+        // Defining a property replaces the previous accessor rather than layering on
+        // it, so forward to it explicitly to keep earlier observers alive.
+        previousSet?.call(RouteContext, value);
         observe(value);
       },
     });

@@ -110,3 +110,36 @@ export const ErrorBoundary = {
     }),
   },
 };
+
+export const RouteLoaderWithDefaultFallback = {
+  render: () => <DataLoader />,
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: { loader: loader('Data loaded') },
+    }),
+  },
+};
+
+export const RouteLoaderWithCustomFallback = {
+  render: () => <DataLoader />,
+  parameters: {
+    reactRouter: reactRouterParameters({
+      fallback: <p>Custom fallback</p>,
+      routing: { loader: loader('Data loaded') },
+    }),
+  },
+};
+
+function RouteHydrateFallback() {
+  return <p>Route hydrate fallback</p>;
+}
+
+export const RouteLoaderWithOwnHydrateFallback = {
+  render: () => <DataLoader />,
+  parameters: {
+    reactRouter: reactRouterParameters({
+      fallback: <p>Custom fallback</p>,
+      routing: { loader: loader('Data loaded'), HydrateFallback: RouteHydrateFallback },
+    }),
+  },
+};
