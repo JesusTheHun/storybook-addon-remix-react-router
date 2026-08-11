@@ -1,0 +1,16 @@
+nav {
+  display: flex;
+  flex-flow: column;
+}
+
+a {
+  color: blue;
+}
+
+a.active {
+  color: red;
+}
+
+.sub-menu {
+  margin-left: 8px;
+}
